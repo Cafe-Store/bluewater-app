@@ -7,15 +7,18 @@ class LocationView extends GetView<LocationService> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Obx(() => Text(controller.adress.value)),
-        Center(
-            child: TextButton(
-          onPressed: () => controller.adress('changed'),
-          child: const Text('click'),
-        )),
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(50),
+      child: Column(
+        children: [
+          Obx(() => Text(controller.adress.value)),
+          Center(
+              child: TextButton(
+            onPressed: () => controller.adress('changed'),
+            child: const Text('click'),
+          )),
+        ],
+      ),
     );
   }
 }

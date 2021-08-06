@@ -1,3 +1,4 @@
+import 'package:bluewater_app/src/shared/ui/theme/app_themedata.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'routes/app_pages.dart';
@@ -13,6 +14,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp.router(
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.dartkTheme,
       getPages: AppPages.routes,
       initialBinding: BindingsBuilder(
         () {

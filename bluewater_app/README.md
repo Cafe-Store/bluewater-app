@@ -46,3 +46,9 @@ Flutter 관련 정보는 <https://flutter.dev/docs> 에서 확인할 수 있음.
 * Usecase: 하나의 기능으로 생각을 해보자. 다른 의견이 있을 수 있는데 나도 애매해서 의견을 주면 좋을 것 같음. 위키의 내용 참고해서 생각함(<https://en.wikipedia.org/wiki/Use_case>)
 * Repository: 데이터 저장소의 역활을 수행
 * DataSource: 데이터를 얻어올 수 있는 기원? 가령 로컬 db, sharedPreference, network를 통한 데이터?
+
+> Flutter Theme
+
+* shared/ui/theme에 blueWater앱에서 사용할 Theme 관리
+* 색상, 텍스트 스타일 등 여러가지를 다룰 수 있음.
+* Theme.of(context).textTheme.headline6 혹은 Theme.of(context).accentColor 방식으로 사용 가능

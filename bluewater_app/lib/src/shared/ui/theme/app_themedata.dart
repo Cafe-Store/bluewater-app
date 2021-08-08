@@ -6,6 +6,19 @@ class AppTheme {
   static final dartkTheme = ThemeData();
 
   static final lightTheme = ThemeData(
-      appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
-      scaffoldBackgroundColor: Colors.white);
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.white,
+      iconTheme: IconThemeData(color: Colors.black),
+    ),
+    scaffoldBackgroundColor: Colors.white,
+    iconTheme: const IconThemeData(color: Colors.black),
+    textTheme: _TextTheme.lightTextTheme,
+  );
+}
+
+class _TextTheme {
+  static final lightTextTheme = TextTheme(
+    subtitle1: const TextStyle(fontWeight: FontWeight.bold)
+        .merge(ThemeData.light().textTheme.subtitle1),
+  ).merge(ThemeData.light().textTheme);
 }

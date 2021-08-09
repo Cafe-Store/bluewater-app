@@ -33,6 +33,7 @@ class LocationAppbarWidget extends GetWidget<LocationService> {
                 )),
             const Icon(
               Icons.arrow_drop_down,
+              color: Colors.amber,
             )
           ],
         ),

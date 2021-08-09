@@ -5,6 +5,7 @@ import '../features/root/bindings/root_binding.dart';
 import '../features/root/views/root_view.dart';
 import '../features/home/presentation/view/home_view.dart';
 import '../features/home/presentation/binding/home_binding.dart';
+import '../features/shop/presentation/binding/shop_binding.dart';
 
 part 'app_routes.dart';
 
@@ -26,9 +27,7 @@ class AppPages {
           preventDuplicates: true,
           name: _Paths.home,
           page: () => const HomeView(),
-          bindings: [
-            HomeBinding(),
-          ],
+          bindings: [HomeBinding(), ShopBinding()],
           title: null,
         ),
         GetPage(

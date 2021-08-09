@@ -1,7 +1,7 @@
-import 'package:bluewater_app/src/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../service/location_service.dart';
+import '../../../../routes/app_pages.dart';
 
 class LocationView extends GetView<LocationService> {
   final double _appbarBottomheight = 50.0;

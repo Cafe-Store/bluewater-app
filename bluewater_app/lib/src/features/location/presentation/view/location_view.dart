@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../service/location_service.dart';
-import '../../../../routes/app_pages.dart';
 
 class LocationView extends GetView<LocationService> {
   final double _appbarBottomheight = 50.0;
@@ -13,7 +13,7 @@ class LocationView extends GetView<LocationService> {
       appBar: AppBar(
         leading: IconButton(
             icon: const Icon(Icons.close),
-            onPressed: () => Get.rootDelegate.offNamed(Routes.root)),
+            onPressed: () => Get.rootDelegate.popRoute()),
         title: Text(
           "배달지 주소 설정",
           style: Theme.of(context).textTheme.subtitle1,

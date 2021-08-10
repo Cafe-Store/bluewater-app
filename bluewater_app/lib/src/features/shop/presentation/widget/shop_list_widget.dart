@@ -2,8 +2,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../controller/shop_contoller.dart';
-import 'shop_fliter_widget.dart';
+import 'shop_fliter_list_widget.dart';
+import '../controller/shop_controller.dart';
 
 class ShopListWidget extends GetWidget<ShopController> {
   const ShopListWidget({
@@ -23,25 +23,9 @@ class ShopListWidget extends GetWidget<ShopController> {
             ),
           ),
         ),
-        SliverAppBar(
+        const SliverAppBar(
           pinned: true,
-          title: ConstrainedBox(
-            constraints: BoxConstraints(
-                maxHeight: 30, maxWidth: MediaQuery.of(context).size.width),
-            child: ListView.separated(
-              separatorBuilder: (BuildContext context, int index) =>
-                  const Divider(
-                endIndent: 20,
-              ),
-              itemCount: controller.shopFilters.length,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                var shopFilter = controller.shopFilters[index];
-                return ShopFilterWidget(
-                    shopFilter, Theme.of(context).textTheme.bodyText1);
-              },
-            ),
-          ),
+          title: ShopFilterListWidget(),
         ),
         SliverGrid(
           gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(

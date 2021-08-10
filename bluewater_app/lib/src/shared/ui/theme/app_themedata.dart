@@ -11,6 +11,8 @@ class AppTheme {
       iconTheme: IconThemeData(color: Colors.black),
     ),
     scaffoldBackgroundColor: Colors.white,
+    backgroundColor: Colors.white,
+    bottomAppBarColor: Colors.white,
     iconTheme: const IconThemeData(color: Colors.black),
     textTheme: _TextTheme.lightTextTheme,
   );

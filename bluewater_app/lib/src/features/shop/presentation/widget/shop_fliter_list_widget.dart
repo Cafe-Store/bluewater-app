@@ -16,7 +16,7 @@ class ShopFilterListWidget extends GetWidget<ShopController> {
       constraints: BoxConstraints(
           maxHeight: 30, maxWidth: MediaQuery.of(context).size.width),
       child: ListView.separated(
-        separatorBuilder: (BuildContext context, int index) => Divider(
+        separatorBuilder: (context, index) => Divider(
           endIndent: MediaQuery.of(context).size.width / 20,
         ),
         itemCount: controller.shopFilters.length,

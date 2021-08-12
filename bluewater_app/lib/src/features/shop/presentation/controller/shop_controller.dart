@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../../core/injector/injection.dart';
+import '../../domain/entity/shop.dart';
+import '../../domain/repository/shop_repository.dart';
 import '../../domain/entity/shop_filter.dart';
 
 class ShopController extends GetxController {
@@ -27,4 +31,58 @@ class ShopController extends GetxController {
       ],
     ).obs,
   ];
+
+  final ScrollController scroll = ScrollController();
+  final ShopRepository _shopRepository = getIt<ShopRepository>();
+  final _shops = <Shop>[].obs;
+
+  String _failureMesage = '';
+  bool _reachedMax = false;
+
+  @override
+  onInit() {
+    super.onInit();
+    scroll.addListener(_listener);
+
+    loadShops();
+  }
+
+  @override
+  void onClose() {
+    scroll.dispose();
+  }
+
+  void _listener() {
+    if (_isBottom) {
+      loadShops();
+    }
+  }
+
+  bool get _isBottom {
+    if (!scroll.hasClients) return false;
+    final maxScroll = scroll.position.maxScrollExtent;
+    final currentScroll = scroll.offset;
+    return currentScroll >= (maxScroll * 0.8);
+  }
+
+  loadShops() async {
+    if (!_reachedMax) {
+      final failureOrShops = await _shopRepository.findAll();
+
+      failureOrShops.fold((failure) => _failureMesage = failure.message,
+          (loadedShops) {
+        if (loadedShops.isEmpty) {
+          _reachedMax = true;
+        } else {
+          _shops.addAll(loadedShops);
+        }
+      });
+    }
+  }
+
+  List<Shop> get shops => List.unmodifiable(_shops);
+
+  bool get hasReachedMax => _reachedMax;
+
+  String get failureMesage => _failureMesage;
 }

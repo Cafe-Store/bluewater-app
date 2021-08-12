@@ -1,10 +1,13 @@
-import 'package:bluewater_app/src/shared/ui/theme/app_themedata.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'routes/app_pages.dart';
+
+import 'core/injector/injection.dart';
 import 'features/location/presentation/service/location_service.dart';
+import 'routes/app_pages.dart';
+import 'shared/ui/theme/app_themedata.dart';
 
 void main() {
+  configureInjection(Env.dev);
   runApp(const MyApp());
 }
 

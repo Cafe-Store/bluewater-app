@@ -28,10 +28,11 @@ class HomeView extends GetWidget<HomeController> {
           ],
         ),
         body: RefreshIndicator(
+          color: Colors.black,
           onRefresh: () async =>
               //TODO 네트워크 타서 데이터 갱신
-              await Future.delayed(const Duration(seconds: 3), () => true),
-          child: ShopListWidget(),
+              await Future.delayed(const Duration(seconds: 1), () => true),
+          child: const ShopListWidget(),
         ));
   }
 }

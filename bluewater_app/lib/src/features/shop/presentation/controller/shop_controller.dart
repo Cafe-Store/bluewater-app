@@ -35,7 +35,7 @@ class ShopController extends GetxController {
   final ScrollController scroll = ScrollController();
   final ShopRepository _shopRepository = getIt<ShopRepository>();
   final _shops = <Shop>[].obs;
-
+  final RxBool _isScrolled = false.obs;
   String _failureMesage = '';
   bool _reachedMax = false;
 
@@ -53,6 +53,8 @@ class ShopController extends GetxController {
   }
 
   void _listener() {
+    _isScrolled(scroll.position.pixels > 0);
+
     if (_isBottom) {
       loadShops();
     }
@@ -85,4 +87,6 @@ class ShopController extends GetxController {
   bool get hasReachedMax => _reachedMax;
 
   String get failureMesage => _failureMesage;
+
+  bool get isScrolled => _isScrolled.value;
 }

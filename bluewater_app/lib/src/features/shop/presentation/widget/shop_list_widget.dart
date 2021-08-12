@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,7 +16,17 @@ class ShopListWidget extends GetWidget<ShopController> {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => CustomScrollView(
+      () => Stack(
+        children: _createContent(context),
+      ),
+    );
+  }
+
+  List<Widget> _createContent(BuildContext context) {
+    List<Widget> widgetList = [];
+
+    widgetList.add(
+      CustomScrollView(
         controller: controller.scroll,
         slivers: <Widget>[
           SliverAppBar(
@@ -46,6 +57,31 @@ class ShopListWidget extends GetWidget<ShopController> {
         ],
       ),
     );
+
+    if (controller.isScrolled) {
+      widgetList.add(
+        Positioned(
+          bottom: Get.height / 5,
+          right: Get.width / 20,
+          child: ElevatedButton(
+            onPressed: () =>
+                controller.scroll.jumpTo(controller.scroll.initialScrollOffset),
+            child: const Icon(
+              Icons.arrow_upward_outlined,
+              size: 30,
+            ),
+            style: ElevatedButton.styleFrom(
+              shape: const CircleBorder(),
+              padding: const EdgeInsets.all(10),
+              primary: Colors.grey[100]!.withOpacity(0.8),
+              onPrimary: Colors.black,
+            ),
+          ),
+        ),
+      );
+    }
+
+    return widgetList;
   }
 }
 

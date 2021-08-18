@@ -20,3 +20,4 @@ doc/api/
 *.js.deps
 *.js.map
 bluewater_app/lib/src/core/injector/injection.config.dart
+*.g.dart

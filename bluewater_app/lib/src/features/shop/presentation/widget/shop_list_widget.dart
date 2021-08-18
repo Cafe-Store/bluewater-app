@@ -103,7 +103,7 @@ class ShopListItem extends StatelessWidget {
             minWidth: MediaQuery.of(context).size.width,
           ),
           child: CachedNetworkImage(
-            imageUrl: shop.imageUrls[0],
+            imageUrl: shop.photo.uri,
             fit: BoxFit.cover,
           ),
         ),
@@ -116,10 +116,6 @@ class ShopListItem extends StatelessWidget {
                 style: Theme.of(context).textTheme.subtitle1,
               ),
               const Spacer(),
-              Text(
-                '14-24분',
-                style: Theme.of(context).textTheme.bodyText1,
-              )
             ],
           ),
         ),
@@ -133,7 +129,7 @@ class ShopListItem extends StatelessWidget {
                 size: 16,
               ),
               Text(
-                '${shop.rank}(1,701) · 1.8km  · 무료 배달',
+                '${shop.rank.value}(${shop.rank.count})',
                 style: Theme.of(context).textTheme.bodyText1,
               )
             ],

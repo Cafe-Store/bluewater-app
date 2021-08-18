@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../core/usecase/usecase.dart';
+import '../../domain/usecase/get_shops_usecase.dart';
 import '../../../../core/injector/injection.dart';
 import '../../domain/entity/shop.dart';
-import '../../domain/repository/shop_repository.dart';
 import '../../domain/entity/shop_filter.dart';
 
 class ShopController extends GetxController {
@@ -33,7 +34,8 @@ class ShopController extends GetxController {
   ];
 
   final ScrollController scroll = ScrollController();
-  final ShopRepository _shopRepository = getIt<ShopRepository>();
+  final GetShopsUsecase _getShopsUsecase = getIt<GetShopsUsecase>();
+
   final _shops = <Shop>[].obs;
   final RxBool _isScrolled = false.obs;
   String _failureMesage = '';
@@ -69,7 +71,7 @@ class ShopController extends GetxController {
 
   loadShops() async {
     if (!_reachedMax) {
-      final failureOrShops = await _shopRepository.findAll();
+      final failureOrShops = await _getShopsUsecase.execute(NoParams());
 
       failureOrShops.fold((failure) => _failureMesage = failure.message,
           (loadedShops) {

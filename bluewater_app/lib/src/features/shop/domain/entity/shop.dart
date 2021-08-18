@@ -1,17 +1,26 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
+import '../../data/model/serialiser/rank_serialiser.dart';
+import '../../data/model/serialiser/photo_serialiser.dart';
+import 'photo.dart';
+import 'rank.dart';
+
 class Shop extends Equatable {
-  final int id;
+  final String id;
   final String name;
-  final List<String> imageUrls;
-  final double rank;
+
+  @PhotoSerialiser()
+  final Photo photo;
+
+  @RankSerialiser()
+  final Rank rank;
 
   @mustCallSuper
   const Shop({
     required this.id,
     required this.name,
-    required this.imageUrls,
+    required this.photo,
     required this.rank,
   });
 

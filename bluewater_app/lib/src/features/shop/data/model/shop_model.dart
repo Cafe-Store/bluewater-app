@@ -1,28 +1,26 @@
+import 'package:json_annotation/json_annotation.dart';
+
 import '../../domain/entity/shop.dart';
+import 'serialiser/photo_serialiser.dart';
+import 'serialiser/rank_serialiser.dart';
+import 'photo_model.dart';
+import 'rank_model.dart';
 
+part 'shop_model.g.dart';
+
+@JsonSerializable()
 class ShopModel extends Shop {
+  final String shopId;
+
   const ShopModel({
-    required int id,
+    required this.shopId,
     required String name,
-    required List<String> imageUrls,
-    required double rank,
-  }) : super(id: id, name: name, imageUrls: imageUrls, rank: rank);
+    required PhotoModel photo,
+    required RankModel rank,
+  }) : super(id: shopId, name: name, photo: photo, rank: rank);
 
-  factory ShopModel.fromJson(Map<String, dynamic> json) {
-    return ShopModel(
-      id: (json['id'] as num).toInt(),
-      name: json['name'],
-      imageUrls: List<String>.from(json["images"].map((x) => x)),
-      rank: (json['id'] as num).toDouble(),
-    );
-  }
+  factory ShopModel.fromJson(Map<String, dynamic> json) =>
+      _$ShopModelFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name': name,
-      'images': List<dynamic>.from(imageUrls.map((x) => x)),
-      'rank': rank,
-    };
-  }
+  Map<String, dynamic> toJson() => _$ShopModelToJson(this);
 }

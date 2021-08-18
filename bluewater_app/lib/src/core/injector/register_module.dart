@@ -1,15 +1,26 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
+import '../logger/logger_utils.dart';
+
 @module
 abstract class RegisterModule {
-  //TODO 나중에 파베랑 연동해서 파베에서 config 값 가져오도록 하면 어떻게 될까?
   @Named("BaseUrl")
-  String get baseUrl => 'My base url';
+  String get baseUrl => 'https://dev-bluewater-web-app.azurewebsites.net';
 
-  // url here will be injected
   @lazySingleton
-  Dio dio(@Named('BaseUrl') String url) => Dio(BaseOptions(baseUrl: url));
+  Dio dio(@Named('BaseUrl') String url) {
+    final dio = Dio(BaseOptions(baseUrl: url));
+
+    dio.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
+      Logger.log.i(options.extra);
+      Logger.log.i(options.baseUrl);
+      Logger.log.i(options.method);
+      Logger.log.i(options.headers);
+      handler.next(options);
+    }));
+    return dio;
+  }
 
   // same thing works for instances that's gotten asynchronous.
   // all you need to do is wrap your instance with a future and tell injectable how

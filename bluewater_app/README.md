@@ -6,6 +6,18 @@ A new Flutter project.
 
 flutter 코드를 체크아웃 받은 후, 프로젝트의 루트에서 'flutter packages pub run build_runner build --delete-conflicting-outputs' 명령어를 입력하여 자동으로 생성해야할 파일들 생성하도록 한다.
 
+제대로 생성되지 않는다면 다음과 같은 절차를 따른다
+
+0. flutter 프로젝트 종료
+
+1. clean project 를 수행
+
+2. pub get packages수행
+
+3. flutter packages pub run build_runner clean 수행
+
+4. flutter packages pub run build_runner build --delete-conflicting-outputs 수행
+
 ### Dart
 
 dart 언어 관련된 문서 <https://dart.dev/guides>

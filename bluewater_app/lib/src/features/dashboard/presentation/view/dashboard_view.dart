@@ -12,83 +12,91 @@ class DashboardView extends GetView<DashboardController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: NestedScrollView(
-        headerSliverBuilder: (context, innerBoxIsScrolled) {
-          return <Widget>[
-            //events
-            SliverPersistentHeader(
-              delegate: _SliverHeaderDelegate(
-                child: PreferredSize(
-                  child: Container(
-                    color: Colors.amber[100],
-                    child: const Center(
-                      child: Text('events'),
-                    ),
-                  ),
-                  preferredSize: Size.fromHeight(Get.height / 6),
-                ),
-              ),
-            ),
-            //categories
-            SliverPersistentHeader(
-              delegate: _SliverHeaderDelegate(
-                child: PreferredSize(
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 1.0),
-                    child: Container(
-                      color: Colors.amber[300],
-                      child: const Center(
-                        child: Text('categories'),
-                      ),
-                    ),
-                  ),
-                  preferredSize: Size.fromHeight(Get.height / 8),
-                ),
-              ),
-            ),
-            //star shop
-            SliverPersistentHeader(
-              delegate: _SliverHeaderDelegate(
-                child: PreferredSize(
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Container(
-                      color: Colors.cyan[300],
-                      child: const Center(
-                        child: Text('star shop'),
-                      ),
-                    ),
-                  ),
-                  preferredSize: Size.fromHeight(Get.height / 4),
-                ),
-              ),
-            ),
-            //new shop
-            SliverPersistentHeader(
-              delegate: _SliverHeaderDelegate(
-                child: PreferredSize(
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Container(
-                      color: Colors.cyan,
-                      child: const Center(
-                        child: Text('new shop'),
-                      ),
-                    ),
-                  ),
-                  preferredSize: Size.fromHeight(Get.height / 4),
-                ),
-              ),
-            ),
-          ];
+      body: RefreshIndicator(
+        onRefresh: () => Future.delayed(
+          const Duration(seconds: 2),
+        ),
+        notificationPredicate: (notification) {
+          return true;
         },
-        body: Builder(
-          builder: (BuildContext context) {
-            return ShopsWidget(
-              controller: Get.find<ShopsController>(tag: Tags.dashboard),
-              parentScroll: PrimaryScrollController.of(context)!,
-            );
+        child: NestedScrollView(
+          headerSliverBuilder: (context, innerBoxIsScrolled) {
+            return <Widget>[
+              //events
+              SliverPersistentHeader(
+                delegate: _SliverHeaderDelegate(
+                  child: PreferredSize(
+                    child: Container(
+                      color: Colors.amber[100],
+                      child: const Center(
+                        child: Text('events'),
+                      ),
+                    ),
+                    preferredSize: Size.fromHeight(Get.height / 6),
+                  ),
+                ),
+              ),
+              //categories
+              SliverPersistentHeader(
+                delegate: _SliverHeaderDelegate(
+                  child: PreferredSize(
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 1.0),
+                      child: Container(
+                        color: Colors.amber[300],
+                        child: const Center(
+                          child: Text('categories'),
+                        ),
+                      ),
+                    ),
+                    preferredSize: Size.fromHeight(Get.height / 8),
+                  ),
+                ),
+              ),
+              //star shop
+              SliverPersistentHeader(
+                delegate: _SliverHeaderDelegate(
+                  child: PreferredSize(
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Container(
+                        color: Colors.cyan[300],
+                        child: const Center(
+                          child: Text('star shop'),
+                        ),
+                      ),
+                    ),
+                    preferredSize: Size.fromHeight(Get.height / 4),
+                  ),
+                ),
+              ),
+              //new shop
+              SliverPersistentHeader(
+                delegate: _SliverHeaderDelegate(
+                  child: PreferredSize(
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Container(
+                        color: Colors.cyan,
+                        child: const Center(
+                          child: Text('new shop'),
+                        ),
+                      ),
+                    ),
+                    preferredSize: Size.fromHeight(Get.height / 4),
+                  ),
+                ),
+              ),
+            ];
           },
+          body: Builder(
+            builder: (BuildContext context) {
+              return ShopsWidget(
+                controller: Get.find<ShopsController>(tag: Tags.dashboard),
+                parentScroll: PrimaryScrollController.of(context)!,
+              );
+            },
+          ),
         ),
       ),
     );

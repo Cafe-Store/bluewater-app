@@ -50,7 +50,7 @@ class AppPages {
           children: [
             GetPage(
                 name: _Paths.dashboard,
-                page: () => DashboardView(),
+                page: () => const DashboardView(),
                 bindings: [
                   DashboardBinding(),
                 ]),

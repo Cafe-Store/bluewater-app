@@ -2,17 +2,31 @@ part of 'app_pages.dart';
 
 abstract class Routes {
   Routes._();
-  static const root = _Paths.root;
-  static const home = _Paths.root + _Paths.home;
-  static const user = _Paths.root + _Paths.user;
-  static const shop = _Paths.root + _Paths.shop;
-  static const location = _Paths.root + _Paths.location;
+  static const location = _Paths.location;
+  static const shops = _Paths.shops;
+  static String shopDetails(String shopId) => '$shops/$shopId';
+  static const events = _Paths.events;
+  static const coupons = _Paths.coupons;
+  static const favorite = _Paths.favorites;
+
+  static const home = _Paths.home;
+  static const dashboard = _Paths.home + _Paths.dashboard;
+  static const search = _Paths.home + _Paths.search;
+  static const orders = _Paths.home + _Paths.orders;
+  static const profile = _Paths.home + _Paths.profile;
 }
 
 abstract class _Paths {
-  static const root = '/bluewater';
-  static const home = '/home';
-  static const user = '/user';
-  static const shop = '/shop';
   static const location = '/location';
+  static const shops = '/shops';
+  static const shopDetails = '/:shopId';
+  static const events = '/events';
+  static const coupons = '/coupons';
+  static const favorites = '/favorites';
+
+  static const home = '/home';
+  static const search = '/search';
+  static const orders = '/orders';
+  static const profile = '/profile';
+  static const dashboard = '/dashboard';
 }

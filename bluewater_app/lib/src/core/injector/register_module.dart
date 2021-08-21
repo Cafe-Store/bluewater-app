@@ -13,10 +13,10 @@ abstract class RegisterModule {
     final dio = Dio(BaseOptions(baseUrl: url));
 
     dio.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
-      Logger.log.i(options.extra);
-      Logger.log.i(options.baseUrl);
-      Logger.log.i(options.method);
-      Logger.log.i(options.headers);
+      Logger.logNoStack.i(options.extra);
+      Logger.logNoStack.i(options.baseUrl);
+      Logger.logNoStack.i(options.method);
+      Logger.logNoStack.i(options.headers);
       handler.next(options);
     }));
     return dio;

@@ -1,39 +1,110 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../shop/presentation/widget/shop_list_widget.dart';
-import '../controller/home_controller.dart';
 import '../../../location/presentation/widget/location_appbar_widget.dart';
+import '../../../../routes/app_pages.dart';
+import '../controller/home_controller.dart';
 
-class HomeView extends GetWidget<HomeController> {
+class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Padding(
-            padding: EdgeInsets.only(left: 5, right: 5),
-            child: LocationAppbarWidget(),
-          ),
-          actions: [
-            IconButton(
-              onPressed: () {
-                showSearch(context: context, delegate: TheSearch());
-              },
-              icon: const Icon(
-                Icons.search,
-              ),
+    return GetRouterOutlet.builder(
+      builder: (context, delegate, currentRoute) {
+        final currentLocation = currentRoute?.location;
+        var currentIndex = getCurrentIndex(currentLocation);
+
+        return Scaffold(
+          appBar: AppBar(
+            title: const Padding(
+              padding: EdgeInsets.only(left: 5, right: 5),
+              child: LocationAppbarWidget(),
             ),
-          ],
-        ),
-        body: RefreshIndicator(
-          color: Colors.black,
-          onRefresh: () async =>
-              //TODO 네트워크 타서 데이터 갱신
-              await Future.delayed(const Duration(seconds: 1), () => true),
-          child: const ShopListWidget(),
-        ));
+            actions: [
+              IconButton(
+                onPressed: () {
+                  showSearch(context: context, delegate: TheSearch());
+                },
+                icon: const Icon(
+                  Icons.search,
+                ),
+              ),
+            ],
+          ),
+          body: GetRouterOutlet(
+            initialRoute: Routes.dashboard,
+            // anchorRoute: Routes.HOME,
+            key: Get.nestedKey(Routes.home),
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            showSelectedLabels: true,
+            showUnselectedLabels: true,
+            currentIndex: currentIndex,
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: Colors.white,
+            onTap: (value) {
+              switch (value) {
+                case 0:
+                  delegate.toNamed(Routes.home);
+                  break;
+                case 1:
+                  delegate.toNamed(Routes.search);
+                  break;
+                case 2:
+                  delegate.toNamed(Routes.favorite);
+                  break;
+                case 3:
+                  delegate.toNamed(Routes.orders);
+                  break;
+                case 4:
+                  delegate.toNamed(Routes.profile);
+                  break;
+                default:
+              }
+            },
+            items: const [
+              // _Paths.HOME + [Empty]
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.search_rounded),
+                label: 'Search',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.favorite_rounded),
+                label: 'Favorites',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.payment),
+                label: 'Orders',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.account_box_rounded),
+                label: 'Profile',
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  int getCurrentIndex(String? currentLocation) {
+    int index = 0;
+    if (true == currentLocation?.startsWith(Routes.search)) {
+      index = 1;
+    } else if (true == currentLocation?.startsWith(Routes.favorite)) {
+      index = 2;
+    } else if (true == currentLocation?.startsWith(Routes.orders)) {
+      index = 3;
+    } else if (true == currentLocation?.startsWith(Routes.profile)) {
+      index = 4;
+    }
+
+    return index;
   }
 }
 
@@ -45,7 +116,7 @@ class TheSearch extends SearchDelegate<String> {
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: Icon(Icons.clear),
+        icon: const Icon(Icons.clear),
         onPressed: () {
           query = "";
         },

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'core/injector/injection.dart';
-import 'features/location/presentation/service/location_service.dart';
-import 'routes/app_pages.dart';
+import 'core/util/const.dart';
+import 'features/shops/presentation/controller/shops_controller.dart';
 import 'shared/ui/theme/app_themedata.dart';
+import 'core/injector/injection.dart';
+import 'routes/app_pages.dart';
 
 void main() {
   configureInjection(Env.dev);
@@ -22,7 +23,9 @@ class MyApp extends StatelessWidget {
       getPages: AppPages.routes,
       initialBinding: BindingsBuilder(
         () {
-          Get.put(LocationService());
+          //대시보드의 가게 목록에서 필터 선택 유지하기 위해서
+          Get.put<ShopsController>(ShopsController(),
+              tag: Tags.dashboard, permanent: true);
         },
       ),
     );

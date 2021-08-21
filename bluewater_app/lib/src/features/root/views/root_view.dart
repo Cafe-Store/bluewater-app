@@ -14,7 +14,7 @@ class RootView extends GetView<RootController> {
         return Scaffold(
           body: GetRouterOutlet(
             initialRoute: Routes.home,
-            anchorRoute: Routes.root,
+            // anchorRoute: '/',
           ),
         );
       },

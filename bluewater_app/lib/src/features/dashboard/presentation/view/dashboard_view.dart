@@ -1,8 +1,8 @@
-import 'package:bluewater_app/src/features/events/presentation/widget/events_slider_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/util/const.dart';
+import '../../../events/presentation/widget/events_slider_widget.dart';
 import '../../../shops_dashboard/presentation/controller/shops_dashboard_controller.dart';
 import '../../../shops_dashboard/presentation/widget/shops_widget.dart';
 import '../controller/dashboard_controller.dart';
@@ -85,14 +85,18 @@ class DashboardView extends GetView<DashboardController> {
               ),
             ];
           },
-          body: Builder(
-            builder: (context) {
-              return ShopsWidget(
-                controller:
-                    Get.find<ShopsDashboardController>(tag: Tags.dashboard),
-                parentScroll: PrimaryScrollController.of(context)!,
-              );
-            },
+          body: SafeArea(
+            top: false,
+            bottom: false,
+            child: Builder(
+              builder: (context) {
+                return ShopsWidget(
+                  controller:
+                      Get.find<ShopsDashboardController>(tag: Tags.dashboard),
+                  parentScroll: PrimaryScrollController.of(context)!,
+                );
+              },
+            ),
           ),
         ),
       ),

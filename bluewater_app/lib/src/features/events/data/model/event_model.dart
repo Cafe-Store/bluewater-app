@@ -6,7 +6,8 @@ part 'event_model.g.dart';
 
 @JsonSerializable()
 class EventModel extends Event {
-  EventModel({required String url}) : super(url: url);
+  EventModel({required String url, DateTime? endDate})
+      : super(url: url, endDate: endDate);
 
   factory EventModel.fromJson(Map<String, dynamic> json) =>
       _$EventModelFromJson(json);

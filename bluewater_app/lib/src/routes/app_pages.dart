@@ -97,7 +97,7 @@ class AppPages {
         ),
         GetPage(
           name: _Paths.events,
-          page: () => const EventsView(),
+          page: () => EventsView(),
           binding: EventsBinding(),
         ),
         GetPage(

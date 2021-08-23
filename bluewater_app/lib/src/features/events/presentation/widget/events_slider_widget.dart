@@ -62,10 +62,10 @@ class _SliderItem extends StatelessWidget {
           top: 10,
           right: 10,
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(15)),
-                color: Colors.black.withOpacity(0.4)),
+                color: Colors.black.withOpacity(0.5)),
             child: Text(
               '$index / $total',
               style: Theme.of(context)
@@ -79,10 +79,10 @@ class _SliderItem extends StatelessWidget {
           bottom: 10,
           right: 10,
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(15)),
-                color: Colors.black.withOpacity(0.4)),
+                color: Colors.black.withOpacity(0.5)),
             child: InkWell(
               onTap: () => Get.rootDelegate.toNamed(Routes.events),
               child: Text(

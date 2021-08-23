@@ -1,10 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
+import '../../domain/entity/event.dart';
 import '../controller/events_controller.dart';
 
 class EventsView extends GetView<EventsController> {
-  const EventsView({Key? key}) : super(key: key);
+  final dateFormat = DateFormat('MM.dd');
+
+  EventsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +24,70 @@ class EventsView extends GetView<EventsController> {
         ),
         centerTitle: false,
       ),
-      body: const Center(
-        child: Text('Events View'),
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: Obx(
+          () => ListView.builder(
+              itemBuilder: (context, index) => Container(
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    constraints: BoxConstraints(maxHeight: Get.height / 6),
+                    child: _EventListItem(
+                        item: controller.datas[index], dateFormat: dateFormat),
+                  ),
+              itemCount: controller.datas.length),
+        ),
       ),
     );
+  }
+}
+
+class _EventListItem extends StatelessWidget {
+  final Event item;
+  final DateFormat dateFormat;
+
+  const _EventListItem({
+    Key? key,
+    required this.item,
+    required this.dateFormat,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      fit: StackFit.expand,
+      children: createItem(context),
+    );
+  }
+
+  List<Widget> createItem(BuildContext context) {
+    var widgetList = <Widget>[];
+
+    widgetList.add(
+      CachedNetworkImage(fit: BoxFit.cover, imageUrl: item.url),
+    );
+
+    if (item.endDate != null) {
+      widgetList.add(
+        Positioned(
+          bottom: 10,
+          right: 15,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(15)),
+                color: Colors.black.withOpacity(0.5)),
+            child: Text(
+              '~ ${dateFormat.format(item.endDate!)} 까지',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyText1!
+                  .copyWith(color: Colors.white),
+            ),
+          ),
+        ),
+      );
+    }
+
+    return widgetList;
   }
 }

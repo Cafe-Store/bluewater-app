@@ -19,20 +19,20 @@ class MockAdapter extends HttpClientAdapter {
       var evnets = [
         EventModel(
             url:
-                'http://english.seoul.go.kr/july-2021-cultural-events/?cat=17'),
+                'http://english.seoul.go.kr/wp-content/uploads/2021/06/CulturalCalendar_840x150px_ENG.png'),
         EventModel(
             url:
-                'http://english.seoul.go.kr/july-2021-cultural-events/?cat=17'),
+                'https://i.pinimg.com/564x/b1/e8/24/b1e824ab1e4ce470e9d1f9b8489e09f4.jpg'),
         EventModel(
             url:
-                'http://english.seoul.go.kr/july-2021-cultural-events/?cat=17'),
+                'https://i.pinimg.com/564x/38/26/5e/38265e93e98e4992c18e5f3e2864f89b.jpg'),
         EventModel(
             url:
-                'http://english.seoul.go.kr/july-2021-cultural-events/?cat=17'),
+                'https://i.pinimg.com/564x/19/b2/03/19b203cf22f387270604e821ea5ec06e.jpg'),
       ];
 
-      return Future(
-        () => ResponseBody.fromString(
+      return Future.delayed(Duration(seconds: 1)).then(
+        (value) => ResponseBody.fromString(
           jsonEncode(evnets),
           200,
           headers: {

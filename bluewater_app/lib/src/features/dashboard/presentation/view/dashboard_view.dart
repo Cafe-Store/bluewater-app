@@ -1,3 +1,4 @@
+import 'package:bluewater_app/src/features/events/presentation/widget/events_slider_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -26,12 +27,7 @@ class DashboardView extends GetView<DashboardController> {
               SliverPersistentHeader(
                 delegate: _SliverHeaderDelegate(
                   child: PreferredSize(
-                    child: Container(
-                      color: Colors.amber[100],
-                      child: const Center(
-                        child: Text('events'),
-                      ),
-                    ),
+                    child: EventSlider(),
                     preferredSize: Size.fromHeight(Get.height / 6),
                   ),
                 ),

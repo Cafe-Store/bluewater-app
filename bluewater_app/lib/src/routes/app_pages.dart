@@ -55,6 +55,7 @@ class AppPages {
                 page: () => const DashboardView(),
                 bindings: [
                   DashboardBinding(),
+                  EventsBinding(),
                 ]),
             GetPage(
               name: _Paths.search,

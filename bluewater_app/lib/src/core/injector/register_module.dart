@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 import '../logger/logger_utils.dart';
+import '../network/mock_network_adapter.dart';
 
 @module
 abstract class RegisterModule {
@@ -11,6 +12,7 @@ abstract class RegisterModule {
   @lazySingleton
   Dio dio(@Named('BaseUrl') String url) {
     final dio = Dio(BaseOptions(baseUrl: url));
+    dio.httpClientAdapter = MockAdapter();
 
     dio.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
       Logger.logNoStack.i(options.extra);

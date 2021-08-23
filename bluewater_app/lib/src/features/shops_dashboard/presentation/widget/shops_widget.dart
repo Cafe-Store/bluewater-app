@@ -59,11 +59,11 @@ class ShopsWidget extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 15.0, vertical: 5.0),
-                    child: ShopListItem(controller.shops[index]),
+                    child: ShopListItem(controller.datas[index]),
                   ),
                 );
               },
-              childCount: controller.shops.length,
+              childCount: controller.datas.length,
             ),
           ),
         ],

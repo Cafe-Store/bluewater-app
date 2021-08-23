@@ -22,9 +22,6 @@ abstract class RegisterModule {
     return dio;
   }
 
-  // same thing works for instances that's gotten asynchronous.
-  // all you need to do is wrap your instance with a future and tell injectable how
-  // to initialize it
   // @preResolve // if you need to pre resolve the value
   // Future<SharedPreferences> get prefs => SharedPreferences.getInstance();
 }

@@ -1,6 +1,6 @@
-import '../../domain/entity/photo.dart';
-
 import 'package:json_annotation/json_annotation.dart';
+
+import '../../domain/entity/photo.dart';
 
 part 'photo_model.g.dart';
 

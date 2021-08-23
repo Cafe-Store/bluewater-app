@@ -16,7 +16,8 @@ class ShopsRepositoryImp implements ShopsRepository {
 
   @override
   Future<Either<Failure, List<Shop>>> findAll() async {
-    bool isConnected = await networkInfo.isConnected;
+    var isConnected = await networkInfo.isConnected;
+
     if (isConnected) {
       try {
         return Right(await remoteDataSource.findAll());

@@ -1,10 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../domain/entity/shop.dart';
-import 'serialiser/photo_serialiser.dart';
-import 'serialiser/rank_serialiser.dart';
 import 'photo_model.dart';
 import 'rank_model.dart';
+import 'serialiser/photo_serialiser.dart';
+import 'serialiser/rank_serialiser.dart';
 
 part 'shop_model.g.dart';
 

@@ -6,7 +6,8 @@ class ShopDetailsBinding extends Bindings {
   @override
   void dependencies() {
     Get.create<ShopDetailsController>(() => ShopDetailsController(
-          Get.parameters['shopId'] ?? '',
+          shopId: Get.parameters['shopId'] ?? '',
+          tag: Get.arguments ?? '',
         ));
   }
 }

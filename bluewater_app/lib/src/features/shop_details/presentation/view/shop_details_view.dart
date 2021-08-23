@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../routes/app_pages.dart';
 import '../controller/shop_details_controller.dart';
 
 class ShopDetailsView extends GetView<ShopDetailsController> {
@@ -12,7 +13,9 @@ class ShopDetailsView extends GetView<ShopDetailsController> {
       appBar: AppBar(
         leading: IconButton(
             icon: const Icon(Icons.arrow_back_rounded),
-            onPressed: () => Get.rootDelegate.popRoute()),
+            onPressed: () => controller.tag.isEmpty
+                ? Get.rootDelegate.toNamed(Routes.home)
+                : Get.rootDelegate.popRoute()),
         title: Text(
           "가게 상세 화면인데?",
           style: Theme.of(context).textTheme.subtitle1,

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../domain/entity/shop_filter.dart';
-import '../controller/shops_controller.dart';
+import '../controller/shops_dashboard_controller.dart';
 import 'shops_filter_bottom_sheet.dart';
 
 part 'shops_filter_widget.dart';
 
 class ShopsFilterListWidget extends StatelessWidget {
-  final ShopsController controller;
+  final ShopsDashboardController controller;
 
   const ShopsFilterListWidget({required this.controller, Key? key})
       : super(key: key);

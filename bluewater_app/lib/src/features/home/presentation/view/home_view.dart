@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../location/presentation/widget/location_appbar_widget.dart';
 import '../../../../routes/app_pages.dart';
+import '../../../location/presentation/widget/location_appbar_widget.dart';
 import '../controller/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -93,7 +93,8 @@ class HomeView extends GetView<HomeController> {
   }
 
   int getCurrentIndex(String? currentLocation) {
-    int index = 0;
+    var index = 0;
+
     if (true == currentLocation?.startsWith(Routes.search)) {
       index = 1;
     } else if (true == currentLocation?.startsWith(Routes.favorite)) {
@@ -144,7 +145,7 @@ class TheSearch extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final suggestions = query.isEmpty;
+    // final suggestions = query.isEmpty;
     return Container();
   }
 }

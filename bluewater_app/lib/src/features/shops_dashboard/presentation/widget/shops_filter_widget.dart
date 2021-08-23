@@ -3,7 +3,7 @@ part of 'shops_fliter_list_widget.dart';
 class _ShopsFilterWidget extends StatelessWidget {
   final Rx<ShopFilter> rxShopFilter;
   final TextStyle? textStyle;
-  final Function tapCallback;
+  final VoidCallback tapCallback;
 
   late final ShopFilter _shopFilter;
 
@@ -43,13 +43,13 @@ class _ShopsFilterWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: _createChildren(context),
         ),
-        onTap: () => tapCallback(),
+        onTap: tapCallback,
       ),
     );
   }
 
   List<Widget> _createChildren(BuildContext context) {
-    List<Widget> widgetList = [];
+    var widgetList = <Widget>[];
     if (_shopFilter.leadingIcon != null) {
       widgetList.add(
         _shopFilter.leadingIcon!,

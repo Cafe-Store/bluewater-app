@@ -4,6 +4,7 @@ abstract class Routes {
   Routes._();
   static const location = _Paths.location;
   static const shops = _Paths.shops;
+  static const shopsDashboard = shops + _Paths.shopsDashboard;
   static String shopDetails(String shopId) => '$shops/$shopId';
   static const events = _Paths.events;
   static const coupons = _Paths.coupons;
@@ -19,6 +20,7 @@ abstract class Routes {
 abstract class _Paths {
   static const location = '/location';
   static const shops = '/shops';
+  static const shopsDashboard = '/shops_dashboard';
   static const shopDetails = '/:shopId';
   static const events = '/events';
   static const coupons = '/coupons';

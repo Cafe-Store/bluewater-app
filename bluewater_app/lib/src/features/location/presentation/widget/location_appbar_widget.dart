@@ -1,9 +1,11 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/state_manager.dart';
-import 'dart:math' as math;
-import '../service/location_service.dart';
+
 import '../../../../routes/app_pages.dart';
+import '../service/location_service.dart';
 
 class LocationAppbarWidget extends GetWidget<LocationService> {
   const LocationAppbarWidget({

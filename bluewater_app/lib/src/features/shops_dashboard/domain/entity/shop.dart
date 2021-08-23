@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-import '../../data/model/serialiser/rank_serialiser.dart';
 import '../../data/model/serialiser/photo_serialiser.dart';
+import '../../data/model/serialiser/rank_serialiser.dart';
 import 'photo.dart';
 import 'rank.dart';
 

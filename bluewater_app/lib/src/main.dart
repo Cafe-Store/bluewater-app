@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'core/util/const.dart';
-import 'features/shops/presentation/controller/shops_controller.dart';
-import 'shared/ui/theme/app_themedata.dart';
 import 'core/injector/injection.dart';
+import 'core/util/const.dart';
+import 'features/shops_dashboard/presentation/controller/shops_dashboard_controller.dart';
 import 'routes/app_pages.dart';
+import 'shared/ui/theme/app_themedata.dart';
 
 void main() {
   configureInjection(Env.dev);
@@ -24,8 +24,10 @@ class MyApp extends StatelessWidget {
       initialBinding: BindingsBuilder(
         () {
           //대시보드의 가게 목록에서 필터 선택 유지하기 위해서
-          Get.put<ShopsController>(ShopsController(),
-              tag: Tags.dashboard, permanent: true);
+          Get.put<ShopsDashboardController>(
+              ShopsDashboardController(tag: Tags.dashboard),
+              tag: Tags.dashboard,
+              permanent: true);
         },
       ),
     );

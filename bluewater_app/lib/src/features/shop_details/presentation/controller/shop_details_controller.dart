@@ -2,8 +2,9 @@ import 'package:get/get.dart';
 
 class ShopDetailsController extends GetxController {
   final String shopId;
+  final String tag;
 
-  ShopDetailsController(this.shopId);
+  ShopDetailsController({required this.shopId, required this.tag});
 
   @override
   void onInit() {

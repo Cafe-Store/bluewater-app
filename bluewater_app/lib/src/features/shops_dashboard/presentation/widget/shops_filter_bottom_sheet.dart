@@ -10,7 +10,7 @@ class ShopsFilterBottomSheet {
     showModalBottomSheet<void>(
       context: context,
       builder: (context) {
-        double bottomSheetheight = MediaQuery.of(context).size.height / 2.5;
+        var bottomSheetheight = MediaQuery.of(context).size.height / 2.5;
 
         return Container(
           height: bottomSheetheight,
@@ -44,7 +44,7 @@ class ShopsFilterBottomSheet {
 
   static Widget _createContent(Rx<ShopFilter> rxShopFilter) {
     Widget content;
-    ShopFilter _shopFilter = rxShopFilter.value;
+    var _shopFilter = rxShopFilter.value;
 
     switch (rxShopFilter.value.widgetType) {
       case WidgetType.list:
@@ -91,7 +91,7 @@ class ShopsFilterBottomSheet {
 
   static List<Widget> _createListItem(
       BuildContext context, ShopFilterItem item, ShopFilterItem selectedItem) {
-    List<Widget> widgetList = [];
+    var widgetList = <Widget>[];
 
     if (selectedItem == item) {
       widgetList.add(

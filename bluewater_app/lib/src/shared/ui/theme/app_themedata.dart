@@ -12,13 +12,11 @@ class AppTheme {
     ),
     scaffoldBackgroundColor: Colors.grey[50],
     iconTheme: const IconThemeData(color: Colors.black),
-    textTheme: _TextTheme.lightTextTheme,
+    textTheme: _lightTextTheme,
   );
 }
 
-class _TextTheme {
-  static final lightTextTheme = TextTheme(
-    subtitle1: const TextStyle(fontWeight: FontWeight.bold)
-        .merge(ThemeData.light().textTheme.subtitle1),
-  ).merge(ThemeData.light().textTheme);
-}
+final _lightTextTheme = TextTheme(
+  subtitle1: const TextStyle(fontWeight: FontWeight.bold)
+      .merge(ThemeData.light().textTheme.subtitle1),
+).merge(ThemeData.light().textTheme);

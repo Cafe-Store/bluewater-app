@@ -1,16 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../routes/app_pages.dart';
 import '../../domain/entity/shop.dart';
+import '../controller/shops_dashboard_controller.dart';
 import 'shops_fliter_list_widget.dart';
-import '../controller/shops_controller.dart';
 
 class ShopsWidget extends StatelessWidget {
   final ScrollController parentScroll;
-  final ShopsController controller;
+  final ShopsDashboardController controller;
 
   const ShopsWidget({
     required this.controller,
@@ -30,8 +31,7 @@ class ShopsWidget extends StatelessWidget {
   }
 
   List<Widget> _createContent(BuildContext context) {
-    List<Widget> widgetList = [];
-
+    var widgetList = <Widget>[];
     widgetList.add(
       CustomScrollView(
         slivers: <Widget>[
@@ -53,10 +53,14 @@ class ShopsWidget extends StatelessWidget {
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 15.0, vertical: 5.0),
-                  child: ShopListItem(controller.shops[index]),
+                return InkWell(
+                  onTap: () => Get.rootDelegate.toNamed(Routes.shopDetails('1'),
+                      arguments: controller.tag),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15.0, vertical: 5.0),
+                    child: ShopListItem(controller.shops[index]),
+                  ),
                 );
               },
               childCount: controller.shops.length,

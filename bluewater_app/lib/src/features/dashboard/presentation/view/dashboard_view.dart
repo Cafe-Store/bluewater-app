@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/util/const.dart';
-import '../../../shops/presentation/widget/shops_widget.dart';
+import '../../../shops_dashboard/presentation/controller/shops_dashboard_controller.dart';
+import '../../../shops_dashboard/presentation/widget/shops_widget.dart';
 import '../controller/dashboard_controller.dart';
-import '../../../shops/presentation/controller/shops_controller.dart';
 
 class DashboardView extends GetView<DashboardController> {
   const DashboardView({Key? key}) : super(key: key);
@@ -90,9 +90,10 @@ class DashboardView extends GetView<DashboardController> {
             ];
           },
           body: Builder(
-            builder: (BuildContext context) {
+            builder: (context) {
               return ShopsWidget(
-                controller: Get.find<ShopsController>(tag: Tags.dashboard),
+                controller:
+                    Get.find<ShopsDashboardController>(tag: Tags.dashboard),
                 parentScroll: PrimaryScrollController.of(context)!,
               );
             },

@@ -1,9 +1,9 @@
-import 'package:bluewater_app/src/shared/ui/controller/infinite_scroll_mixin.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/error/failures.dart';
 import '../../../../core/usecase/usecase.dart';
+import '../../../../shared/ui/controller/infinite_scroll_mixin.dart';
 import '../entity/shop.dart';
 import '../repository/shops_repository.dart';
 

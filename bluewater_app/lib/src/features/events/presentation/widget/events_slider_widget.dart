@@ -1,10 +1,10 @@
-import 'package:bluewater_app/src/routes/app_pages.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
+import '../../../../routes/app_pages.dart';
 import '../../domain/entity/event.dart';
 import '../controller/events_controller.dart';
 

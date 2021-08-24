@@ -56,6 +56,7 @@ class AppPages {
                 bindings: [
                   DashboardBinding(),
                   EventsBinding(),
+                  SearchBinding(),
                 ]),
             GetPage(
               name: _Paths.search,

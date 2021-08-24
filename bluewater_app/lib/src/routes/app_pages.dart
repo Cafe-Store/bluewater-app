@@ -18,8 +18,8 @@ import '../features/profile/presentation/binding/profile_binding.dart';
 import '../features/profile/presentation/view/profile_view.dart';
 import '../features/root/bindings/root_binding.dart';
 import '../features/root/views/root_view.dart';
-import '../features/search/presentation/binding/search_binding.dart';
-import '../features/search/presentation/view/search_view.dart';
+import '../features/search/presentation/binding/categories_binding.dart';
+import '../features/search/presentation/view/categories_view.dart';
 import '../features/shop_details/presentation/binding/shop_details_binding.dart';
 import '../features/shop_details/presentation/view/shop_details_view.dart';
 import '../features/shops/presentation/binding/shops_binding.dart';
@@ -56,12 +56,12 @@ class AppPages {
                 bindings: [
                   DashboardBinding(),
                   EventsBinding(),
-                  SearchBinding(),
+                  CategroiesBinding(),
                 ]),
             GetPage(
-              name: _Paths.search,
-              page: () => const SearchView(),
-              binding: SearchBinding(),
+              name: _Paths.searchCategory,
+              page: () => const CategoriesView(),
+              binding: CategroiesBinding(),
             ),
             GetPage(
               name: _Paths.orders,

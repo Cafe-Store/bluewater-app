@@ -76,7 +76,8 @@ class MockAdapter extends HttpClientAdapter {
       CategoryModel(
           imageUri:
               'https://cdn.pixabay.com/photo/2017/08/01/13/47/light-2565575_1280.jpg',
-          name: '신규'),
+          name: '신규 가게',
+          badgeName: 'new'),
       CategoryModel(
           imageUri:
               'https://www.maxpixel.net/static/photo/2x/Style-Shirt-Outfit-Fashion-Casual-Tshirt-Clothes-2428521.jpg',

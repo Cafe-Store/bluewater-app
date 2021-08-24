@@ -9,7 +9,8 @@ class CategoryModel extends Category {
   CategoryModel({
     required String imageUri,
     required String name,
-  }) : super(imageUri: imageUri, name: name);
+    String? badgeName,
+  }) : super(imageUri: imageUri, name: name, badgeName: badgeName);
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) =>
       _$CategoryModelFromJson(json);

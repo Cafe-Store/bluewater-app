@@ -49,7 +49,7 @@ class HomeView extends GetView<HomeController> {
                   delegate.toNamed(Routes.home);
                   break;
                 case 1:
-                  delegate.toNamed(Routes.search);
+                  delegate.toNamed(Routes.searchCategory);
                   break;
                 case 2:
                   delegate.toNamed(Routes.favorite);
@@ -95,7 +95,7 @@ class HomeView extends GetView<HomeController> {
   int getCurrentIndex(String? currentLocation) {
     var index = 0;
 
-    if (true == currentLocation?.startsWith(Routes.search)) {
+    if (true == currentLocation?.startsWith(Routes.searchCategory)) {
       index = 1;
     } else if (true == currentLocation?.startsWith(Routes.favorite)) {
       index = 2;

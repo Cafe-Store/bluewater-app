@@ -12,7 +12,7 @@ abstract class Routes {
 
   static const home = _Paths.home;
   static const dashboard = _Paths.home + _Paths.dashboard;
-  static const search = _Paths.home + _Paths.search;
+  static const searchCategory = _Paths.home + _Paths.searchCategory;
   static const orders = _Paths.home + _Paths.orders;
   static const profile = _Paths.home + _Paths.profile;
 }
@@ -27,7 +27,7 @@ abstract class _Paths {
   static const favorites = '/favorites';
 
   static const home = '/home';
-  static const search = '/search';
+  static const searchCategory = '/search_category';
   static const orders = '/orders';
   static const profile = '/profile';
   static const dashboard = '/dashboard';

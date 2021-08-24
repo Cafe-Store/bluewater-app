@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../../core/util/const.dart';
 import '../../../events/presentation/widget/events_slider_widget.dart';
+import '../../../search/presentation/widget/categories_widget.dart';
 import '../../../shops_dashboard/presentation/controller/shops_dashboard_controller.dart';
 import '../../../shops_dashboard/presentation/widget/shops_widget.dart';
 import '../controller/dashboard_controller.dart';
@@ -38,12 +39,7 @@ class DashboardView extends GetView<DashboardController> {
                   child: PreferredSize(
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 1.0),
-                      child: Container(
-                        color: Colors.amber[300],
-                        child: const Center(
-                          child: Text('categories'),
-                        ),
-                      ),
+                      child: CategoriesWidget(),
                     ),
                     preferredSize: Size.fromHeight(Get.height / 8),
                   ),

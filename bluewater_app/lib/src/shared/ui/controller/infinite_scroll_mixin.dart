@@ -8,7 +8,7 @@ import '../../../core/logger/logger_utils.dart';
 import '../../../core/usecase/usecase.dart';
 
 mixin InfiniteScrollMixin<D, U extends UseCase<D, ScrollParam>> {
-  late ScrollController _scroll;
+  late ScrollController _scroll = ScrollController();
   final RxBool _isScrolled = false.obs;
   final _datas = <D>[].obs;
   final _usecase = getIt<U>();

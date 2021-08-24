@@ -13,6 +13,10 @@ class DashboardView extends GetView<DashboardController> {
 
   @override
   Widget build(BuildContext context) {
+    var eventHCorrection = context.isLandscape ? 3 : 6;
+    var categoryHCorrection = context.isLandscape ? 4 : 8;
+    var shopHCorrection = context.isLandscape ? 1.5 : 4;
+
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () => Future.delayed(
@@ -29,7 +33,8 @@ class DashboardView extends GetView<DashboardController> {
                 delegate: _SliverHeaderDelegate(
                   child: PreferredSize(
                     child: EventSlider(),
-                    preferredSize: Size.fromHeight(Get.height / 6),
+                    preferredSize:
+                        Size.fromHeight(Get.height / eventHCorrection),
                   ),
                 ),
               ),
@@ -38,10 +43,10 @@ class DashboardView extends GetView<DashboardController> {
                 delegate: _SliverHeaderDelegate(
                   child: PreferredSize(
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 1.0),
-                      child: CategoriesWidget(),
-                    ),
-                    preferredSize: Size.fromHeight(Get.height / 8),
+                        padding: const EdgeInsets.only(bottom: 1.0),
+                        child: CategoriesWidget()),
+                    preferredSize:
+                        Size.fromHeight(Get.height / categoryHCorrection),
                   ),
                 ),
               ),
@@ -58,7 +63,8 @@ class DashboardView extends GetView<DashboardController> {
                         ),
                       ),
                     ),
-                    preferredSize: Size.fromHeight(Get.height / 4),
+                    preferredSize:
+                        Size.fromHeight(Get.height / shopHCorrection),
                   ),
                 ),
               ),
@@ -75,7 +81,8 @@ class DashboardView extends GetView<DashboardController> {
                         ),
                       ),
                     ),
-                    preferredSize: Size.fromHeight(Get.height / 4),
+                    preferredSize:
+                        Size.fromHeight(Get.height / shopHCorrection),
                   ),
                 ),
               ),

@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 
 import 'core/injector/injection.dart';
 import 'core/util/const.dart';
+import 'features/events/presentation/controller/events_controller.dart';
+import 'features/search/presentation/controller/categories_controller.dart';
 import 'features/shops_dashboard/presentation/controller/shops_dashboard_controller.dart';
 import 'routes/app_pages.dart';
 import 'shared/ui/theme/app_themedata.dart';
@@ -28,6 +30,10 @@ class MyApp extends StatelessWidget {
               ShopsDashboardController(tag: Tags.dashboard),
               tag: Tags.dashboard,
               permanent: true);
+
+          Get.put<CategoriesController>(CategoriesController(),
+              permanent: true);
+          Get.put<EventsController>(EventsController(), permanent: true);
         },
       ),
     );

@@ -6,7 +6,9 @@ import 'package:get/get.dart';
 import '../controller/categories_controller.dart';
 import 'category_item.dart';
 
-class CategoriesWidget extends GetWidget<CategoriesController> {
+class CategoriesWidget extends GetView<CategoriesController> {
+  const CategoriesWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Obx(

@@ -4,7 +4,6 @@ import '../features/coupons/presentation/binding/coupons_binding.dart';
 import '../features/coupons/presentation/view/coupons_view.dart';
 import '../features/dashboard/presentation/binding/dashboard_binding.dart';
 import '../features/dashboard/presentation/view/dashboard_view.dart';
-import '../features/events/presentation/binding/events_binding.dart';
 import '../features/events/presentation/view/events_view.dart';
 import '../features/favorites/presentation/binding/favorites_binding.dart';
 import '../features/favorites/presentation/view/favorites_view.dart';
@@ -18,7 +17,6 @@ import '../features/profile/presentation/binding/profile_binding.dart';
 import '../features/profile/presentation/view/profile_view.dart';
 import '../features/root/bindings/root_binding.dart';
 import '../features/root/views/root_view.dart';
-import '../features/search/presentation/binding/categories_binding.dart';
 import '../features/search/presentation/view/categories_view.dart';
 import '../features/shop_details/presentation/binding/shop_details_binding.dart';
 import '../features/shop_details/presentation/view/shop_details_view.dart';
@@ -55,13 +53,10 @@ class AppPages {
                 page: () => const DashboardView(),
                 bindings: [
                   DashboardBinding(),
-                  EventsBinding(),
-                  CategroiesBinding(),
                 ]),
             GetPage(
               name: _Paths.searchCategory,
               page: () => const CategoriesView(),
-              binding: CategroiesBinding(),
             ),
             GetPage(
               name: _Paths.orders,
@@ -99,7 +94,6 @@ class AppPages {
         GetPage(
           name: _Paths.events,
           page: () => EventsView(),
-          binding: EventsBinding(),
         ),
         GetPage(
           name: _Paths.coupons,

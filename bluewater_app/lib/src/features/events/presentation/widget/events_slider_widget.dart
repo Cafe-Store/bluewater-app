@@ -6,9 +6,9 @@ import 'package:get/get.dart';
 
 import '../../../../routes/app_pages.dart';
 import '../../domain/entity/event.dart';
-import '../controller/events_controller.dart';
+import '../service/events_service.dart';
 
-class EventSlider extends GetWidget<EventsController> {
+class EventSlider extends GetWidget<EventsService> {
   @override
   Widget build(BuildContext context) {
     return Obx(

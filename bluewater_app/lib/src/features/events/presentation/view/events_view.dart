@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../domain/entity/event.dart';
-import '../controller/events_controller.dart';
+import '../service/events_service.dart';
 
-class EventsView extends GetView<EventsController> {
+class EventsView extends GetView<EventsService> {
   final dateFormat = DateFormat('MM.dd');
 
   EventsView({Key? key}) : super(key: key);

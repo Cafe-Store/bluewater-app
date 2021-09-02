@@ -1,9 +1,12 @@
 import 'package:get/get.dart';
 
+import '../features/categories/presentation/binding/categories_binding.dart';
+import '../features/categories/presentation/view/categories_view.dart';
 import '../features/coupons/presentation/binding/coupons_binding.dart';
 import '../features/coupons/presentation/view/coupons_view.dart';
 import '../features/dashboard/presentation/binding/dashboard_binding.dart';
 import '../features/dashboard/presentation/view/dashboard_view.dart';
+import '../features/events/presentation/binding/events_binding.dart';
 import '../features/events/presentation/view/events_view.dart';
 import '../features/favorites/presentation/binding/favorites_binding.dart';
 import '../features/favorites/presentation/view/favorites_view.dart';
@@ -17,13 +20,12 @@ import '../features/profile/presentation/binding/profile_binding.dart';
 import '../features/profile/presentation/view/profile_view.dart';
 import '../features/root/bindings/root_binding.dart';
 import '../features/root/views/root_view.dart';
-import '../features/search/presentation/view/categories_view.dart';
-import '../features/shop_details/presentation/binding/shop_details_binding.dart';
-import '../features/shop_details/presentation/view/shop_details_view.dart';
-import '../features/shops/presentation/binding/shops_binding.dart';
-import '../features/shops/presentation/view/shops_view.dart';
-import '../features/shops_dashboard/presentation/binding/shops_dashboard_binding.dart';
-import '../features/shops_dashboard/presentation/view/shops_dashboard_view.dart';
+import '../features/shops/presentation/dashboard/binding/shops_dashboard_binding.dart';
+import '../features/shops/presentation/dashboard/view/shops_dashboard_view.dart';
+import '../features/shops/presentation/details/binding/shop_details_binding.dart';
+import '../features/shops/presentation/details/view/shop_details_view.dart';
+import '../features/shops/presentation/home/binding/shops_binding.dart';
+import '../features/shops/presentation/home/view/shops_view.dart';
 
 part 'app_routes.dart';
 
@@ -38,6 +40,8 @@ class AppPages {
       bindings: [
         RootBinding(),
         LocationBinding(),
+        CategoriesBinding(),
+        EventsBinding(),
       ],
       participatesInRootNavigator: true,
       preventDuplicates: true,
@@ -55,7 +59,7 @@ class AppPages {
                   DashboardBinding(),
                 ]),
             GetPage(
-              name: _Paths.searchCategory,
+              name: _Paths.search,
               page: () => const CategoriesView(),
             ),
             GetPage(
@@ -76,11 +80,11 @@ class AppPages {
         ),
         GetPage(
           name: _Paths.shops,
-          page: () => const ShopsView(),
+          page: () => ShopsView(),
           binding: ShopsBinding(),
           children: [
             GetPage(
-              name: _Paths.shopsDashboard,
+              name: _Paths.dashboard,
               page: () => const ShopsDashboardView(),
               binding: ShopsDashboardBinding(),
             ),

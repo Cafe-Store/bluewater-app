@@ -4,18 +4,21 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-import '../../../../routes/app_pages.dart';
-import '../../domain/entity/shop.dart';
+import '../../../../../routes/app_pages.dart';
+import '../../../domain/entity/shop.dart';
 import '../controller/shops_dashboard_controller.dart';
-import 'shops_fliter_list_widget.dart';
 
-class ShopsWidget extends StatelessWidget {
+class ShopsWidget extends GetWidget<ShopsDashboardController> {
   final ScrollController parentScroll;
-  final ShopsDashboardController controller;
+  final List<Widget> topAreaSliverWidgets;
+
+  @override
+  final String? tag;
 
   const ShopsWidget({
-    required this.controller,
+    this.tag,
     required this.parentScroll,
+    required this.topAreaSliverWidgets,
     Key? key,
   }) : super(key: key);
 
@@ -34,39 +37,7 @@ class ShopsWidget extends StatelessWidget {
     var widgetList = <Widget>[];
     widgetList.add(
       CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            title: Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                '골라먹는 맛집',
-                style: Theme.of(context).textTheme.subtitle1,
-              ),
-            ),
-          ),
-          SliverAppBar(
-            pinned: true,
-            title: ShopsFilterListWidget(
-              controller: controller,
-            ),
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                return InkWell(
-                  onTap: () => Get.rootDelegate.toNamed(Routes.shopDetails('1'),
-                      arguments: controller.tag),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15.0, vertical: 5.0),
-                    child: ShopListItem(controller.datas[index]),
-                  ),
-                );
-              },
-              childCount: controller.datas.length,
-            ),
-          ),
-        ],
+        slivers: createSlivers,
       ),
     );
 
@@ -94,6 +65,30 @@ class ShopsWidget extends StatelessWidget {
     }
 
     return widgetList;
+  }
+
+  List<Widget> get createSlivers {
+    var slivers = <Widget>[];
+    slivers.addAll(topAreaSliverWidgets);
+    slivers.add(
+      SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (context, index) {
+            return InkWell(
+              onTap: () => Get.rootDelegate
+                  .toNamed(Routes.shopDetails('1'), arguments: controller.tag),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
+                child: ShopListItem(controller.datas[index]),
+              ),
+            );
+          },
+          childCount: controller.datas.length,
+        ),
+      ),
+    );
+    return slivers;
   }
 }
 

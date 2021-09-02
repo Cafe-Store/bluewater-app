@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/util/const.dart';
+import '../../../categories/presentation/widget/categories_widget.dart';
 import '../../../events/presentation/widget/events_slider_widget.dart';
-import '../../../search/presentation/widget/categories_widget.dart';
-import '../../../shops_dashboard/presentation/controller/shops_dashboard_controller.dart';
-import '../../../shops_dashboard/presentation/widget/shops_widget.dart';
+import '../../../shops/presentation/dashboard/widget/shops_widget.dart';
+import '../../../shops/presentation/filter/widget/shops_fliter_list_widget.dart';
 import '../controller/dashboard_controller.dart';
 
 class DashboardView extends GetView<DashboardController> {
@@ -94,8 +94,24 @@ class DashboardView extends GetView<DashboardController> {
             child: Builder(
               builder: (context) {
                 return ShopsWidget(
-                  controller:
-                      Get.find<ShopsDashboardController>(tag: Tags.dashboard),
+                  topAreaSliverWidgets: [
+                    SliverAppBar(
+                      title: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          '골라먹는 맛집',
+                          style: Theme.of(context).textTheme.subtitle1,
+                        ),
+                      ),
+                    ),
+                    SliverAppBar(
+                      pinned: true,
+                      title: ShopsFilterListWidget(
+                        tag: Tags.homeDashboard,
+                      ),
+                    ),
+                  ],
+                  tag: Tags.homeDashboard,
                   parentScroll: PrimaryScrollController.of(context)!,
                 );
               },

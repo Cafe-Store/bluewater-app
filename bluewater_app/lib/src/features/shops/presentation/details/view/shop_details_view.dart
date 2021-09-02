@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../routes/app_pages.dart';
+import '../../../../../routes/app_pages.dart';
 import '../controller/shop_details_controller.dart';
 
 class ShopDetailsView extends GetView<ShopDetailsController> {

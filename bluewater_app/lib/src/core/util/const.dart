@@ -1,4 +1,4 @@
 class Tags {
   Tags._();
-  static const String dashboard = 'dashboard';
+  static const String homeDashboard = 'home_dashboard';
 }

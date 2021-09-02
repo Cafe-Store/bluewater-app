@@ -3,10 +3,10 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
-import '../controller/categories_controller.dart';
+import '../service/categories_service.dart';
 import 'category_item.dart';
 
-class CategoriesWidget extends GetView<CategoriesController> {
+class CategoriesWidget extends GetView<CategoriesService> {
   const CategoriesWidget({Key? key}) : super(key: key);
 
   @override

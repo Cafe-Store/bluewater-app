@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../controller/categories_controller.dart';
+import '../service/categories_service.dart';
 import '../widget/category_item.dart';
 
-class CategoriesView extends GetView<CategoriesController> {
+class CategoriesView extends GetView<CategoriesService> {
   const CategoriesView({Key? key}) : super(key: key);
 
   @override

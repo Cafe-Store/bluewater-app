@@ -4,7 +4,7 @@ import '../../../../shared/ui/controller/infinite_scroll_mixin.dart';
 import '../../domain/entity/category.dart';
 import '../../domain/usecase/get_categories_usecase.dart';
 
-class CategoriesController extends GetxController
+class CategoriesService extends GetxService
     with InfiniteScrollMixin<Category, GetCategoriesUsecase> {
   @override
   void onInit() {

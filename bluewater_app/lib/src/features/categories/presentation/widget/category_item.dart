@@ -21,15 +21,18 @@ class CategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.symmetric(vertical: 10),
       constraints: BoxConstraints(minWidth: minWidth),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          _ItemWithBadge(
-            item: item,
-            imageSize: imageSize,
-            badgetFontSize: badgeFontSize,
+          Expanded(
+            child: _ItemWithBadge(
+              item: item,
+              imageSize: imageSize,
+              badgetFontSize: badgeFontSize,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 10.0),

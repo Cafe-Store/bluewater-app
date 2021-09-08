@@ -102,33 +102,35 @@ class ShopListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          constraints: BoxConstraints(
-            maxHeight: MediaQuery.of(context).size.height / 3,
-            minWidth: MediaQuery.of(context).size.width,
-          ),
-          child: CachedNetworkImage(
-            imageUrl: shop.photo.uri,
-            fit: BoxFit.cover,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Row(
-            children: [
-              Text(
-                shop.name,
-                style: Theme.of(context).textTheme.subtitle1,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Flexible(
+            child: CachedNetworkImage(
+              imageUrl: shop.photo.uri,
+              imageBuilder: (context, imageProvider) => Container(
+                height: Get.height / 3,
+                width: Get.width,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: imageProvider,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
-              const Spacer(),
-            ],
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Row(
+          Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+            child: Text(
+              shop.name,
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
+          ),
+          Row(
             children: [
               const Icon(
                 Icons.star,
@@ -141,8 +143,8 @@ class ShopListItem extends StatelessWidget {
               )
             ],
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

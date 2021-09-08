@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../../core/logger/logger_utils.dart';
 import '../../../domain/entity/shop_filter.dart';
 
 class ShopsFilterController extends GetxController {
@@ -44,6 +45,7 @@ class ShopsFilterController extends GetxController {
       <String, ShopFilterItem>{}.obs;
 
   void put(String filterName, ShopFilterItem item) {
+    Logger.logNoStack.i('put filter Item');
     _selectedFilters.update(filterName, (value) => item, ifAbsent: () => item);
     ;
   }

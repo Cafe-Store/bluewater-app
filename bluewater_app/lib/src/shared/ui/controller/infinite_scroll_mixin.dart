@@ -35,7 +35,8 @@ mixin InfiniteScrollMixin<D, U extends UseCase<D, ScrollParam>> {
           _reachedMax = true;
         } else {
           _datas.addAll(loadedDatas);
-          Logger.logNoStack.i('shop data size : ${_datas.length}');
+          Logger.logNoStack
+              .i('loaded ${D.toString()} data size : ${_datas.length}');
         }
       });
     }

@@ -3,11 +3,11 @@ import 'package:logger/logger.dart' as logger;
 class Logger {
   Logger._();
 
-  static var log = logger.Logger(
+  static logger.Logger log = logger.Logger(
     printer: logger.PrettyPrinter(),
   );
 
-  static var logNoStack = logger.Logger(
+  static logger.Logger logNoStack = logger.Logger(
     printer: logger.PrettyPrinter(methodCount: 0),
   );
 }

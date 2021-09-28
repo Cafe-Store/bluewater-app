@@ -1,0 +1,19 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../../../../routes/app_pages.dart';
+
+class ShopsView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GetRouterOutlet.builder(
+      builder: (context, delegate, current) {
+        return Scaffold(
+          body: GetRouterOutlet(
+            initialRoute: Routes.shopsDashbard,
+          ),
+        );
+      },
+    );
+  }
+}

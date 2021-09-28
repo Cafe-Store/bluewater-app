@@ -1,19 +1,31 @@
 {
-    // IntelliSense를 사용하여 가능한 특성에 대해 알아보세요.
-    // 기존 특성에 대한 설명을 보려면 가리킵니다.
-    // 자세한 내용을 보려면 https://go.microsoft.com/fwlink/?linkid=830387을(를) 방문하세요.
     "version": "0.2.0",
     "configurations": [
         {
             "name": "bluewater_app",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "program": "lib/src/main.dart"
         },
         {
             "name": "bluewater_app (profile mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile"
+            "flutterMode": "profile",
+            "program": "lib/src/main.dart"
+        },
+        {
+            "name": "bluewater_app (debug mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "program": "lib/src/main.dart"
+        },
+        {
+            "name": "Flutter Tests",
+            "program": "test",
+            "request": "launch",
+            "type": "dart"
         }
     ]
 }

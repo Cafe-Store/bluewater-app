@@ -4,8 +4,8 @@ import 'dart:typed_data';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 
+import '../../features/categories/data/model/category_model.dart';
 import '../../features/events/data/model/event_model.dart';
-import '../../features/search/data/model/category_model.dart';
 
 class MockAdapter extends HttpClientAdapter {
   final DefaultHttpClientAdapter _adapter = DefaultHttpClientAdapter();

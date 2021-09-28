@@ -13,13 +13,16 @@ mixin InfiniteScrollMixin<D, U extends UseCase<D, ScrollParam>> {
   final _datas = <D>[].obs;
   final _usecase = getIt<U>();
 
+  @protected
+  bool isForcused = true;
+
   String _failureMesage = '';
   bool _reachedMax = false;
 
   void _listener() {
     _isScrolled(_scroll.position.pixels > 0);
 
-    if (_isBottom) {
+    if (_isBottom && isForcused) {
       loadDatas();
     }
   }
@@ -35,11 +38,14 @@ mixin InfiniteScrollMixin<D, U extends UseCase<D, ScrollParam>> {
           _reachedMax = true;
         } else {
           _datas.addAll(loadedDatas);
-          Logger.logNoStack.i('shop data size : ${_datas.length}');
+          Logger.logNoStack.i(
+              '${toString()}:$hashCode loaded ${D.toString()} data size : ${_datas.length}');
         }
       });
     }
   }
+
+  set setFocus(bool focus) => isForcused = focus;
 
   bool get isScrolled => _isScrolled.value;
 

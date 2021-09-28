@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/util/const.dart';
+import '../../../../routes/app_pages.dart';
+import '../../../categories/presentation/widget/categories_widget.dart';
 import '../../../events/presentation/widget/events_slider_widget.dart';
-import '../../../search/presentation/widget/categories_widget.dart';
-import '../../../shops_dashboard/presentation/controller/shops_dashboard_controller.dart';
-import '../../../shops_dashboard/presentation/widget/shops_widget.dart';
+import '../../../shops/presentation/categorized_shops/widget/categorized_shops_widget.dart';
+import '../../../shops/presentation/dashboard/widget/shop_list_widget.dart';
+import '../../../shops/presentation/filter/widget/shops_fliter_list_widget.dart';
 import '../controller/dashboard_controller.dart';
 
 class DashboardView extends GetView<DashboardController> {
@@ -42,49 +44,26 @@ class DashboardView extends GetView<DashboardController> {
               SliverPersistentHeader(
                 delegate: _SliverHeaderDelegate(
                   child: PreferredSize(
-                    child: Padding(
-                        padding: const EdgeInsets.only(bottom: 1.0),
-                        child: CategoriesWidget()),
+                    child: CategoriesWidget(),
                     preferredSize:
                         Size.fromHeight(Get.height / categoryHCorrection),
                   ),
                 ),
               ),
               //star shop
-              SliverPersistentHeader(
-                delegate: _SliverHeaderDelegate(
-                  child: PreferredSize(
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Container(
-                        color: Colors.cyan[300],
-                        child: const Center(
-                          child: Text('star shop'),
-                        ),
-                      ),
-                    ),
-                    preferredSize:
-                        Size.fromHeight(Get.height / shopHCorrection),
-                  ),
-                ),
+              _createCategoriezedShopsArea(
+                context,
+                CategorizedShopsWidget(
+                    title: '인기 가게', tag: Tags.homePopularShops),
+                shopHCorrection,
               ),
+
               //new shop
-              SliverPersistentHeader(
-                delegate: _SliverHeaderDelegate(
-                  child: PreferredSize(
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Container(
-                        color: Colors.cyan,
-                        child: const Center(
-                          child: Text('new shop'),
-                        ),
-                      ),
-                    ),
-                    preferredSize:
-                        Size.fromHeight(Get.height / shopHCorrection),
-                  ),
-                ),
+              _createCategoriezedShopsArea(
+                context,
+                CategorizedShopsWidget(
+                    title: '새로 들어왔어요!', tag: Tags.homeNewlyShops),
+                shopHCorrection,
               ),
             ];
           },
@@ -93,14 +72,46 @@ class DashboardView extends GetView<DashboardController> {
             bottom: false,
             child: Builder(
               builder: (context) {
-                return ShopsWidget(
-                  controller:
-                      Get.find<ShopsDashboardController>(tag: Tags.dashboard),
+                return ShopListWidget(
+                  topAreaSliverWidgets: [
+                    SliverAppBar(
+                      title: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          '우리 동네 가게',
+                          style: Theme.of(context).textTheme.subtitle1,
+                        ),
+                      ),
+                    ),
+                    SliverAppBar(
+                      pinned: true,
+                      title: ShopsFilterListWidget(
+                        tag: Tags.homeDashboard,
+                      ),
+                    ),
+                  ],
+                  tag: Tags.homeDashboard,
+                  startRouteName: Routes.home,
                   parentScroll: PrimaryScrollController.of(context)!,
                 );
               },
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  SliverPersistentHeader _createCategoriezedShopsArea(BuildContext context,
+      CategorizedShopsWidget categorizedShopsWidget, num shopHCorrection) {
+    return SliverPersistentHeader(
+      delegate: _SliverHeaderDelegate(
+        child: PreferredSize(
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: categorizedShopsWidget,
+          ),
+          preferredSize: Size.fromHeight(Get.height / shopHCorrection),
         ),
       ),
     );

@@ -3,9 +3,8 @@ import 'package:get/get.dart';
 
 import '../../../../routes/app_pages.dart';
 import '../../../location/presentation/widget/location_appbar_widget.dart';
-import '../controller/home_controller.dart';
 
-class HomeView extends GetView<HomeController> {
+class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
 
   @override
@@ -49,7 +48,7 @@ class HomeView extends GetView<HomeController> {
                   delegate.toNamed(Routes.home);
                   break;
                 case 1:
-                  delegate.toNamed(Routes.searchCategory);
+                  delegate.toNamed(Routes.homeSearch);
                   break;
                 case 2:
                   delegate.toNamed(Routes.favorite);
@@ -95,7 +94,7 @@ class HomeView extends GetView<HomeController> {
   int getCurrentIndex(String? currentLocation) {
     var index = 0;
 
-    if (true == currentLocation?.startsWith(Routes.searchCategory)) {
+    if (true == currentLocation?.startsWith(Routes.homeSearch)) {
       index = 1;
     } else if (true == currentLocation?.startsWith(Routes.favorite)) {
       index = 2;

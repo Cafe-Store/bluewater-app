@@ -1,8 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
+import '../../../../../core/util/const.dart';
+import '../../../../../routes/app_pages.dart';
 import '../../../domain/entity/shop.dart';
 import '../controller/categorized_shops_controller.dart';
 
@@ -16,16 +19,18 @@ class CategorizedShopsWidget extends GetWidget<CategorizedShopsController> {
     required this.title,
     required this.tag,
     Key? key,
-  }) : super(key: key) {
-    Get.create(() => CategorizedShopsController(), tag: tag);
-  }
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Obx(
       () {
         if (controller.datas.isEmpty) {
-          return Container();
+          return Center(
+            child: SpinKitThreeBounce(
+              color: Colors.grey,
+            ),
+          );
         } else {
           return Container(
             padding: EdgeInsets.all(10),
@@ -40,7 +45,12 @@ class CategorizedShopsWidget extends GetWidget<CategorizedShopsController> {
                       ),
                     ),
                     IconButton(
-                      onPressed: () => print('gogo!!'),
+                      onPressed: () => Get.rootDelegate.toNamed(
+                        Routes.shops,
+                        parameters: {
+                          RoutesParamName.selectedCategoryName: title,
+                        },
+                      ),
                       icon: Icon(
                         Icons.arrow_forward_rounded,
                         color: Colors.black54,
@@ -79,7 +89,12 @@ class CategorizedShopsWidget extends GetWidget<CategorizedShopsController> {
         child: ClipOval(
           child: Material(
             child: InkWell(
-              onTap: () => print('gogo!!'),
+              onTap: () => Get.rootDelegate.toNamed(
+                Routes.shops,
+                parameters: {
+                  RoutesParamName.selectedCategoryName: title,
+                },
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

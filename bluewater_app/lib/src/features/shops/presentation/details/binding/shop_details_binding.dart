@@ -5,9 +5,10 @@ import '../controller/shop_details_controller.dart';
 class ShopDetailsBinding extends Bindings {
   @override
   void dependencies() {
-    Get.create<ShopDetailsController>(() => ShopDetailsController(
+    Get.lazyPut<ShopDetailsController>(() => ShopDetailsController(
           shopId: Get.parameters['shopId'] ?? '',
-          tag: Get.arguments ?? '',
+          startRouteName:
+              Get.rootDelegate.currentConfiguration!.currentPage!.arguments,
         ));
   }
 }

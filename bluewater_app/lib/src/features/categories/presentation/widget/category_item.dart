@@ -2,64 +2,56 @@ import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../../domain/entity/category.dart';
+import '../../../../shared/model/tab_item.dart';
 
-class CategoryItem extends StatelessWidget {
-  final Category item;
-  final double minWidth;
+class CategoryItem<T extends TabItem> extends StatelessWidget {
+  final T item;
   final Size imageSize;
   final double badgeFontSize;
+  final TextStyle titleStyle;
+  final Color borderColor;
 
   const CategoryItem({
     required this.item,
+    required this.titleStyle,
     Key? key,
-    this.minWidth = 100,
     this.imageSize = const Size(60.0, 60.0),
     this.badgeFontSize = 8,
+    this.borderColor = Colors.transparent,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 10),
-      constraints: BoxConstraints(minWidth: minWidth),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Expanded(
-            child: _ItemWithBadge(
-              item: item,
-              imageSize: imageSize,
-              badgetFontSize: badgeFontSize,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 10.0),
-            child: Text(
-              item.name,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText1!
-                  .copyWith(fontWeight: FontWeight.bold),
-            ),
-          ),
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        _ItemWithBadge(
+          item: item,
+          imageSize: imageSize,
+          badgetFontSize: badgeFontSize,
+          borderColor: borderColor,
+        ),
+        Text(
+          item.title,
+          style: titleStyle,
+        ),
+      ],
     );
   }
 }
 
 class _ItemWithBadge extends StatelessWidget {
-  final Category item;
+  final TabItem item;
   final Size imageSize;
   final double badgetFontSize;
+  final Color borderColor;
 
   _ItemWithBadge({
     Key? key,
     required this.item,
     required this.imageSize,
     required this.badgetFontSize,
+    required this.borderColor,
   }) : super(key: key);
 
   @override
@@ -76,20 +68,21 @@ class _ItemWithBadge extends StatelessWidget {
               fontSize: badgetFontSize,
               fontWeight: FontWeight.bold),
         ),
-        child: categoryImage(imageSize),
+        child: categoryImage(imageSize, borderColor),
       );
     } else {
-      return categoryImage(imageSize);
+      return categoryImage(imageSize, borderColor);
     }
   }
 
-  CachedNetworkImage categoryImage(Size imageSize) {
+  CachedNetworkImage categoryImage(Size imageSize, Color borderColor) {
     return CachedNetworkImage(
       imageUrl: item.imageUri,
       imageBuilder: (context, imageProvider) => Container(
         height: imageSize.height,
         width: imageSize.width,
         decoration: BoxDecoration(
+          border: Border.all(color: borderColor, width: 2.0),
           shape: BoxShape.circle,
           image: DecorationImage(
             image: imageProvider,

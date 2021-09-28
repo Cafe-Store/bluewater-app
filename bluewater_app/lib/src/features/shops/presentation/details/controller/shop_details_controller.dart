@@ -2,14 +2,14 @@ import 'package:get/get.dart';
 
 class ShopDetailsController extends GetxController {
   final String shopId;
-  final String tag;
+  final Object? startRouteName;
 
-  ShopDetailsController({required this.shopId, required this.tag});
+  ShopDetailsController({required this.shopId, this.startRouteName});
 
   @override
   void onInit() {
     super.onInit();
-    Get.log('ShopDetailController created with id: $shopId');
+    Get.log('created with id: $shopId and startRouteName = $startRouteName');
   }
 
   @override

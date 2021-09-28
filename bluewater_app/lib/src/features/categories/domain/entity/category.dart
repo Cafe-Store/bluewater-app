@@ -1,6 +1,6 @@
-import 'package:equatable/equatable.dart';
+import '../../../../shared/model/tab_item.dart';
 
-class Category extends Equatable {
+class Category extends TabItem {
   final String name;
   final String imageUri;
   final String? badgeName;
@@ -8,5 +8,8 @@ class Category extends Equatable {
   Category({required this.name, required this.imageUri, this.badgeName});
 
   @override
-  List<Object?> get props => [name, imageUri];
+  List<Object?> get props => [name];
+
+  @override
+  String get title => name;
 }

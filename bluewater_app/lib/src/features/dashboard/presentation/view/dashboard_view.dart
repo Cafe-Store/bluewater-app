@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/util/const.dart';
+import '../../../../routes/app_pages.dart';
 import '../../../categories/presentation/widget/categories_widget.dart';
 import '../../../events/presentation/widget/events_slider_widget.dart';
 import '../../../shops/presentation/categorized_shops/widget/categorized_shops_widget.dart';
-import '../../../shops/presentation/dashboard/widget/shops_widget.dart';
+import '../../../shops/presentation/dashboard/widget/shop_list_widget.dart';
 import '../../../shops/presentation/filter/widget/shops_fliter_list_widget.dart';
 import '../controller/dashboard_controller.dart';
 
@@ -43,9 +44,7 @@ class DashboardView extends GetView<DashboardController> {
               SliverPersistentHeader(
                 delegate: _SliverHeaderDelegate(
                   child: PreferredSize(
-                    child: Padding(
-                        padding: const EdgeInsets.only(bottom: 1.0),
-                        child: CategoriesWidget()),
+                    child: CategoriesWidget(),
                     preferredSize:
                         Size.fromHeight(Get.height / categoryHCorrection),
                   ),
@@ -54,7 +53,8 @@ class DashboardView extends GetView<DashboardController> {
               //star shop
               _createCategoriezedShopsArea(
                 context,
-                CategorizedShopsWidget(title: '인기 가게', tag: Tags.popularShops),
+                CategorizedShopsWidget(
+                    title: '인기 가게', tag: Tags.homePopularShops),
                 shopHCorrection,
               ),
 
@@ -62,7 +62,7 @@ class DashboardView extends GetView<DashboardController> {
               _createCategoriezedShopsArea(
                 context,
                 CategorizedShopsWidget(
-                    title: '새로 들어왔어요!', tag: Tags.newlyShops),
+                    title: '새로 들어왔어요!', tag: Tags.homeNewlyShops),
                 shopHCorrection,
               ),
             ];
@@ -72,7 +72,7 @@ class DashboardView extends GetView<DashboardController> {
             bottom: false,
             child: Builder(
               builder: (context) {
-                return ShopsWidget(
+                return ShopListWidget(
                   topAreaSliverWidgets: [
                     SliverAppBar(
                       title: Align(
@@ -91,6 +91,7 @@ class DashboardView extends GetView<DashboardController> {
                     ),
                   ],
                   tag: Tags.homeDashboard,
+                  startRouteName: Routes.home,
                   parentScroll: PrimaryScrollController.of(context)!,
                 );
               },

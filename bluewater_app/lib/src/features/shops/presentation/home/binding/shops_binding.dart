@@ -5,6 +5,6 @@ import '../controller/shops_controller.dart';
 class ShopsBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<ShopsController>(() => ShopsController());
+    Get.put<ShopsController>(ShopsController());
   }
 }

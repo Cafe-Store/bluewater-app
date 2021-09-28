@@ -6,19 +6,21 @@ import 'package:get/get.dart';
 
 import '../../../../../routes/app_pages.dart';
 import '../../../domain/entity/shop.dart';
-import '../controller/shops_dashboard_controller.dart';
+import '../controller/shop_list_controller.dart';
 
-class ShopsWidget extends GetWidget<ShopsDashboardController> {
+class ShopListWidget extends GetWidget<ShopListController> {
   final ScrollController parentScroll;
-  final List<Widget> topAreaSliverWidgets;
+  final List<Widget>? topAreaSliverWidgets;
+  final String? startRouteName;
 
   @override
   final String? tag;
 
-  const ShopsWidget({
+  ShopListWidget({
     this.tag,
+    this.startRouteName,
+    this.topAreaSliverWidgets,
     required this.parentScroll,
-    required this.topAreaSliverWidgets,
     Key? key,
   }) : super(key: key);
 
@@ -69,14 +71,17 @@ class ShopsWidget extends GetWidget<ShopsDashboardController> {
 
   List<Widget> get createSlivers {
     var slivers = <Widget>[];
-    slivers.addAll(topAreaSliverWidgets);
+    if (topAreaSliverWidgets != null) {
+      slivers.addAll(topAreaSliverWidgets!);
+    }
     slivers.add(
       SliverList(
         delegate: SliverChildBuilderDelegate(
           (context, index) {
             return InkWell(
-              onTap: () => Get.rootDelegate
-                  .toNamed(Routes.shopDetails('1'), arguments: controller.tag),
+              onTap: () => Get.rootDelegate.toNamed(
+                  Routes.shopDetails('$index'),
+                  arguments: startRouteName),
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),

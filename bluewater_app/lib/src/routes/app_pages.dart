@@ -10,7 +10,6 @@ import '../features/events/presentation/binding/events_binding.dart';
 import '../features/events/presentation/view/events_view.dart';
 import '../features/favorites/presentation/binding/favorites_binding.dart';
 import '../features/favorites/presentation/view/favorites_view.dart';
-import '../features/home/presentation/binding/home_binding.dart';
 import '../features/home/presentation/view/home_view.dart';
 import '../features/location/presentation/binding/location_binding.dart';
 import '../features/location/presentation/view/location_view.dart';
@@ -20,7 +19,6 @@ import '../features/profile/presentation/binding/profile_binding.dart';
 import '../features/profile/presentation/view/profile_view.dart';
 import '../features/root/bindings/root_binding.dart';
 import '../features/root/views/root_view.dart';
-import '../features/shops/presentation/dashboard/binding/shops_dashboard_binding.dart';
 import '../features/shops/presentation/dashboard/view/shops_dashboard_view.dart';
 import '../features/shops/presentation/details/binding/shop_details_binding.dart';
 import '../features/shops/presentation/details/view/shop_details_view.dart';
@@ -50,14 +48,14 @@ class AppPages {
           preventDuplicates: true,
           name: _Paths.home,
           page: () => const HomeView(),
-          binding: HomeBinding(),
           children: [
             GetPage(
-                name: _Paths.dashboard,
-                page: () => const DashboardView(),
-                bindings: [
-                  DashboardBinding(),
-                ]),
+              name: _Paths.dashboard,
+              page: () => const DashboardView(),
+              bindings: [
+                DashboardBinding(),
+              ],
+            ),
             GetPage(
               name: _Paths.search,
               page: () => const CategoriesView(),
@@ -86,7 +84,6 @@ class AppPages {
             GetPage(
               name: _Paths.dashboard,
               page: () => const ShopsDashboardView(),
-              binding: ShopsDashboardBinding(),
             ),
             GetPage(
               name: _Paths.shopDetails,

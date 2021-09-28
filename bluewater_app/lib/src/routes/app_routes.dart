@@ -4,10 +4,9 @@ abstract class Routes {
   Routes._();
   static const location = _Paths.location;
   static const shops = _Paths.shops;
-  static String shopsDashboard(String category) =>
-      '$shops${_Paths.dashboard}?category=$category';
 
-  static String shopDetails(String shopId) => '$shops/$shopId';
+  static const shopsDashbard = _Paths.shops + _Paths.dashboard;
+  static String shopDetails(String shopId) => '${_Paths.shops}/$shopId';
 
   static const events = _Paths.events;
   static const coupons = _Paths.coupons;

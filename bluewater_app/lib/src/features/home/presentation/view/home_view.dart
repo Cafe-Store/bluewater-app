@@ -3,9 +3,8 @@ import 'package:get/get.dart';
 
 import '../../../../routes/app_pages.dart';
 import '../../../location/presentation/widget/location_appbar_widget.dart';
-import '../controller/home_controller.dart';
 
-class HomeView extends GetView<HomeController> {
+class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
 
   @override

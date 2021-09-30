@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../core/util/const.dart';
@@ -7,41 +8,52 @@ import '../../../../../shared/ui/controller/tab_controll_mixin.dart';
 import '../../../../categories/domain/entity/category.dart';
 import '../../../../categories/presentation/service/categories_service.dart';
 import '../../dashboard/controller/shop_list_controller.dart';
+import '../../filter/controller/shops_filter_controller.dart';
 
 class ShopsController extends GetxController with TabControllMixin {
+  final List<ShopListController> shopListControllers = [];
+  final PageStorageBucket pageStorageBucket = PageStorageBucket();
+
   late final bool showCategoryTab;
   late final RxString _title;
   late final List<Category> categoris;
   late final Map<int, Category> _categoryMap;
-  final List<ShopListController> shopListControllers = [];
+  late final ShopsFilterController shopsFilterController;
 
   ShopsController() {
-    categoris = Get.find<CategoriesService>().datas;
+    categoris = Get.find<CategoriesService>().datas.toList();
     _categoryMap = categoris.asMap();
 
     var getPage = Get.rootDelegate.currentConfiguration!.currentPage!;
     var getParameters = getPage.parameters;
+    var categoryName = getParameters?[RoutesParamName.selectedCategoryName];
 
     showCategoryTab = getParameters?[RoutesParamName.showCatagoryTab] != null &&
         getParameters?[RoutesParamName.showCatagoryTab] == true.toString();
-    _title = (getParameters?[RoutesParamName.selectedCategoryName] ??
-            categoris[0].name)
-        .obs;
+    _title = (categoryName ?? '').obs;
   }
 
   @override
   void onInit() {
     super.onInit();
 
-    _initTabIndex();
-    _createShopListController();
+    if (_title.value.isNotEmpty) {
+      _initTabIndex();
+      _initShopListController();
+      _initShopsFilterController();
+    }
   }
 
-  void _createShopListController() {
+  void _initShopsFilterController() {
+    Get.lazyPut<ShopsFilterController>(() => ShopsFilterController());
+    shopsFilterController = Get.find<ShopsFilterController>();
+  }
+
+  void _initShopListController() {
     if (showCategoryTab) {
       for (var category in categoris) {
-        Get.lazyPut<ShopListController>(
-          () => ShopListController(tag: category.name),
+        Get.put<ShopListController>(
+          ShopListController(tag: category.name),
           tag: category.name,
         );
 
@@ -49,9 +61,12 @@ class ShopsController extends GetxController with TabControllMixin {
             .add(Get.find<ShopListController>(tag: category.name));
       }
     } else {
-      Get.create<ShopListController>(
-        () => ShopListController(),
+      Get.put<ShopListController>(
+        ShopListController(),
+        tag: _title.value,
       );
+
+      shopListControllers.add(Get.find<ShopListController>(tag: _title.value));
     }
   }
 
@@ -62,7 +77,9 @@ class ShopsController extends GetxController with TabControllMixin {
 
   @override
   void onClose() {
-    _deleteShopListController();
+    if (_title.value.isNotEmpty) {
+      _deleteShopListController();
+    }
     super.onClose();
   }
 
@@ -72,7 +89,7 @@ class ShopsController extends GetxController with TabControllMixin {
         Get.delete<ShopListController>(tag: category.name, force: true);
       }
     } else {
-      Get.delete<ShopListController>(force: true);
+      Get.delete<ShopListController>(tag: _title.value, force: true);
     }
   }
 

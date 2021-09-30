@@ -38,8 +38,8 @@ mixin InfiniteScrollMixin<D, U extends UseCase<D, ScrollParam>> {
           _reachedMax = true;
         } else {
           _datas.addAll(loadedDatas);
-          Logger.logNoStack.i(
-              '${toString()}:$hashCode loaded ${D.toString()} data size : ${_datas.length}');
+          Logger.logNoStack.i('''
+${toString()}:$hashCode loaded ${D.toString()} size : ${_datas.length}''');
         }
       });
     }

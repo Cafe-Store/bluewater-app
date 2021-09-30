@@ -29,6 +29,7 @@ class CategorizedShopsWidget extends GetWidget<CategorizedShopsController> {
           return Center(
             child: SpinKitThreeBounce(
               color: Colors.grey,
+              size: 15,
             ),
           );
         } else {

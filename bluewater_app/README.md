@@ -66,3 +66,8 @@ Flutter 관련 정보는 <https://flutter.dev/docs> 에서 확인할 수 있음.
 * shared/ui/theme에 blueWater앱에서 사용할 Theme 관리
 * 색상, 텍스트 스타일 등 여러가지를 다룰 수 있음.
 * Theme.of(context).textTheme.headline6 혹은 Theme.of(context).accentColor 방식으로 사용 가능
+
+> UI ISSUE
+
+1. NestedScrollView -> CustomScrollView 구조일때, 스크롤링 복구 안되는 버그 조치(<https://github.com/flutter/flutter/pull/69815>).
+    * 완벽한 해결법이 아니지만.. 지금 구조에서는 유일한 솔루션 ㅠ.ㅠ

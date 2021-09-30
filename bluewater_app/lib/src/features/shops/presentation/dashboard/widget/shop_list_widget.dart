@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
 import '../../../../../routes/app_pages.dart';
@@ -9,7 +10,7 @@ import '../../../domain/entity/shop.dart';
 import '../controller/shop_list_controller.dart';
 
 class ShopListWidget extends GetWidget<ShopListController> {
-  final ScrollController parentScroll;
+  final ScrollController innerScroll;
   final List<Widget>? topAreaSliverWidgets;
   final String? startRouteName;
 
@@ -20,28 +21,38 @@ class ShopListWidget extends GetWidget<ShopListController> {
     this.tag,
     this.startRouteName,
     this.topAreaSliverWidgets,
-    required this.parentScroll,
+    required this.innerScroll,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    controller.scroll = parentScroll;
-
+    controller.scroll = innerScroll;
     return Obx(
-      () => Stack(
-        children: _createContent(context),
-      ),
+      () {
+        if (controller.datas.isEmpty) {
+          return Center(
+            child: SpinKitThreeBounce(
+              color: Colors.grey,
+              size: 15,
+            ),
+          );
+        } else {
+          return Stack(
+            children: _createContent(context),
+          );
+        }
+      },
     );
   }
 
   List<Widget> _createContent(BuildContext context) {
     var widgetList = <Widget>[];
-    widgetList.add(
-      CustomScrollView(
-        slivers: createSlivers,
-      ),
-    );
+    widgetList.add(CustomScrollView(
+      controller: controller.scroll,
+      key: PageStorageKey('shoplist_customScrollView'),
+      slivers: createSlivers,
+    ));
 
     if (controller.isScrolled) {
       widgetList.add(
@@ -79,13 +90,14 @@ class ShopListWidget extends GetWidget<ShopListController> {
         delegate: SliverChildBuilderDelegate(
           (context, index) {
             return InkWell(
-              onTap: () => Get.rootDelegate.toNamed(
-                  Routes.shopDetails('$index'),
-                  arguments: startRouteName),
+              onTap: () {
+                Get.rootDelegate.toNamed(Routes.shopDetails('$index'),
+                    arguments: startRouteName);
+              },
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
-                child: ShopListItem(controller.datas[index]),
+                child: ShopListItem(controller.datas[index], tag),
               ),
             );
           },
@@ -99,9 +111,11 @@ class ShopListWidget extends GetWidget<ShopListController> {
 
 class ShopListItem extends StatelessWidget {
   final Shop shop;
+  final String? _tag;
 
-  const ShopListItem(
-    this.shop, {
+  ShopListItem(
+    this.shop,
+    this._tag, {
     Key? key,
   }) : super(key: key);
 
@@ -131,7 +145,7 @@ class ShopListItem extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 10.0),
             child: Text(
-              shop.name,
+              _tag ?? shop.name,
               style: Theme.of(context).textTheme.subtitle1,
             ),
           ),

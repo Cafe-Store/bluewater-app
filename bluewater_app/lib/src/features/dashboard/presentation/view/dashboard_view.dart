@@ -3,14 +3,15 @@ import 'package:get/get.dart';
 
 import '../../../../core/util/const.dart';
 import '../../../../routes/app_pages.dart';
+import '../../../../shared/ui/custom/custom_nested_scroll_view.dart';
 import '../../../categories/presentation/widget/categories_widget.dart';
 import '../../../events/presentation/widget/events_slider_widget.dart';
 import '../../../shops/presentation/categorized_shops/widget/categorized_shops_widget.dart';
 import '../../../shops/presentation/dashboard/widget/shop_list_widget.dart';
 import '../../../shops/presentation/filter/widget/shops_fliter_list_widget.dart';
-import '../controller/dashboard_controller.dart';
+import '../../serivce/dashboard_service.dart';
 
-class DashboardView extends GetView<DashboardController> {
+class DashboardView extends GetView<DashboardService> {
   const DashboardView({Key? key}) : super(key: key);
 
   @override
@@ -27,74 +28,85 @@ class DashboardView extends GetView<DashboardController> {
         notificationPredicate: (notification) {
           return true;
         },
-        child: NestedScrollView(
-          headerSliverBuilder: (context, innerBoxIsScrolled) {
-            return <Widget>[
-              //events
-              SliverPersistentHeader(
-                delegate: _SliverHeaderDelegate(
-                  child: PreferredSize(
-                    child: EventSlider(),
-                    preferredSize:
-                        Size.fromHeight(Get.height / eventHCorrection),
+        child: PageStorage(
+          bucket: controller.pageStorageBucket,
+          child: CustomNestedScrollView(
+            key: PageStorageKey('nestedView'),
+            headerSliverBuilder: (context, innerBoxIsScrolled) {
+              return <Widget>[
+                //events
+                SliverPersistentHeader(
+                  delegate: _SliverHeaderDelegate(
+                    child: PreferredSize(
+                      key: PageStorageKey('events'),
+                      child: EventSlider(),
+                      preferredSize:
+                          Size.fromHeight(Get.height / eventHCorrection),
+                    ),
                   ),
                 ),
-              ),
-              //categories
-              SliverPersistentHeader(
-                delegate: _SliverHeaderDelegate(
-                  child: PreferredSize(
-                    child: CategoriesWidget(),
-                    preferredSize:
-                        Size.fromHeight(Get.height / categoryHCorrection),
+                //categories
+                SliverPersistentHeader(
+                  delegate: _SliverHeaderDelegate(
+                    child: PreferredSize(
+                      key: PageStorageKey('categories'),
+                      child: CategoriesWidget(),
+                      preferredSize:
+                          Size.fromHeight(Get.height / categoryHCorrection),
+                    ),
                   ),
                 ),
-              ),
-              //star shop
-              _createCategoriezedShopsArea(
-                context,
-                CategorizedShopsWidget(
-                    title: '인기 가게', tag: Tags.homePopularShops),
-                shopHCorrection,
-              ),
+                //star shop
+                _createCategoriezedShopsArea(
+                  context,
+                  CategorizedShopsWidget(
+                      key: PageStorageKey('starShop'),
+                      title: '인기 가게',
+                      tag: Tags.homePopularShops),
+                  shopHCorrection,
+                ),
 
-              //new shop
-              _createCategoriezedShopsArea(
-                context,
-                CategorizedShopsWidget(
-                    title: '새로 들어왔어요!', tag: Tags.homeNewlyShops),
-                shopHCorrection,
-              ),
-            ];
-          },
-          body: SafeArea(
-            top: false,
-            bottom: false,
-            child: Builder(
-              builder: (context) {
-                return ShopListWidget(
-                  topAreaSliverWidgets: [
-                    SliverAppBar(
-                      title: Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          '우리 동네 가게',
-                          style: Theme.of(context).textTheme.subtitle1,
+                //new shop
+                _createCategoriezedShopsArea(
+                  context,
+                  CategorizedShopsWidget(
+                      key: PageStorageKey('newShop'),
+                      title: '새로 들어왔어요!',
+                      tag: Tags.homeNewlyShops),
+                  shopHCorrection,
+                ),
+              ];
+            },
+            body: SafeArea(
+              top: false,
+              bottom: false,
+              child: Builder(
+                builder: (context) {
+                  return ShopListWidget(
+                    topAreaSliverWidgets: [
+                      SliverAppBar(
+                        title: Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            '우리 동네 가게',
+                            style: Theme.of(context).textTheme.subtitle1,
+                          ),
                         ),
                       ),
-                    ),
-                    SliverAppBar(
-                      pinned: true,
-                      title: ShopsFilterListWidget(
-                        tag: Tags.homeDashboard,
+                      SliverAppBar(
+                        pinned: true,
+                        title: ShopsFilterListWidget(
+                          key: PageStorageKey('home_dashboard_shops_filter'),
+                          tag: Tags.homeDashboard,
+                        ),
                       ),
-                    ),
-                  ],
-                  tag: Tags.homeDashboard,
-                  startRouteName: Routes.home,
-                  parentScroll: PrimaryScrollController.of(context)!,
-                );
-              },
+                    ],
+                    tag: Tags.homeDashboard,
+                    startRouteName: Routes.home,
+                    innerScroll: PrimaryScrollController.of(context)!,
+                  );
+                },
+              ),
             ),
           ),
         ),
@@ -137,6 +149,6 @@ class _SliverHeaderDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
-    return false;
+    return true;
   }
 }

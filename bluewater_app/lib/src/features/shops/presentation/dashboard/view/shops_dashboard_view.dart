@@ -5,11 +5,15 @@ import 'package:get/get.dart';
 
 import '../../../../../shared/model/tab_item.dart';
 import '../../../../../shared/ui/controller/tab_controll_mixin.dart';
+import '../../../../../shared/ui/custom/custom_nested_scroll_view.dart';
 import '../../../../categories/presentation/widget/category_item.dart';
+import '../../filter/widget/shops_fliter_list_widget.dart';
 import '../../home/controller/shops_controller.dart';
 import '../widget/shop_list_widget.dart';
 
 class ShopsDashboardView extends GetView<ShopsController> {
+  final String pageKey = 'shopDashboard';
+
   const ShopsDashboardView({Key? key}) : super(key: key);
 
   @override
@@ -28,72 +32,90 @@ class ShopsDashboardView extends GetView<ShopsController> {
         ),
         centerTitle: false,
       ),
-      body: RefreshIndicator(
-        onRefresh: () => Future.delayed(
-          const Duration(seconds: 2),
-        ),
-        notificationPredicate: (notification) {
-          return true;
-        },
-        child: createBody(context),
+      body: Obx(
+        () => controller.title.isEmpty
+            ? Container()
+            : PageStorage(
+                bucket: controller.pageStorageBucket,
+                child: RefreshIndicator(
+                  onRefresh: () => Future.delayed(
+                    const Duration(seconds: 2),
+                  ),
+                  notificationPredicate: (notification) {
+                    return true;
+                  },
+                  child: createContent(context),
+                ),
+              ),
       ),
     );
   }
 
-  Widget createBody(BuildContext context) {
+  Widget createContent(BuildContext context) {
     if (controller.showCategoryTab) {
       return DefaultTabController(
         length: controller.categoris.length,
         initialIndex: controller.tabIndex,
-        child: NestedScrollView(
+        child: CustomNestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             controller.tabController = DefaultTabController.of(context);
-            return createHeaderArea(context);
+            return [
+              SliverPersistentHeader(
+                delegate: _SliverTabBarheaderDelegate(
+                  expandedHeight: math.max(80, Get.height * 0.1),
+                  items: controller.categoris,
+                  indicatorColor: Colors.lightBlue,
+                  bgColor: Theme.of(context).appBarTheme.backgroundColor!,
+                  tabControllMixin: controller,
+                ),
+                pinned: true,
+              ),
+              SliverAppBar(
+                pinned: true,
+                title:
+                    ShopsFilterListWidget(key: PageStorageKey('ShopsFilter')),
+              ),
+            ];
           },
-          body: SafeArea(
-            child: TabBarView(
-              children: controller.categoris.map((category) {
-                return ShopListWidget(
-                  tag: category.name,
-                  parentScroll: PrimaryScrollController.of(context)!,
-                );
-              }).toList(),
-            ),
+          body: TabBarView(
+            key: PageStorageKey('tabBar'),
+            children: controller.categoris.map((category) {
+              return SafeArea(
+                top: false,
+                bottom: false,
+                child: Builder(builder: (context) {
+                  return ShopListWidget(
+                    key: PageStorageKey<String>(category.name),
+                    innerScroll: PrimaryScrollController.of(context)!,
+                    tag: category.name,
+                  );
+                }),
+              );
+            }).toList(),
           ),
         ),
       );
     } else {
       return ShopListWidget(
-        parentScroll: PrimaryScrollController.of(context)!,
-      );
-    }
-  }
-
-  List<Widget> createHeaderArea(BuildContext context) {
-    var headerWidgetList = <Widget>[];
-
-    if (controller.showCategoryTab) {
-      headerWidgetList.add(
-        SliverPersistentHeader(
-          delegate: _SliverTabBarheaderDelegate(
-            expandedHeight: math.max(80, Get.height * 0.1),
-            items: controller.categoris,
-            indicatorColor: Colors.lightBlue,
-            bgColor: Theme.of(context).appBarTheme.backgroundColor!,
-            tabControllMixin: controller,
+        topAreaSliverWidgets: [
+          SliverAppBar(
+            pinned: true,
+            title: ShopsFilterListWidget(
+              key: PageStorageKey('shopsfilter'),
+            ),
           ),
-          pinned: true,
-        ),
+        ],
+        innerScroll: PrimaryScrollController.of(context)!,
+        tag: controller.title,
       );
     }
-    return headerWidgetList;
   }
 }
 
 class _SliverTabBarheaderDelegate<T extends TabItem>
     extends SliverPersistentHeaderDelegate {
-  final double minBodersideWidth = 2.0;
-  final double minFontSize = 12;
+  final double _minBodersideWidth = 2.0;
+  final double _minFontSize = 12;
   final double expandedHeight;
   final List<T> items;
   late final double minHeight;
@@ -122,7 +144,7 @@ class _SliverTabBarheaderDelegate<T extends TabItem>
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    final bodersideWidth = math.max(minBodersideWidth, minHeight * 0.05);
+    final bodersideWidth = math.max(_minBodersideWidth, minHeight * 0.05);
 
     return Stack(
       fit: StackFit.expand,
@@ -156,7 +178,7 @@ class _SliverTabBarheaderDelegate<T extends TabItem>
                           .bodyText1!
                           .copyWith(
                               fontWeight: FontWeight.bold,
-                              fontSize: math.max(minFontSize, minHeight * 0.2),
+                              fontSize: math.max(_minFontSize, minHeight * 0.2),
                               color: entry.key == tabControllMixin.tabIndex
                                   ? labelColor
                                   : unselectedLabelColor),

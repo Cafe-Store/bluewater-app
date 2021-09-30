@@ -3,11 +3,12 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../../shared/ui/custom/custom_nested_scroll_view.dart';
+import '../../../../../shared/ui/custom/custom_nested_scroll_view.dart'
+    as custom;
 import '../../filter/widget/shops_fliter_list_widget.dart';
 import '../../home/controller/shops_controller.dart';
+import '../widget/nested_sliver_tabbar_header_delegate.dart';
 import '../widget/shop_list_widget.dart';
-import '../widget/sliver_tabbar_header_delegate.dart';
 
 class ShopsDashboardView extends GetView<ShopsController> {
   final String pageKey = 'shopDashboard';
@@ -54,29 +55,33 @@ class ShopsDashboardView extends GetView<ShopsController> {
       return DefaultTabController(
         length: controller.categoris.length,
         initialIndex: controller.tabIndex,
-        child: CustomNestedScrollView(
+        child: custom.CustomNestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             controller.tabController = DefaultTabController.of(context);
             return [
-              SliverPersistentHeader(
-                delegate: SliverTabBarheaderDelegate(
-                  expandedHeight: math.max(80, Get.height * 0.1),
-                  items: controller.categoris,
-                  indicatorColor: Colors.lightBlue,
-                  bgColor: Theme.of(context).appBarTheme.backgroundColor!,
-                  tabControllMixin: controller,
-                  bottom: PreferredSize(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0, vertical: 15.0),
-                      child: ShopsFilterListWidget(
-                        key: PageStorageKey('ShopsFilter'),
+              custom.SliverOverlapAbsorber(
+                handle: custom.CustomNestedScrollView
+                    .sliverOverlapAbsorberHandleFor(context),
+                sliver: SliverPersistentHeader(
+                  delegate: NestedSliverTabBarheaderDelegate(
+                    expandedHeight: math.max(80, Get.height * 0.1),
+                    items: controller.categoris,
+                    indicatorColor: Colors.lightBlue,
+                    bgColor: Theme.of(context).appBarTheme.backgroundColor!,
+                    tabControllMixin: controller,
+                    bottom: PreferredSize(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10.0, vertical: 15.0),
+                        child: ShopsFilterListWidget(
+                          key: PageStorageKey('ShopsFilter'),
+                        ),
                       ),
+                      preferredSize: Size.fromHeight(55),
                     ),
-                    preferredSize: Size.fromHeight(55),
                   ),
+                  pinned: true,
                 ),
-                pinned: true,
               ),
             ];
           },
@@ -84,14 +89,18 @@ class ShopsDashboardView extends GetView<ShopsController> {
             key: PageStorageKey('tabBar'),
             children: controller.categoris.map((category) {
               return SafeArea(
-                top: false,
-                bottom: false,
                 child: Builder(builder: (context) {
                   return ShopListWidget(
                     needCorrectScrollOffset: true,
                     key: PageStorageKey<String>(category.name),
                     innerScroll: PrimaryScrollController.of(context)!,
                     tag: category.name,
+                    sliverOverlapInjector: custom.SliverOverlapInjector(
+                      // This is the flip side of the SliverOverlapAbsorber
+                      // above.
+                      handle: custom.CustomNestedScrollView
+                          .sliverOverlapAbsorberHandleFor(context),
+                    ),
                   );
                 }),
               );

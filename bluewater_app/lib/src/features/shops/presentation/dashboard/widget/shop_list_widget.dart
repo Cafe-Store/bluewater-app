@@ -13,6 +13,7 @@ class ShopListWidget extends GetWidget<ShopListController> {
   final ScrollController innerScroll;
   final List<Widget>? topAreaSliverWidgets;
   final String? startRouteName;
+  final Widget? sliverOverlapInjector;
   final bool needCorrectScrollOffset;
   late final double _initScrollOffset;
 
@@ -24,6 +25,7 @@ class ShopListWidget extends GetWidget<ShopListController> {
     this.startRouteName,
     this.topAreaSliverWidgets,
     this.needCorrectScrollOffset = false,
+    this.sliverOverlapInjector,
     required this.innerScroll,
     Key? key,
   }) : super(key: key) {
@@ -56,7 +58,7 @@ class ShopListWidget extends GetWidget<ShopListController> {
     widgetList.add(CustomScrollView(
       controller: controller.scroll,
       key: PageStorageKey('shoplist_customScrollView'),
-      slivers: createSlivers,
+      slivers: createSlivers(context),
     ));
 
     if (controller.isScrolled) {
@@ -84,10 +86,14 @@ class ShopListWidget extends GetWidget<ShopListController> {
     return widgetList;
   }
 
-  List<Widget> get createSlivers {
+  List<Widget> createSlivers(BuildContext context) {
     var slivers = <Widget>[];
     if (topAreaSliverWidgets != null) {
       slivers.addAll(topAreaSliverWidgets!);
+    }
+
+    if (sliverOverlapInjector != null) {
+      slivers.add(sliverOverlapInjector!);
     }
     slivers.add(
       SliverList(

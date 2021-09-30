@@ -7,7 +7,7 @@ import '../../../../../shared/model/tab_item.dart';
 import '../../../../../shared/ui/controller/tab_controll_mixin.dart';
 import '../../../../categories/presentation/widget/category_item.dart';
 
-class SliverTabBarheaderDelegate<T extends TabItem>
+class NestedSliverTabBarheaderDelegate<T extends TabItem>
     extends SliverPersistentHeaderDelegate {
   final double _minBodersideWidth = 2.0;
   final double _minFontSize = 12;
@@ -24,7 +24,7 @@ class SliverTabBarheaderDelegate<T extends TabItem>
   PreferredSize? bottom;
   late final double _bottomHeight;
 
-  SliverTabBarheaderDelegate({
+  NestedSliverTabBarheaderDelegate({
     required this.expandedHeight,
     required this.items,
     required this.tabControllMixin,
@@ -47,7 +47,7 @@ class SliverTabBarheaderDelegate<T extends TabItem>
       fit: StackFit.expand,
       children: [
         Positioned(
-          top: math.max(-shrinkOffset, -minHeight + 3),
+          top: math.max(-shrinkOffset, -minHeight),
           left: 0,
           right: 0,
           child: Container(
@@ -113,7 +113,7 @@ class SliverTabBarheaderDelegate<T extends TabItem>
   double get maxExtent => expandedHeight + _bottomHeight;
 
   @override
-  double get minExtent => minHeight + _bottomHeight;
+  double get minExtent => minHeight * 0.45 + _bottomHeight;
 
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;

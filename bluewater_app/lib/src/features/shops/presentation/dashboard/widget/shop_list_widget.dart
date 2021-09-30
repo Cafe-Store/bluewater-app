@@ -61,7 +61,7 @@ class ShopListWidget extends GetWidget<ShopListController> {
       slivers: createSlivers(context),
     ));
 
-    if (controller.isScrolled || controller.preOffset > _initScrollOffset) {
+    if (controller.isScrolled || controller.preOffset > 0.0) {
       widgetList.add(
         createJumpButton(),
       );
@@ -77,7 +77,7 @@ class ShopListWidget extends GetWidget<ShopListController> {
       child: ElevatedButton(
         onPressed: () {
           controller.scroll.jumpTo(_initScrollOffset);
-          controller.preOffset(_initScrollOffset);
+          controller.preOffset(0.0);
         },
         child: const Icon(
           Icons.arrow_upward_outlined,

@@ -61,29 +61,36 @@ class ShopListWidget extends GetWidget<ShopListController> {
       slivers: createSlivers(context),
     ));
 
-    if (controller.isScrolled) {
+    if (controller.isScrolled || controller.preOffset > _initScrollOffset) {
       widgetList.add(
-        Positioned(
-          bottom: Get.height / 10,
-          right: Get.width / 20,
-          child: ElevatedButton(
-            onPressed: () => controller.scroll.jumpTo(_initScrollOffset),
-            child: const Icon(
-              Icons.arrow_upward_outlined,
-              size: 30,
-            ),
-            style: ElevatedButton.styleFrom(
-              shape: const CircleBorder(),
-              padding: const EdgeInsets.all(10),
-              primary: Colors.grey[100]!.withOpacity(0.8),
-              onPrimary: Colors.black,
-            ),
-          ),
-        ),
+        createJumpButton(),
       );
     }
 
     return widgetList;
+  }
+
+  Positioned createJumpButton() {
+    return Positioned(
+      bottom: Get.height / 10,
+      right: Get.width / 20,
+      child: ElevatedButton(
+        onPressed: () {
+          controller.scroll.jumpTo(_initScrollOffset);
+          controller.preOffset(_initScrollOffset);
+        },
+        child: const Icon(
+          Icons.arrow_upward_outlined,
+          size: 30,
+        ),
+        style: ElevatedButton.styleFrom(
+          shape: const CircleBorder(),
+          padding: const EdgeInsets.all(10),
+          primary: Colors.grey[100]!.withOpacity(0.8),
+          onPrimary: Colors.black,
+        ),
+      ),
+    );
   }
 
   List<Widget> createSlivers(BuildContext context) {

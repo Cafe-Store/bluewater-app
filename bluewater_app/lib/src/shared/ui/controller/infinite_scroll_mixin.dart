@@ -12,6 +12,7 @@ mixin InfiniteScrollMixin<D, U extends UseCase<D, ScrollParam>> {
   final RxBool _isScrolled = false.obs;
   final _datas = <D>[].obs;
   final _usecase = getIt<U>();
+  final RxDouble preOffset = 0.0.obs;
 
   @protected
   bool isForcused = true;
@@ -21,6 +22,10 @@ mixin InfiniteScrollMixin<D, U extends UseCase<D, ScrollParam>> {
 
   void _listener() {
     _isScrolled(_scroll.position.pixels > 0);
+
+    if (isForcused) {
+      preOffset(_scroll.offset);
+    }
 
     if (_isBottom && isForcused) {
       loadDatas();

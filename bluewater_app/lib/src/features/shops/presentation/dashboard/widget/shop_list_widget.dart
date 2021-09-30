@@ -13,6 +13,8 @@ class ShopListWidget extends GetWidget<ShopListController> {
   final ScrollController innerScroll;
   final List<Widget>? topAreaSliverWidgets;
   final String? startRouteName;
+  final bool needCorrectScrollOffset;
+  late final double _initScrollOffset;
 
   @override
   final String? tag;
@@ -21,9 +23,12 @@ class ShopListWidget extends GetWidget<ShopListController> {
     this.tag,
     this.startRouteName,
     this.topAreaSliverWidgets,
+    this.needCorrectScrollOffset = false,
     required this.innerScroll,
     Key? key,
-  }) : super(key: key);
+  }) : super(key: key) {
+    _initScrollOffset = needCorrectScrollOffset ? -0.01 : 0.0;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,8 +65,7 @@ class ShopListWidget extends GetWidget<ShopListController> {
           bottom: Get.height / 10,
           right: Get.width / 20,
           child: ElevatedButton(
-            onPressed: () =>
-                controller.scroll.jumpTo(controller.scroll.initialScrollOffset),
+            onPressed: () => controller.scroll.jumpTo(_initScrollOffset),
             child: const Icon(
               Icons.arrow_upward_outlined,
               size: 30,

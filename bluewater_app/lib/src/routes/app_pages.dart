@@ -42,10 +42,8 @@ class AppPages {
         EventsBinding(),
       ],
       participatesInRootNavigator: true,
-      preventDuplicates: true,
       children: [
         GetPage(
-          preventDuplicates: true,
           name: _Paths.home,
           page: () => const HomeView(),
           children: [

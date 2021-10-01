@@ -2,9 +2,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "bluewater_app",
+            "name": "bluewater_app (release mode)",
             "request": "launch",
             "type": "dart",
+            "flutterMode": "release",
             "program": "lib/src/main.dart"
         },
         {

@@ -13,8 +13,7 @@ class ShopDetailsView extends GetView<ShopDetailsController> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_rounded),
           onPressed: () => controller.startRouteName != null
-              ? Get.rootDelegate
-                  .offAndToNamed(controller.startRouteName.toString())
+              ? Get.rootDelegate.backUntil(controller.startRouteName.toString())
               : Get.rootDelegate.popRoute(popMode: PopMode.History),
         ),
         title: Text(

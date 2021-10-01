@@ -17,25 +17,26 @@ class ShopsDashboardView extends GetView<ShopsController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        shadowColor: Colors.transparent,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded),
-          onPressed: () => Get.rootDelegate.popRoute(popMode: PopMode.History),
-        ),
-        title: Obx(
-          () => Text(
-            controller.title,
-            style: Theme.of(context).textTheme.subtitle1,
-          ),
-        ),
-        centerTitle: false,
-      ),
-      body: Obx(
-        () => controller.title.isEmpty
-            ? Container()
-            : PageStorage(
+    return Obx(
+      () => controller.title.isEmpty
+          ? Container(
+              color: Colors.transparent,
+            )
+          : Scaffold(
+              appBar: AppBar(
+                shadowColor: Colors.transparent,
+                leading: IconButton(
+                  icon: const Icon(Icons.arrow_back_rounded),
+                  onPressed: () =>
+                      Get.rootDelegate.popRoute(popMode: PopMode.History),
+                ),
+                title: Text(
+                  controller.title,
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+                centerTitle: false,
+              ),
+              body: PageStorage(
                 bucket: controller.pageStorageBucket,
                 child: RefreshIndicator(
                   onRefresh: () => Future.delayed(
@@ -47,7 +48,7 @@ class ShopsDashboardView extends GetView<ShopsController> {
                   child: createContent(context),
                 ),
               ),
-      ),
+            ),
     );
   }
 

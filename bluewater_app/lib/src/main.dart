@@ -19,6 +19,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsFlutterBinding.ensureInitialized();
+
     return GetMaterialApp.router(
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.dartkTheme,

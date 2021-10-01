@@ -16,6 +16,7 @@ class HomeView extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
+            shadowColor: Colors.transparent,
             title: const Padding(
               padding: EdgeInsets.only(left: 5, right: 5),
               child: LocationAppbarWidget(),

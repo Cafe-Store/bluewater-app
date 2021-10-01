@@ -45,19 +45,19 @@ class HomeView extends StatelessWidget {
             onTap: (value) {
               switch (value) {
                 case 0:
-                  delegate.toNamed(Routes.home);
+                  delegate.offAndToNamed(Routes.home);
                   break;
                 case 1:
-                  delegate.toNamed(Routes.homeSearch);
+                  delegate.offAndToNamed(Routes.homeSearch);
                   break;
                 case 2:
                   delegate.toNamed(Routes.favorite);
                   break;
                 case 3:
-                  delegate.toNamed(Routes.orders);
+                  delegate.offAndToNamed(Routes.orders);
                   break;
                 case 4:
-                  delegate.toNamed(Routes.profile);
+                  delegate.offAndToNamed(Routes.profile);
                   break;
                 default:
               }

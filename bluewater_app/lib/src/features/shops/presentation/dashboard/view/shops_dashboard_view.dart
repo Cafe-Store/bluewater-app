@@ -21,8 +21,9 @@ class ShopsDashboardView extends GetView<ShopsController> {
       appBar: AppBar(
         shadowColor: Colors.transparent,
         leading: IconButton(
-            icon: const Icon(Icons.arrow_back_rounded),
-            onPressed: () => Get.rootDelegate.popRoute()),
+          icon: const Icon(Icons.arrow_back_rounded),
+          onPressed: () => Get.rootDelegate.popRoute(popMode: PopMode.History),
+        ),
         title: Obx(
           () => Text(
             controller.title,

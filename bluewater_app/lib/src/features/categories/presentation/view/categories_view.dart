@@ -23,14 +23,16 @@ class CategoriesView extends GetView<CategoriesService> {
                 mainAxisSpacing: 10,
                 childAspectRatio: 0.9),
             itemBuilder: (context, index) => InkWell(
-              onTap: () => Get.rootDelegate.toNamed(
-                Routes.shops,
-                parameters: {
-                  RoutesParamName.selectedCategoryName:
-                      controller.datas[index].name,
-                  RoutesParamName.showCatagoryTab: true.toString(),
-                },
-              ),
+              onTap: () {
+                Get.rootDelegate.toNamed(
+                  Routes.shops,
+                  parameters: {
+                    RoutesParamName.selectedCategoryName:
+                        controller.datas[index].name,
+                    RoutesParamName.showCatagoryTab: true.toString(),
+                  },
+                );
+              },
               child: CategoryItem(
                 item: controller.datas[index],
                 imageSize: Size(100, 100),

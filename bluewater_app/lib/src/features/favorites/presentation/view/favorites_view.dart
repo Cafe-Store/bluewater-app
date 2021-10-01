@@ -12,7 +12,9 @@ class FavoritesView extends GetView<FavoritesController> {
       appBar: AppBar(
         leading: IconButton(
             icon: const Icon(Icons.arrow_back_rounded),
-            onPressed: () => Get.rootDelegate.popRoute()),
+            onPressed: () {
+              Get.rootDelegate.popRoute(popMode: PopMode.History);
+            }),
         title: Text(
           "즐겨찾기",
           style: Theme.of(context).textTheme.subtitle1,

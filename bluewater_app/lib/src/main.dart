@@ -23,6 +23,12 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.dartkTheme,
       getPages: AppPages.routes,
+      routeInformationParser: GetInformationParser(
+          // initialRoute: Routes.HOME,
+          ),
+      routerDelegate: GetDelegate(
+        preventDuplicateHandlingMode: PreventDuplicateHandlingMode.DoNothing,
+      ),
       initialBinding: BindingsBuilder(
         () {
           //대시보드의 가게 목록에서 필터 선택 유지하기 위해서

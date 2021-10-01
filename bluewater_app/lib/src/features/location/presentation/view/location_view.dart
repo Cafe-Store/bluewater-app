@@ -12,8 +12,9 @@ class LocationView extends GetView<LocationService> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            icon: const Icon(Icons.close),
-            onPressed: () => Get.rootDelegate.popRoute()),
+          icon: const Icon(Icons.close),
+          onPressed: () => Get.rootDelegate.popRoute(popMode: PopMode.History),
+        ),
         title: Text(
           "배달지 주소 설정",
           style: Theme.of(context).textTheme.subtitle1,

@@ -11,8 +11,9 @@ class CouponsView extends GetView<CouponsController> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            icon: const Icon(Icons.arrow_back_rounded),
-            onPressed: () => Get.rootDelegate.popRoute()),
+          icon: const Icon(Icons.arrow_back_rounded),
+          onPressed: () => Get.rootDelegate.popRoute(popMode: PopMode.History),
+        ),
         title: Text(
           "우리동네 쿠폰?",
           style: Theme.of(context).textTheme.subtitle1,

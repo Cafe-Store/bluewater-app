@@ -13,8 +13,9 @@ class ShopDetailsView extends GetView<ShopDetailsController> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_rounded),
           onPressed: () => controller.startRouteName != null
-              ? Get.rootDelegate.offNamed(controller.startRouteName.toString())
-              : Get.rootDelegate.popRoute(),
+              ? Get.rootDelegate
+                  .offAndToNamed(controller.startRouteName.toString())
+              : Get.rootDelegate.popRoute(popMode: PopMode.History),
         ),
         title: Text(
           '가게 상세 화면인데?',

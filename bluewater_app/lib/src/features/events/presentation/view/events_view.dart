@@ -16,8 +16,9 @@ class EventsView extends GetView<EventsService> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            icon: const Icon(Icons.arrow_back_rounded),
-            onPressed: () => Get.rootDelegate.popRoute()),
+          icon: const Icon(Icons.arrow_back_rounded),
+          onPressed: () => Get.rootDelegate.popRoute(popMode: PopMode.History),
+        ),
         title: Text(
           "진행중인 이벤트",
           style: Theme.of(context).textTheme.subtitle1,

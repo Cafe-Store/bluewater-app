@@ -12,19 +12,20 @@ mixin InfiniteScrollMixin<D, U extends UseCase<D, ScrollParam>> {
   final RxBool _isScrolled = false.obs;
   final _datas = <D>[].obs;
   final _usecase = getIt<U>();
-  final RxDouble preOffset = 0.0.obs;
+  final RxDouble preScrollOffset = 0.0.obs;
 
   @protected
   bool isForcused = true;
 
   String _failureMesage = '';
   bool _reachedMax = false;
+  bool _isLoading = false;
 
   void _listener() {
     _isScrolled(_scroll.position.pixels > 0);
 
     if (isForcused) {
-      preOffset(_scroll.offset);
+      preScrollOffset(_scroll.offset);
     }
 
     if (_isBottom && isForcused) {
@@ -34,13 +35,16 @@ mixin InfiniteScrollMixin<D, U extends UseCase<D, ScrollParam>> {
 
   @nonVirtual
   void loadDatas() async {
-    if (!_reachedMax) {
+    if (!_reachedMax && !_isLoading) {
+      _isLoading = true;
       final failureOrDatas = await _usecase.execute(scrollParam);
+      _isLoading = false;
 
       failureOrDatas.fold((failure) => _failureMesage = failure.message,
           (loadedDatas) {
         if (loadedDatas.isEmpty && _failureMesage.isEmpty) {
           _reachedMax = true;
+          Logger.logNoStack.i('_reachedMax : $_reachedMax');
         } else {
           _datas.addAll(loadedDatas);
           Logger.logNoStack.i('''

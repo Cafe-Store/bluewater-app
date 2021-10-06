@@ -139,6 +139,7 @@ class _ShopItem extends StatelessWidget {
               height: imageSize.height,
               width: imageSize.width,
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
                 image: DecorationImage(
                   image: imageProvider,
                   fit: BoxFit.cover,

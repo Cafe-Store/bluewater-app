@@ -19,8 +19,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsFlutterBinding.ensureInitialized();
-
     return GetMaterialApp.router(
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.dartkTheme,
@@ -29,6 +27,8 @@ class MyApp extends StatelessWidget {
           // initialRoute: Routes.HOME,
           ),
       routerDelegate: GetDelegate(
+        /* aos의 back button을 위해 DoNothing으로 설정함. 단, hot reload를 하면 검은화면만
+        표시되므로 개발중일때는 주석처리하고, 배포할때에만 추가하면됨. */
         preventDuplicateHandlingMode: PreventDuplicateHandlingMode.DoNothing,
       ),
       initialBinding: BindingsBuilder(

@@ -172,7 +172,7 @@ class ShopListItem extends StatelessWidget {
           imageUrl: shop.photo.uri,
           imageBuilder: (context, imageProvider) => Container(
             key: _backgroundImageKey,
-            height: Get.height / 3,
+            height: context.isLandscape ? Get.height * 1.1 : Get.height * 0.5,
             width: Get.width,
             decoration: BoxDecoration(
               image: DecorationImage(

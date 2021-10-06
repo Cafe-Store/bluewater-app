@@ -22,7 +22,7 @@ mixin InfiniteScrollMixin<D, U extends UseCase<D, ScrollParam>> {
   bool _isLoading = false;
 
   void _listener() {
-    _isScrolled(_scroll.position.pixels > 0);
+    _isScrolled(_scroll.offset > 0);
 
     if (isForcused) {
       preScrollOffset(_scroll.offset);

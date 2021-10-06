@@ -6,6 +6,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
 import '../../../../../routes/app_pages.dart';
+import '../../../../../shared/ui/widget/parallax/parallax_flow_delegate.dart';
 import '../../../domain/entity/shop.dart';
 import '../controller/shop_list_controller.dart';
 
@@ -61,7 +62,7 @@ class ShopListWidget extends GetWidget<ShopListController> {
       slivers: createSlivers(context),
     ));
 
-    if (controller.isScrolled || controller.preScrollOffset > 0.0) {
+    if (_isShowJumpButton) {
       widgetList.add(
         createJumpButton(),
       );
@@ -69,6 +70,9 @@ class ShopListWidget extends GetWidget<ShopListController> {
 
     return widgetList;
   }
+
+  bool get _isShowJumpButton =>
+      controller.isScrolled && controller.preScrollOffset > 0.0;
 
   Positioned createJumpButton() {
     return Positioned(
@@ -114,7 +118,9 @@ class ShopListWidget extends GetWidget<ShopListController> {
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
-                child: ShopListItem(controller.datas[index], tag),
+                child: ShopListItem(
+                  controller.datas[index],
+                ),
               ),
             );
           },
@@ -128,56 +134,106 @@ class ShopListWidget extends GetWidget<ShopListController> {
 
 class ShopListItem extends StatelessWidget {
   final Shop shop;
-  final String? _tag;
+  final GlobalKey _backgroundImageKey = GlobalKey();
 
   ShopListItem(
-    this.shop,
-    this._tag, {
+    this.shop, {
     Key? key,
   }) : super(key: key);
 
-  @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20.0),
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: AspectRatio(
+        aspectRatio: 16 / 9,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: Stack(
+            children: [
+              _createParallaxBackground(context),
+              _createGradient(),
+              _createInfoArea(context),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _createParallaxBackground(BuildContext context) {
+    return Flow(
+      delegate: ParallaxFlowDelegate(
+        scrollable: Scrollable.of(context)!,
+        listItemContext: context,
+        backgroundImageKey: _backgroundImageKey,
+      ),
+      children: [
+        CachedNetworkImage(
+          imageUrl: shop.photo.uri,
+          imageBuilder: (context, imageProvider) => Container(
+            key: _backgroundImageKey,
+            height: Get.height / 3,
+            width: Get.width,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _createGradient() {
+    return Positioned.fill(
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.transparent, Colors.black.withOpacity(0.6)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: [0.6, 0.95],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _createInfoArea(BuildContext context) {
+    return Positioned(
+      left: 15,
+      bottom: 20,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Flexible(
-            child: CachedNetworkImage(
-              imageUrl: shop.photo.uri,
-              imageBuilder: (context, imageProvider) => Container(
-                height: Get.height / 3,
-                width: Get.width,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            ),
+          Text(
+            shop.name,
+            style: Theme.of(context)
+                .textTheme
+                .subtitle1!
+                .copyWith(color: Colors.white),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 10.0),
-            child: Text(
-              _tag ?? shop.name,
-              style: Theme.of(context).textTheme.subtitle1,
+            padding: const EdgeInsets.only(top: 5.0),
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                  size: 16,
+                ),
+                Text(
+                  '${shop.rank.value}(${shop.rank.count})',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1!
+                      .copyWith(color: Colors.white),
+                )
+              ],
             ),
-          ),
-          Row(
-            children: [
-              const Icon(
-                Icons.star,
-                color: Colors.amber,
-                size: 16,
-              ),
-              Text(
-                '${shop.rank.value}(${shop.rank.count})',
-                style: Theme.of(context).textTheme.bodyText1,
-              )
-            ],
           ),
         ],
       ),

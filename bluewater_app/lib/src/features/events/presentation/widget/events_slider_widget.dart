@@ -9,6 +9,8 @@ import '../../domain/entity/event.dart';
 import '../service/events_service.dart';
 
 class EventSlider extends GetWidget<EventsService> {
+  EventSlider({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Obx(

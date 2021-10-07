@@ -18,6 +18,9 @@ class CategoriesWidget extends GetView<CategoriesService> {
       () {
         return ListView.builder(
           scrollDirection: Axis.horizontal,
+          physics: controller.datas.isEmpty
+              ? const NeverScrollableScrollPhysics()
+              : null,
           itemBuilder: (context, index) => Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: ShimmerLoading(

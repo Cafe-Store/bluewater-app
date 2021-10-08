@@ -66,7 +66,7 @@ class ShopListWidget extends GetWidget<ShopListController> {
 
   Positioned createJumpButton() {
     return Positioned(
-      bottom: Get.height / 10,
+      bottom: Get.height / 15,
       right: Get.width / 20,
       child: ElevatedButton(
         onPressed: () {
@@ -79,7 +79,7 @@ class ShopListWidget extends GetWidget<ShopListController> {
         ),
         style: ElevatedButton.styleFrom(
           shape: const CircleBorder(),
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(7),
           primary: Colors.grey[100]!.withOpacity(0.8),
           onPrimary: Colors.black,
         ),

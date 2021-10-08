@@ -16,7 +16,10 @@ class CategoriesWidget extends GetView<CategoriesService> {
   Widget build(BuildContext context) {
     return Obx(
       () {
-        return ListView.builder(
+        return ListView.separated(
+          separatorBuilder: (context, index) => Divider(
+            indent: Get.width / 20,
+          ),
           scrollDirection: Axis.horizontal,
           physics: controller.datas.isEmpty
               ? const NeverScrollableScrollPhysics()

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../core/util/const.dart';
 import '../../../../routes/app_pages.dart';
-import '../../../../shared/ui/widget/shimmer/shimmer_loading.dart';
+import '../../../../shared/ui/color/shimmer_color.dart';
 import '../../domain/entity/category.dart';
 import '../service/categories_service.dart';
 import 'category_item.dart';
@@ -21,26 +22,22 @@ class CategoriesWidget extends GetView<CategoriesService> {
             indent: Get.width / 20,
           ),
           scrollDirection: Axis.horizontal,
-          physics: controller.datas.isEmpty
-              ? const NeverScrollableScrollPhysics()
-              : null,
           itemBuilder: (context, index) => Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: ShimmerLoading(
-              isLoading: controller.datas.isEmpty,
-              child: controller.datas.isNotEmpty
-                  ? _createCategoryItem(index, context)
-                  : SizedBox(
+            child: controller.datas.isNotEmpty
+                ? _createCategoryItem(index, context)
+                : Shimmer.fromColors(
+                    baseColor: ShimmerColor.baseColor,
+                    highlightColor: ShimmerColor.highlightColor,
+                    child: Container(
                       height: 60,
                       width: 60,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.black,
-                        ),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Theme.of(context).backgroundColor,
                       ),
                     ),
-            ),
+                  ),
           ),
           itemCount: controller.datas.isNotEmpty ? controller.datas.length : 10,
         );

@@ -2,9 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../routes/app_pages.dart';
-import '../../../../shared/ui/widget/shimmer/shimmer_loading.dart';
+import '../../../../shared/ui/color/shimmer_color.dart';
 import '../../domain/entity/event.dart';
 import '../service/events_service.dart';
 
@@ -18,17 +19,17 @@ class EventSlider extends GetWidget<EventsService> {
         return CarouselSlider.builder(
           itemCount: controller.datas.isNotEmpty ? controller.datas.length : 1,
           itemBuilder: (context, index, realIndex) {
-            return ShimmerLoading(
-              isLoading: controller.datas.isEmpty,
-              child: controller.datas.isNotEmpty
-                  ? _SliderItem(
-                      item: controller.datas[index],
-                      total: controller.datas.length,
-                      index: ++index)
-                  : Container(
+            return controller.datas.isNotEmpty
+                ? _SliderItem(
+                    item: controller.datas[index],
+                    total: controller.datas.length,
+                    index: ++index)
+                : Shimmer.fromColors(
+                    child: Container(
                       color: Colors.black,
                     ),
-            );
+                    baseColor: ShimmerColor.baseColor,
+                    highlightColor: ShimmerColor.highlightColor);
           },
           options: CarouselOptions(
             height: Get.height,

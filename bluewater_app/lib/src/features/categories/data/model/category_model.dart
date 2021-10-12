@@ -7,10 +7,11 @@ part 'category_model.g.dart';
 @JsonSerializable()
 class CategoryModel extends Category {
   CategoryModel({
-    required String imageUri,
+    required String code,
+    required String image,
     required String name,
     String? badgeName,
-  }) : super(imageUri: imageUri, name: name, badgeName: badgeName);
+  }) : super(code: code, image: image, name: name, badgeName: badgeName);
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) =>
       _$CategoryModelFromJson(json);

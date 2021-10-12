@@ -77,7 +77,7 @@ class _ItemWithBadge extends StatelessWidget {
 
   CachedNetworkImage categoryImage(Size imageSize, Color borderColor) {
     return CachedNetworkImage(
-      imageUrl: item.imageUri,
+      imageUrl: item.image,
       imageBuilder: (context, imageProvider) => Container(
         height: imageSize.height,
         width: imageSize.width,

@@ -12,6 +12,6 @@ abstract class CategoriesRemoteDataSource {
   @factoryMethod
   factory CategoriesRemoteDataSource(Dio dio) = _CategoriesRemoteDataSource;
 
-  @GET('/search')
+  @GET('/categories')
   Future<List<CategoryModel>> findAll();
 }

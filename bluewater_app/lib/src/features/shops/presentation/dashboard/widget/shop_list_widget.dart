@@ -2,10 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../../routes/app_pages.dart';
+import '../../../../../shared/ui/color/shimmer_color.dart';
 import '../../../../../shared/ui/widget/parallax/parallax_flow_delegate.dart';
 import '../../../domain/entity/shop.dart';
 import '../controller/shop_list_controller.dart';
@@ -38,18 +39,9 @@ class ShopListWidget extends GetWidget<ShopListController> {
     controller.scroll = innerScroll;
     return Obx(
       () {
-        if (controller.datas.isEmpty) {
-          return Center(
-            child: SpinKitThreeBounce(
-              color: Colors.grey,
-              size: 15,
-            ),
-          );
-        } else {
-          return Stack(
-            children: _createContent(context),
-          );
-        }
+        return Stack(
+          children: _createContent(context),
+        );
       },
     );
   }
@@ -76,7 +68,7 @@ class ShopListWidget extends GetWidget<ShopListController> {
 
   Positioned createJumpButton() {
     return Positioned(
-      bottom: Get.height / 10,
+      bottom: Get.height / 15,
       right: Get.width / 20,
       child: ElevatedButton(
         onPressed: () {
@@ -89,7 +81,7 @@ class ShopListWidget extends GetWidget<ShopListController> {
         ),
         style: ElevatedButton.styleFrom(
           shape: const CircleBorder(),
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(7),
           primary: Colors.grey[100]!.withOpacity(0.8),
           onPrimary: Colors.black,
         ),
@@ -110,25 +102,48 @@ class ShopListWidget extends GetWidget<ShopListController> {
       SliverList(
         delegate: SliverChildBuilderDelegate(
           (context, index) {
-            return InkWell(
-              onTap: () {
-                Get.rootDelegate.toNamed(Routes.shopDetails('$index'),
-                    arguments: startRouteName);
-              },
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
-                child: ShopListItem(
-                  controller.datas[index],
-                ),
-              ),
-            );
+            return controller.datas.isNotEmpty
+                ? _createShopItem(index)
+                : _createShimmerItem(context);
           },
-          childCount: controller.datas.length,
+          childCount: controller.datas.isNotEmpty ? controller.datas.length : 5,
         ),
       ),
     );
     return slivers;
+  }
+
+  Widget _createShimmerItem(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: ShimmerColor.baseColor,
+      highlightColor: ShimmerColor.highlightColor,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 13.0),
+        child: Container(
+          height: context.isLandscape ? Get.height * 1.1 : Get.height / 3,
+          width: Get.width,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            color: Colors.black,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _createShopItem(int index) {
+    return InkWell(
+      onTap: () {
+        Get.rootDelegate
+            .toNamed(Routes.shopDetails('$index'), arguments: startRouteName);
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 13.0),
+        child: ShopListItem(
+          controller.datas[index],
+        ),
+      ),
+    );
   }
 }
 
@@ -142,19 +157,16 @@ class ShopListItem extends StatelessWidget {
   }) : super(key: key);
 
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: AspectRatio(
-        aspectRatio: 16 / 9,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(16),
-          child: Stack(
-            children: [
-              _createParallaxBackground(context),
-              _createGradient(),
-              _createInfoArea(context),
-            ],
-          ),
+    return AspectRatio(
+      aspectRatio: 16 / 9,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: Stack(
+          children: [
+            _createParallaxBackground(context),
+            _createGradient(),
+            _createInfoArea(context),
+          ],
         ),
       ),
     );

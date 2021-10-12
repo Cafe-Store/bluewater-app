@@ -1,10 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../routes/app_pages.dart';
+import '../../../../shared/ui/color/shimmer_color.dart';
 import '../../domain/entity/event.dart';
 import '../service/events_service.dart';
 
@@ -15,29 +16,30 @@ class EventSlider extends GetWidget<EventsService> {
   Widget build(BuildContext context) {
     return Obx(
       () {
-        if (controller.datas.isEmpty) {
-          return Center(
-            child: SpinKitThreeBounce(
-              color: Colors.grey,
-              size: 15,
-            ),
-          );
-        } else {
-          return CarouselSlider.builder(
-            itemCount: controller.datas.length,
-            itemBuilder: (context, index, realIndex) {
-              return _SliderItem(
-                  item: controller.datas[index],
-                  total: controller.datas.length,
-                  index: ++index);
-            },
-            options: CarouselOptions(
-              height: Get.height,
-              viewportFraction: 1.0,
-              enlargeCenterPage: false,
-            ),
-          );
-        }
+        return CarouselSlider.builder(
+          itemCount: controller.datas.isNotEmpty ? controller.datas.length : 1,
+          itemBuilder: (context, index, realIndex) {
+            return controller.datas.isNotEmpty
+                ? _SliderItem(
+                    item: controller.datas[index],
+                    total: controller.datas.length,
+                    index: ++index)
+                : Shimmer.fromColors(
+                    child: Container(
+                      color: Colors.black,
+                    ),
+                    baseColor: ShimmerColor.baseColor,
+                    highlightColor: ShimmerColor.highlightColor);
+          },
+          options: CarouselOptions(
+            height: Get.height,
+            viewportFraction: 1.0,
+            enlargeCenterPage: false,
+            scrollPhysics: controller.datas.isEmpty
+                ? NeverScrollableScrollPhysics()
+                : null,
+          ),
+        );
       },
     );
   }

@@ -12,6 +12,7 @@ import '../controller/categorized_shops_controller.dart';
 
 class CategorizedShopsWidget extends GetWidget<CategorizedShopsController> {
   final String title;
+  final int itemCount = 10;
 
   @override
   final String tag;
@@ -24,17 +25,40 @@ class CategorizedShopsWidget extends GetWidget<CategorizedShopsController> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _createTitleArea(context),
-          Expanded(
-            child: _createListView(context),
+    return Obx(
+      () {
+        return Container(
+          padding: EdgeInsets.all(10),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _createTitleArea(context),
+              Expanded(
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      if (index == itemCount - 1 ||
+                          index == controller.datas.length) {
+                        return _createMoreButton();
+                      } else {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: controller.datas.isEmpty
+                              ? _createShimmerShopItem(context)
+                              : _ShopItem(shop: controller.datas[index]),
+                        );
+                      }
+                    },
+                    itemCount: controller.datas.isEmpty
+                        ? itemCount
+                        : controller.datas.length > itemCount
+                            ? itemCount
+                            : controller.datas.length + 1),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -63,38 +87,6 @@ class CategorizedShopsWidget extends GetWidget<CategorizedShopsController> {
           ),
         )
       ],
-    );
-  }
-
-  Widget _createListView(BuildContext context) {
-    return Obx(
-      () {
-        if (controller.datas.isEmpty) {
-          return ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                if (index == 9) {
-                  return _createMoreButton();
-                } else {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: _createShimmerShopItem(context),
-                  );
-                }
-              },
-              itemCount: 5);
-        } else {
-          return ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: _ShopItem(shop: controller.datas[index]),
-                );
-              },
-              itemCount: 5);
-        }
-      },
     );
   }
 

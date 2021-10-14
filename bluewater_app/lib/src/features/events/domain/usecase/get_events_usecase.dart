@@ -8,18 +8,18 @@ import '../entity/event.dart';
 import '../repository/events_repository.dart';
 
 @lazySingleton
-class GetEventsUsecase extends UseCase<Event, ScrollParam> {
+class GetEventsUsecase extends UseCase<Event, EventsScrollParam> {
   final EventsRepository eventsRepository;
 
   GetEventsUsecase(this.eventsRepository);
 
   @override
-  Future<Either<Failure, List<Event>>> execute(ScrollParam params) {
+  Future<Either<Failure, List<Event>>> execute(EventsScrollParam params) {
     return eventsRepository.findAll();
   }
 }
 
 class EventsScrollParam extends ScrollParam {
   @override
-  List<Object?> get props => [];
+  int page = 0;
 }

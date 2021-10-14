@@ -17,4 +17,9 @@ abstract class ShopsRemoteDataSource {
 
   @GET('/shops/ranking')
   Future<List<ShopModel>> findAllRankingShops();
+
+  @GET('/shops/category')
+  Future<List<ShopModel>> findAllCategorizedShops(
+    @Query("code") String code,
+  );
 }

@@ -8,18 +8,18 @@ import '../entity/shop.dart';
 import '../repository/shops_repository.dart';
 
 @lazySingleton
-class GetShopsUsecase extends UseCase<Shop, ScrollParam> {
+class GetShopsUsecase extends UseCase<Shop, ShopsScrollParam> {
   final ShopsRepository shopsRepository;
 
   GetShopsUsecase(this.shopsRepository);
 
   @override
-  Future<Either<Failure, List<Shop>>> execute(ScrollParam params) {
+  Future<Either<Failure, List<Shop>>> execute(ShopsScrollParam params) {
     return shopsRepository.findAll();
   }
 }
 
 class ShopsScrollParam extends ScrollParam {
   @override
-  List<Object?> get props => [];
+  int page = 0;
 }

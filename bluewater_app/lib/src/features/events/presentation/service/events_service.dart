@@ -5,7 +5,7 @@ import '../../domain/entity/event.dart';
 import '../../domain/usecase/get_events_usecase.dart';
 
 class EventsService extends GetxService
-    with InfiniteScrollMixin<Event, GetEventsUsecase> {
+    with InfiniteScrollMixin<Event, EventsScrollParam, GetEventsUsecase> {
   @override
   void onInit() {
     super.onInit();
@@ -13,5 +13,5 @@ class EventsService extends GetxService
   }
 
   @override
-  ScrollParam get scrollParam => EventsScrollParam();
+  EventsScrollParam get scrollParam => EventsScrollParam();
 }

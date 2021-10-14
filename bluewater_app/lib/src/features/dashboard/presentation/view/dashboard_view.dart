@@ -1,3 +1,4 @@
+import '../../../shops/presentation/dashboard/controller/shop_list_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -25,9 +26,7 @@ class DashboardView extends GetView<DashboardService> {
 
     return Scaffold(
       body: RefreshIndicator(
-        onRefresh: () => Future.delayed(
-          const Duration(seconds: 2),
-        ),
+        onRefresh: reloadDatas,
         notificationPredicate: (notification) {
           return true;
         },
@@ -63,7 +62,7 @@ class DashboardView extends GetView<DashboardService> {
                   CategorizedShopsWidget(
                       key: PageStorageKey('starShop'),
                       title: '인기 가게',
-                      tag: Tags.homePopularShops),
+                      tag: Tags.homeStarShops),
                   shopHeight,
                 ),
 
@@ -98,7 +97,6 @@ class DashboardView extends GetView<DashboardService> {
               ],
               tag: Tags.homeDashboard,
               startRouteName: Routes.home,
-              innerScroll: PrimaryScrollController.of(context)!,
             ),
           ),
         ),
@@ -115,5 +113,13 @@ class DashboardView extends GetView<DashboardService> {
         height: height,
       ),
     );
+  }
+
+  Future<void> reloadDatas() {
+    return Future<void>(() {
+      Get.find<ShopListController>(tag: Tags.homeDashboard).reloadDatas();
+      Get.find<ShopListController>(tag: Tags.homeNewlyShops).reloadDatas();
+      Get.find<ShopListController>(tag: Tags.homeStarShops).reloadDatas();
+    });
   }
 }

@@ -5,7 +5,9 @@ import '../../domain/entity/category.dart';
 import '../../domain/usecase/get_categories_usecase.dart';
 
 class CategoriesService extends GetxService
-    with InfiniteScrollMixin<Category, GetCategoriesUsecase> {
+    with
+        InfiniteScrollMixin<Category, CategoriesScrollParam,
+            GetCategoriesUsecase> {
   @override
   void onInit() {
     super.onInit();
@@ -13,5 +15,5 @@ class CategoriesService extends GetxService
   }
 
   @override
-  ScrollParam get scrollParam => CategoriesScrollParam();
+  CategoriesScrollParam get scrollParam => CategoriesScrollParam();
 }

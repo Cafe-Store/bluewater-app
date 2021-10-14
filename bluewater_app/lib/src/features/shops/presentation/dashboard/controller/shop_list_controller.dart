@@ -1,14 +1,15 @@
 import 'package:get/get.dart';
 
+import '../../../../../core/usecase/usecase.dart';
 import '../../../../../shared/ui/controller/infinite_scroll_mixin.dart';
 import '../../../domain/entity/shop.dart';
-import '../../../domain/usecase/get_shops_usecase.dart';
 
-class ShopListController extends GetxController
-    with InfiniteScrollMixin<Shop, GetShopsUsecase> {
-  String? tag;
+class ShopListController<Param extends ScrollParam,
+        U extends UseCase<Shop, Param>> extends GetxController
+    with InfiniteScrollMixin<Shop, Param, U> {
+  final Param param;
 
-  ShopListController({this.tag});
+  ShopListController({required this.param});
 
   @override
   void onInit() {
@@ -17,5 +18,5 @@ class ShopListController extends GetxController
   }
 
   @override
-  ScrollParam get scrollParam => ShopsScrollParam();
+  Param get scrollParam => param;
 }

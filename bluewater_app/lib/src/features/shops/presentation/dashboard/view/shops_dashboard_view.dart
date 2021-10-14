@@ -122,7 +122,7 @@ class ShopsDashboardView extends GetView<ShopsController> {
           ),
         ],
         innerScroll: PrimaryScrollController.of(context)!,
-        tag: controller.title,
+        tag: controller.controllerTag,
       );
     }
   }

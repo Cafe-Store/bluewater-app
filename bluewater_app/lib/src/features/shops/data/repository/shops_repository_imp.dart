@@ -43,4 +43,20 @@ class ShopsRepositoryImp implements ShopsRepository {
       return Left(ServerFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, List<Shop>>> findAllCategorizedShops(
+      String code) async {
+    var isConnected = await networkInfo.isConnected;
+
+    if (isConnected) {
+      try {
+        return Right(await remoteDataSource.findAllCategorizedShops(code));
+      } on Exception {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(ServerFailure());
+    }
+  }
 }

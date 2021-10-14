@@ -1,4 +1,3 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -7,7 +6,7 @@ import '../../../core/injector/injection.dart';
 import '../../../core/logger/logger_utils.dart';
 import '../../../core/usecase/usecase.dart';
 
-mixin InfiniteScrollMixin<D, U extends UseCase<D, ScrollParam>> {
+mixin InfiniteScrollMixin<D, P extends ScrollParam, U extends UseCase<D, P>> {
   late ScrollController _scroll = ScrollController();
   final RxBool _isScrolled = false.obs;
   final _datas = <D>[].obs;
@@ -46,16 +45,20 @@ mixin InfiniteScrollMixin<D, U extends UseCase<D, ScrollParam>> {
           _reachedMax = true;
           Logger.logNoStack.i('_reachedMax : $_reachedMax');
         } else {
+          Logger.logNoStack.i(
+              '''${toString()}:$hashCode ${D.toString()} page:${scrollParam.page}''');
+
           _datas.addAll(loadedDatas);
-          Logger.logNoStack.i('''
-${toString()}:$hashCode loaded ${D.toString()} size : ${_datas.length}''');
+          scrollParam.page++;
         }
       });
     }
   }
 
+  @nonVirtual
   set setFocus(bool focus) => isForcused = focus;
 
+  @nonVirtual
   bool get isScrolled => _isScrolled.value;
 
   bool get _isBottom {
@@ -65,20 +68,32 @@ ${toString()}:$hashCode loaded ${D.toString()} size : ${_datas.length}''');
     return currentScroll >= (maxScroll * 0.8);
   }
 
+  @nonVirtual
   set scroll(ScrollController scroll) {
     _scroll = scroll;
     _scroll.addListener(_listener);
   }
 
+  @nonVirtual
   bool get hasReachedMax => _reachedMax;
-
+  @nonVirtual
   String get failureMesage => _failureMesage;
-
+  @nonVirtual
   List<D> get datas => List.unmodifiable(_datas);
-
+  @nonVirtual
   ScrollController get scroll => _scroll;
 
-  ScrollParam get scrollParam;
+  P get scrollParam;
+
+  @nonVirtual
+  void reloadDatas() {
+    _datas.clear();
+    loadDatas();
+  }
 }
 
-abstract class ScrollParam extends Equatable {}
+abstract class ScrollParam {
+  set page(int page);
+
+  int get page;
+}

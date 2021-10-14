@@ -7,4 +7,6 @@ abstract class ShopsRepository {
   Future<Either<Failure, List<Shop>>> findAll();
 
   Future<Either<Failure, List<Shop>>> findAllRankingShops();
+
+  Future<Either<Failure, List<Shop>>> findAllCategorizedShops(String code);
 }

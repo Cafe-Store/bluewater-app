@@ -8,9 +8,9 @@ import '../../../../../core/util/const.dart';
 import '../../../../../routes/app_pages.dart';
 import '../../../../../shared/ui/color/shimmer_color.dart';
 import '../../../domain/entity/shop.dart';
-import '../controller/categorized_shops_controller.dart';
+import '../../dashboard/controller/shop_list_controller.dart';
 
-class CategorizedShopsWidget extends GetWidget<CategorizedShopsController> {
+class CategorizedShopsWidget extends GetWidget<ShopListController> {
   final String title;
   final int itemCount = 10;
 
@@ -38,7 +38,8 @@ class CategorizedShopsWidget extends GetWidget<CategorizedShopsController> {
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       if (index == itemCount - 1 ||
-                          index == controller.datas.length) {
+                          (controller.datas.isNotEmpty &&
+                              index == controller.datas.length)) {
                         return _createMoreButton();
                       } else {
                         return Padding(
@@ -77,6 +78,7 @@ class CategorizedShopsWidget extends GetWidget<CategorizedShopsController> {
                 Routes.shops,
                 parameters: {
                   RoutesParamName.selectedCategoryName: title,
+                  RoutesParamName.controllerTag: tag,
                 },
               );
             }
@@ -150,6 +152,7 @@ class CategorizedShopsWidget extends GetWidget<CategorizedShopsController> {
                     Routes.shops,
                     parameters: {
                       RoutesParamName.selectedCategoryName: title,
+                      RoutesParamName.controllerTag: tag,
                     },
                   );
                 }

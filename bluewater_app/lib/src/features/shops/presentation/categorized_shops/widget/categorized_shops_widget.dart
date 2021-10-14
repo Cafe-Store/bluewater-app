@@ -47,7 +47,7 @@ class CategorizedShopsWidget extends GetWidget<ShopListController> {
                           padding: const EdgeInsets.symmetric(horizontal: 10.0),
                           child: controller.datas.isEmpty
                               ? _createShimmerShopItem(
-                                  context, imageSize.width + 2)
+                                  context, imageSize.width + 10)
                               : _ShopItem(
                                   shop: controller.datas[index],
                                   imageSize: imageSize,

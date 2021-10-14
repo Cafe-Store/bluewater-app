@@ -28,7 +28,14 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
         working-directory: ${{ env.working-directory }}
-
+     
+      - name: execute pub run clean
+        run: flutter packages pub run build_runner clean
+        working-directory: ${{ env.working-directory }}
+        
+      - name: execute pub run build_runner
+        run: flutter packages pub run build_runner build --delete-conflicting-outputs
+        working-directory: ${{ env.working-directory }}
         
       - name: Build APK
         run: flutter build apk --release -t lib/src/main.dart

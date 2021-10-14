@@ -31,7 +31,7 @@ jobs:
 
         
       - name: Build APK
-        run: flutter build apk --release
+        run: flutter build apk --release -t lib/src/main.dart
         working-directory: ${{ env.working-directory }}
 
 

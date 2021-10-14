@@ -13,6 +13,7 @@ import '../../dashboard/controller/shop_list_controller.dart';
 class CategorizedShopsWidget extends GetWidget<ShopListController> {
   final String title;
   final int itemCount = 10;
+  final Size imageSize = const Size(160, 160);
 
   @override
   final String tag;
@@ -45,8 +46,12 @@ class CategorizedShopsWidget extends GetWidget<ShopListController> {
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10.0),
                           child: controller.datas.isEmpty
-                              ? _createShimmerShopItem(context)
-                              : _ShopItem(shop: controller.datas[index]),
+                              ? _createShimmerShopItem(
+                                  context, imageSize.width + 2)
+                              : _ShopItem(
+                                  shop: controller.datas[index],
+                                  imageSize: imageSize,
+                                ),
                         );
                       }
                     },
@@ -92,7 +97,7 @@ class CategorizedShopsWidget extends GetWidget<ShopListController> {
     );
   }
 
-  Widget _createShimmerShopItem(BuildContext context) {
+  Widget _createShimmerShopItem(BuildContext context, double width) {
     return Shimmer.fromColors(
       baseColor: ShimmerColor.baseColor,
       highlightColor: ShimmerColor.highlightColor,
@@ -103,10 +108,10 @@ class CategorizedShopsWidget extends GetWidget<ShopListController> {
           Flexible(
             flex: 10,
             child: Container(
-              constraints: BoxConstraints(minHeight: 150, minWidth: 150),
+              width: width,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
-                color: Colors.black,
+                color: Theme.of(context).backgroundColor,
               ),
             ),
           ),
@@ -122,7 +127,6 @@ class CategorizedShopsWidget extends GetWidget<ShopListController> {
             children: [
               const Icon(
                 Icons.star,
-                color: Colors.amber,
                 size: 15,
               ),
               Text(
@@ -183,7 +187,7 @@ class _ShopItem extends StatelessWidget {
   final Shop shop;
   const _ShopItem({
     required this.shop,
-    this.imageSize = const Size(150, 150),
+    required this.imageSize,
     Key? key,
   }) : super(key: key);
 

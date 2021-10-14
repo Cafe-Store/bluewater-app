@@ -1,4 +1,3 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -7,7 +6,7 @@ import '../../../core/injector/injection.dart';
 import '../../../core/logger/logger_utils.dart';
 import '../../../core/usecase/usecase.dart';
 
-mixin InfiniteScrollMixin<D, U extends UseCase<D, ScrollParam>> {
+mixin InfiniteScrollMixin<D, P extends ScrollParam, U extends UseCase<D, P>> {
   late ScrollController _scroll = ScrollController();
   final RxBool _isScrolled = false.obs;
   final _datas = <D>[].obs;
@@ -46,9 +45,11 @@ mixin InfiniteScrollMixin<D, U extends UseCase<D, ScrollParam>> {
           _reachedMax = true;
           Logger.logNoStack.i('_reachedMax : $_reachedMax');
         } else {
+          Logger.logNoStack.i(
+              '''${toString()}:$hashCode ${D.toString()} page:${scrollParam.page}''');
+
           _datas.addAll(loadedDatas);
-          Logger.logNoStack.i('''
-${toString()}:$hashCode loaded ${D.toString()} size : ${_datas.length}''');
+          scrollParam.page++;
         }
       });
     }
@@ -78,7 +79,16 @@ ${toString()}:$hashCode loaded ${D.toString()} size : ${_datas.length}''');
 
   ScrollController get scroll => _scroll;
 
-  ScrollParam get scrollParam;
+  P get scrollParam;
+
+  void reloadDatas() {
+    _datas.clear();
+    loadDatas();
+  }
 }
 
-abstract class ScrollParam extends Equatable {}
+abstract class ScrollParam {
+  set page(int page);
+
+  int get page;
+}

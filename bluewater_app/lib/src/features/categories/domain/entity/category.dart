@@ -1,14 +1,19 @@
 import '../../../../shared/model/tab_item.dart';
 
 class Category extends TabItem {
+  final String code;
   final String name;
-  final String imageUri;
+  final String image;
   final String? badgeName;
 
-  Category({required this.name, required this.imageUri, this.badgeName});
+  Category(
+      {required this.code,
+      required this.name,
+      required this.image,
+      this.badgeName});
 
   @override
-  List<Object?> get props => [name];
+  List<Object?> get props => [code, name];
 
   @override
   String get title => name;

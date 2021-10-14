@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 
 import 'core/injector/injection.dart';
 import 'core/util/const.dart';
-import 'features/shops/presentation/categorized_shops/controller/categorized_shops_controller.dart';
+import 'features/shops/domain/usecase/get_shops_usecase.dart';
+import 'features/shops/domain/usecase/get_star_shops_usecase.dart';
 import 'features/shops/presentation/dashboard/controller/shop_list_controller.dart';
 import 'features/shops/presentation/filter/controller/shops_filter_controller.dart';
 import 'routes/app_pages.dart';
@@ -35,17 +36,27 @@ class MyApp extends StatelessWidget {
         () {
           //대시보드의 가게 목록에서 필터 선택 유지하기 위해서
           Get.put<ShopListController>(
-              ShopListController(tag: Tags.homeDashboard),
+              ShopListController<ShopsScrollParam, GetShopsUsecase>(
+                param: ShopsScrollParam(),
+              ),
               tag: Tags.homeDashboard,
               permanent: true);
           Get.put<ShopsFilterController>(ShopsFilterController(),
               tag: Tags.homeDashboard, permanent: true);
 
-          Get.put<CategorizedShopsController>(CategorizedShopsController(),
-              tag: Tags.homeNewlyShops, permanent: true);
+          Get.put<ShopListController>(
+              ShopListController<ShopsScrollParam, GetStarShopsUsecase>(
+                param: ShopsScrollParam(),
+              ),
+              tag: Tags.homeNewlyShops,
+              permanent: true);
 
-          Get.put<CategorizedShopsController>(CategorizedShopsController(),
-              tag: Tags.homePopularShops, permanent: true);
+          Get.put<ShopListController>(
+              ShopListController<ShopsScrollParam, GetShopsUsecase>(
+                param: ShopsScrollParam(),
+              ),
+              tag: Tags.homeStarShops,
+              permanent: true);
         },
       ),
     );

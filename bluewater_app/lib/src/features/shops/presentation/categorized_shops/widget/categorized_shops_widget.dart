@@ -8,10 +8,12 @@ import '../../../../../core/util/const.dart';
 import '../../../../../routes/app_pages.dart';
 import '../../../../../shared/ui/color/shimmer_color.dart';
 import '../../../domain/entity/shop.dart';
-import '../controller/categorized_shops_controller.dart';
+import '../../dashboard/controller/shop_list_controller.dart';
 
-class CategorizedShopsWidget extends GetWidget<CategorizedShopsController> {
+class CategorizedShopsWidget extends GetWidget<ShopListController> {
   final String title;
+  final int itemCount = 10;
+  final Size imageSize = const Size(160, 160);
 
   @override
   final String tag;
@@ -24,17 +26,45 @@ class CategorizedShopsWidget extends GetWidget<CategorizedShopsController> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _createTitleArea(context),
-          Expanded(
-            child: _createListView(context),
+    return Obx(
+      () {
+        return Container(
+          padding: EdgeInsets.all(10),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _createTitleArea(context),
+              Expanded(
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      if (index == itemCount - 1 ||
+                          (controller.datas.isNotEmpty &&
+                              index == controller.datas.length)) {
+                        return _createMoreButton();
+                      } else {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: controller.datas.isEmpty
+                              ? _createShimmerShopItem(
+                                  context, imageSize.width + 10)
+                              : _ShopItem(
+                                  shop: controller.datas[index],
+                                  imageSize: imageSize,
+                                ),
+                        );
+                      }
+                    },
+                    itemCount: controller.datas.isEmpty
+                        ? itemCount
+                        : controller.datas.length > itemCount
+                            ? itemCount
+                            : controller.datas.length + 1),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -53,6 +83,7 @@ class CategorizedShopsWidget extends GetWidget<CategorizedShopsController> {
                 Routes.shops,
                 parameters: {
                   RoutesParamName.selectedCategoryName: title,
+                  RoutesParamName.controllerTag: tag,
                 },
               );
             }
@@ -66,39 +97,7 @@ class CategorizedShopsWidget extends GetWidget<CategorizedShopsController> {
     );
   }
 
-  Widget _createListView(BuildContext context) {
-    return Obx(
-      () {
-        if (controller.datas.isEmpty) {
-          return ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                if (index == 9) {
-                  return _createMoreButton();
-                } else {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: _createShimmerShopItem(context),
-                  );
-                }
-              },
-              itemCount: 5);
-        } else {
-          return ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: _ShopItem(shop: controller.datas[index]),
-                );
-              },
-              itemCount: 5);
-        }
-      },
-    );
-  }
-
-  Widget _createShimmerShopItem(BuildContext context) {
+  Widget _createShimmerShopItem(BuildContext context, double width) {
     return Shimmer.fromColors(
       baseColor: ShimmerColor.baseColor,
       highlightColor: ShimmerColor.highlightColor,
@@ -109,10 +108,10 @@ class CategorizedShopsWidget extends GetWidget<CategorizedShopsController> {
           Flexible(
             flex: 10,
             child: Container(
-              constraints: BoxConstraints(minHeight: 150, minWidth: 150),
+              width: width,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
-                color: Colors.black,
+                color: Theme.of(context).backgroundColor,
               ),
             ),
           ),
@@ -128,7 +127,6 @@ class CategorizedShopsWidget extends GetWidget<CategorizedShopsController> {
             children: [
               const Icon(
                 Icons.star,
-                color: Colors.amber,
                 size: 15,
               ),
               Text(
@@ -158,6 +156,7 @@ class CategorizedShopsWidget extends GetWidget<CategorizedShopsController> {
                     Routes.shops,
                     parameters: {
                       RoutesParamName.selectedCategoryName: title,
+                      RoutesParamName.controllerTag: tag,
                     },
                   );
                 }
@@ -188,7 +187,7 @@ class _ShopItem extends StatelessWidget {
   final Shop shop;
   const _ShopItem({
     required this.shop,
-    this.imageSize = const Size(150, 150),
+    required this.imageSize,
     Key? key,
   }) : super(key: key);
 

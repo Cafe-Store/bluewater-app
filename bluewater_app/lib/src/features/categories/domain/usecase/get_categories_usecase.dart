@@ -8,18 +8,19 @@ import '../entity/category.dart';
 import '../repository/categories_repository.dart';
 
 @lazySingleton
-class GetCategoriesUsecase extends UseCase<Category, ScrollParam> {
+class GetCategoriesUsecase extends UseCase<Category, CategoriesScrollParam> {
   final CategoriesRepository categoryRepository;
 
   GetCategoriesUsecase(this.categoryRepository);
 
   @override
-  Future<Either<Failure, List<Category>>> execute(ScrollParam params) {
+  Future<Either<Failure, List<Category>>> execute(
+      CategoriesScrollParam params) {
     return categoryRepository.findAll();
   }
 }
 
 class CategoriesScrollParam extends ScrollParam {
   @override
-  List<Object?> get props => [];
+  int page = 0;
 }

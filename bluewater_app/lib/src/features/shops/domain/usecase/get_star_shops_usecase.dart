@@ -3,23 +3,18 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../core/error/failures.dart';
 import '../../../../core/usecase/usecase.dart';
-import '../../../../shared/ui/controller/infinite_scroll_mixin.dart';
 import '../entity/shop.dart';
 import '../repository/shops_repository.dart';
+import 'get_shops_usecase.dart';
 
 @lazySingleton
-class GetShopsUsecase extends UseCase<Shop, ShopsScrollParam> {
+class GetStarShopsUsecase extends UseCase<Shop, ShopsScrollParam> {
   final ShopsRepository shopsRepository;
 
-  GetShopsUsecase(this.shopsRepository);
+  GetStarShopsUsecase(this.shopsRepository);
 
   @override
   Future<Either<Failure, List<Shop>>> execute(ShopsScrollParam params) {
-    return shopsRepository.findAll();
+    return shopsRepository.findAllRankingShops();
   }
-}
-
-class ShopsScrollParam extends ScrollParam {
-  @override
-  int page = 0;
 }

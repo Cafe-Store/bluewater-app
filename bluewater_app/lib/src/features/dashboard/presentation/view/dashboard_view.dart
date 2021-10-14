@@ -6,6 +6,7 @@ import '../../../../routes/app_pages.dart';
 import '../../../categories/presentation/widget/categories_widget.dart';
 import '../../../events/presentation/widget/events_slider_widget.dart';
 import '../../../shops/presentation/categorized_shops/widget/categorized_shops_widget.dart';
+import '../../../shops/presentation/dashboard/controller/shop_list_controller.dart';
 import '../../../shops/presentation/dashboard/widget/shop_list_widget.dart';
 import '../../../shops/presentation/filter/widget/shops_fliter_list_widget.dart';
 import '../../serivce/dashboard_service.dart';
@@ -25,9 +26,7 @@ class DashboardView extends GetView<DashboardService> {
 
     return Scaffold(
       body: RefreshIndicator(
-        onRefresh: () => Future.delayed(
-          const Duration(seconds: 2),
-        ),
+        onRefresh: reloadDatas,
         notificationPredicate: (notification) {
           return true;
         },
@@ -63,7 +62,7 @@ class DashboardView extends GetView<DashboardService> {
                   CategorizedShopsWidget(
                       key: PageStorageKey('starShop'),
                       title: '인기 가게',
-                      tag: Tags.homePopularShops),
+                      tag: Tags.homeStarShops),
                   shopHeight,
                 ),
 
@@ -115,5 +114,13 @@ class DashboardView extends GetView<DashboardService> {
         height: height,
       ),
     );
+  }
+
+  Future<void> reloadDatas() {
+    return Future<void>(() {
+      Get.find<ShopListController>(tag: Tags.homeDashboard).reloadDatas();
+      Get.find<ShopListController>(tag: Tags.homeNewlyShops).reloadDatas();
+      Get.find<ShopListController>(tag: Tags.homeStarShops).reloadDatas();
+    });
   }
 }

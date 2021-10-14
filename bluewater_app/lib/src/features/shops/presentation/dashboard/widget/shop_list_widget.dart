@@ -37,6 +37,7 @@ class ShopListWidget extends GetWidget<ShopListController> {
   @override
   Widget build(BuildContext context) {
     controller.scroll = innerScroll;
+
     return Obx(
       () {
         return Stack(
@@ -149,12 +150,14 @@ class ShopListWidget extends GetWidget<ShopListController> {
 
 class ShopListItem extends StatelessWidget {
   final Shop shop;
-  final GlobalKey _backgroundImageKey = GlobalKey();
+  late final GlobalKey _backgroundImageKey;
 
   ShopListItem(
     this.shop, {
     Key? key,
-  }) : super(key: key);
+  }) : super(key: key) {
+    _backgroundImageKey = GlobalKey(debugLabel: shop.id);
+  }
 
   Widget build(BuildContext context) {
     return AspectRatio(
@@ -181,9 +184,9 @@ class ShopListItem extends StatelessWidget {
       ),
       children: [
         CachedNetworkImage(
+          key: _backgroundImageKey,
           imageUrl: shop.photo.uri,
           imageBuilder: (context, imageProvider) => Container(
-            key: _backgroundImageKey,
             height: context.isLandscape ? Get.height * 1.1 : Get.height * 0.5,
             width: Get.width,
             decoration: BoxDecoration(

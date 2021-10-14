@@ -1,4 +1,3 @@
-import '../../../shops/presentation/dashboard/controller/shop_list_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -7,6 +6,7 @@ import '../../../../routes/app_pages.dart';
 import '../../../categories/presentation/widget/categories_widget.dart';
 import '../../../events/presentation/widget/events_slider_widget.dart';
 import '../../../shops/presentation/categorized_shops/widget/categorized_shops_widget.dart';
+import '../../../shops/presentation/dashboard/controller/shop_list_controller.dart';
 import '../../../shops/presentation/dashboard/widget/shop_list_widget.dart';
 import '../../../shops/presentation/filter/widget/shops_fliter_list_widget.dart';
 import '../../serivce/dashboard_service.dart';
@@ -97,6 +97,7 @@ class DashboardView extends GetView<DashboardService> {
               ],
               tag: Tags.homeDashboard,
               startRouteName: Routes.home,
+              innerScroll: PrimaryScrollController.of(context)!,
             ),
           ),
         ),

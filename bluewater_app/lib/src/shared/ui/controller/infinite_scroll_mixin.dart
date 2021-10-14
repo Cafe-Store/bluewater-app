@@ -55,10 +55,8 @@ mixin InfiniteScrollMixin<D, P extends ScrollParam, U extends UseCase<D, P>> {
     }
   }
 
-  @nonVirtual
   set setFocus(bool focus) => isForcused = focus;
 
-  @nonVirtual
   bool get isScrolled => _isScrolled.value;
 
   bool get _isBottom {
@@ -68,24 +66,21 @@ mixin InfiniteScrollMixin<D, P extends ScrollParam, U extends UseCase<D, P>> {
     return currentScroll >= (maxScroll * 0.8);
   }
 
-  @nonVirtual
   set scroll(ScrollController scroll) {
     _scroll = scroll;
     _scroll.addListener(_listener);
   }
 
-  @nonVirtual
   bool get hasReachedMax => _reachedMax;
-  @nonVirtual
+
   String get failureMesage => _failureMesage;
-  @nonVirtual
+
   List<D> get datas => List.unmodifiable(_datas);
-  @nonVirtual
+
   ScrollController get scroll => _scroll;
 
   P get scrollParam;
 
-  @nonVirtual
   void reloadDatas() {
     _datas.clear();
     loadDatas();

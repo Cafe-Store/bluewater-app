@@ -12,7 +12,7 @@ import '../../../domain/entity/shop.dart';
 import '../controller/shop_list_controller.dart';
 
 class ShopListWidget extends GetWidget<ShopListController> {
-  final ScrollController? innerScroll;
+  final ScrollController innerScroll;
   final List<Widget>? topAreaSliverWidgets;
   final String? startRouteName;
   final Widget? sliverOverlapInjector;
@@ -28,7 +28,7 @@ class ShopListWidget extends GetWidget<ShopListController> {
     this.topAreaSliverWidgets,
     this.needCorrectScrollOffset = false,
     this.sliverOverlapInjector,
-    this.innerScroll,
+    required this.innerScroll,
     Key? key,
   }) : super(key: key) {
     _initScrollOffset = needCorrectScrollOffset ? -0.01 : 0.0;
@@ -36,9 +36,7 @@ class ShopListWidget extends GetWidget<ShopListController> {
 
   @override
   Widget build(BuildContext context) {
-    if (innerScroll != null) {
-      controller.scroll = innerScroll!;
-    }
+    controller.scroll = innerScroll;
 
     return Obx(
       () {

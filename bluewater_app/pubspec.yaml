@@ -46,6 +46,7 @@ dependencies:
   intl: ^0.17.0
   json_annotation: ^4.1.0
   logger: ^1.0.0
+  responsive_framework: ^0.1.4
   retrofit: ^2.0.1
   shimmer: ^2.0.0
 

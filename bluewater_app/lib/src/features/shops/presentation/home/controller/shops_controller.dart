@@ -57,8 +57,7 @@ class ShopsController extends GetxController with TabControllMixin {
     if (showCategoryTab) {
       for (var category in categoris) {
         Get.put<ShopListController>(
-          ShopListController<CategorizedShopsScrollParam,
-                  GetCategorizedShopsUsecase>(
+          ShopListController<CategorizedShopsScrollParam>(
               param: CategorizedShopsScrollParam(code: category.code)),
           tag: category.name,
         );

@@ -7,7 +7,7 @@ import '../../../../shared/ui/controller/infinite_scroll_mixin.dart';
 import '../entity/event.dart';
 import '../repository/events_repository.dart';
 
-@lazySingleton
+@LazySingleton(as: UseCase)
 class GetEventsUsecase extends UseCase<Event, EventsScrollParam> {
   final EventsRepository eventsRepository;
 

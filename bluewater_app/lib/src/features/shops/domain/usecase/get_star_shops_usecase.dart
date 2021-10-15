@@ -7,7 +7,8 @@ import '../entity/shop.dart';
 import '../repository/shops_repository.dart';
 import 'get_shops_usecase.dart';
 
-@lazySingleton
+@named
+@LazySingleton(as: UseCase)
 class GetStarShopsUsecase extends UseCase<Shop, ShopsScrollParam> {
   final ShopsRepository shopsRepository;
 

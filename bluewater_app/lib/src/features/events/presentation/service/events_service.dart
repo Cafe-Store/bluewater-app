@@ -5,7 +5,11 @@ import '../../domain/entity/event.dart';
 import '../../domain/usecase/get_events_usecase.dart';
 
 class EventsService extends GetxService
-    with InfiniteScrollMixin<Event, EventsScrollParam, GetEventsUsecase> {
+    with InfiniteScrollMixin<Event, EventsScrollParam> {
+  String? usecaeClassName;
+
+  EventsService({this.usecaeClassName});
+
   @override
   void onInit() {
     super.onInit();
@@ -14,4 +18,7 @@ class EventsService extends GetxService
 
   @override
   EventsScrollParam get scrollParam => EventsScrollParam();
+
+  @override
+  String? get usecaeName => usecaeClassName;
 }

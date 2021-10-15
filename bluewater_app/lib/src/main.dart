@@ -50,25 +50,31 @@ class MyApp extends StatelessWidget {
       initialBinding: BindingsBuilder(
         () {
           //대시보드의 가게 목록에서 필터 선택 유지하기 위해서
+          //Shops
           Get.put<ShopListController>(
-              ShopListController<ShopsScrollParam, GetShopsUsecase>(
+              ShopListController<ShopsScrollParam>(
                 param: ShopsScrollParam(),
+                usecaeClassName: (GetShopsUsecase).toString(),
               ),
               tag: Tags.homeDashboard,
               permanent: true);
           Get.put<ShopsFilterController>(ShopsFilterController(),
               tag: Tags.homeDashboard, permanent: true);
 
+          //newlyShops
           Get.put<ShopListController>(
-              ShopListController<ShopsScrollParam, GetStarShopsUsecase>(
+              ShopListController<ShopsScrollParam>(
                 param: ShopsScrollParam(),
+                usecaeClassName: (GetShopsUsecase).toString(),
               ),
               tag: Tags.homeNewlyShops,
               permanent: true);
 
+          //StarShops
           Get.put<ShopListController>(
-              ShopListController<ShopsScrollParam, GetShopsUsecase>(
+              ShopListController<ShopsScrollParam>(
                 param: ShopsScrollParam(),
+                usecaeClassName: (GetStarShopsUsecase).toString(),
               ),
               tag: Tags.homeStarShops,
               permanent: true);

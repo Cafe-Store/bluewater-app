@@ -7,7 +7,7 @@ import '../../../../shared/ui/controller/infinite_scroll_mixin.dart';
 import '../entity/category.dart';
 import '../repository/categories_repository.dart';
 
-@lazySingleton
+@LazySingleton(as: UseCase)
 class GetCategoriesUsecase extends UseCase<Category, CategoriesScrollParam> {
   final CategoriesRepository categoryRepository;
 

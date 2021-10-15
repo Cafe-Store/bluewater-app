@@ -7,7 +7,7 @@ import '../../../core/logger/logger_utils.dart';
 import '../../../core/usecase/usecase.dart';
 
 mixin InfiniteScrollMixin<D, P extends ScrollParam> {
-  late ScrollController _scroll = ScrollController();
+  ScrollController? _scroll;
   final RxBool _isScrolled = false.obs;
   final _datas = <D>[].obs;
   final RxDouble preScrollOffset = 0.0.obs;
@@ -20,10 +20,10 @@ mixin InfiniteScrollMixin<D, P extends ScrollParam> {
   bool _isLoading = false;
 
   void _listener() {
-    _isScrolled(_scroll.offset > 0);
+    _isScrolled(_scroll!.offset > 0);
 
     if (isForcused) {
-      preScrollOffset(_scroll.offset);
+      preScrollOffset(_scroll?.offset);
     }
 
     if (_isBottom && isForcused) {
@@ -61,15 +61,17 @@ mixin InfiniteScrollMixin<D, P extends ScrollParam> {
   bool get isScrolled => _isScrolled.value;
 
   bool get _isBottom {
-    if (!_scroll.hasClients) return false;
-    final maxScroll = _scroll.position.maxScrollExtent;
-    final currentScroll = _scroll.offset;
+    if (!_scroll!.hasClients) return false;
+    final maxScroll = _scroll!.position.maxScrollExtent;
+    final currentScroll = _scroll!.offset;
     return currentScroll >= (maxScroll * 0.8);
   }
 
-  set scroll(ScrollController scroll) {
+  set scroll(ScrollController? scroll) {
     _scroll = scroll;
-    _scroll.addListener(_listener);
+    if (_scroll != null) {
+      _scroll!.addListener(_listener);
+    }
   }
 
   bool get hasReachedMax => _reachedMax;
@@ -78,7 +80,7 @@ mixin InfiniteScrollMixin<D, P extends ScrollParam> {
 
   List<D> get datas => List.unmodifiable(_datas);
 
-  ScrollController get scroll => _scroll;
+  ScrollController? get scroll => _scroll;
 
   P get scrollParam;
 

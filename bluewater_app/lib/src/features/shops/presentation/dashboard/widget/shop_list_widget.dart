@@ -73,7 +73,7 @@ class ShopListWidget extends GetWidget<ShopListController> {
       right: Get.width / 20,
       child: ElevatedButton(
         onPressed: () {
-          controller.scroll.jumpTo(_initScrollOffset);
+          controller.scroll!.jumpTo(_initScrollOffset);
           controller.preScrollOffset(0.0);
         },
         child: const Icon(

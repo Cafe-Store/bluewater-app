@@ -1,32 +1,16 @@
 import 'dart:async';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:injectable/injectable.dart';
+import 'package:flutter/material.dart';
 
 enum NetworkStatus { online, offline }
 
-@LazySingleton()
-class NetworkInfo {
-  NetworkInfo._();
+abstract class NetworkInfo {
+  Future<bool> get isConnected => isAvailable();
 
-  static final NetworkInfo _instance = NetworkInfo._();
+  @protected
+  Future<bool> isAvailable();
 
-  factory NetworkInfo() {
-    return _instance;
-  }
-
-  Future<bool> get isConnected => _isAvailable();
-
-  Future<bool> _isAvailable() async {
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    var getNetworkStatus = _getNetworkStatus(connectivityResult);
-
-    return Future.value(getNetworkStatus == NetworkStatus.online);
-  }
-
-  NetworkStatus _getNetworkStatus(ConnectivityResult status) {
-    return status == ConnectivityResult.mobile ||
-            status == ConnectivityResult.wifi
-        ? NetworkStatus.online
-        : NetworkStatus.offline;
-  }
+  @protected
+  NetworkStatus getNetworkStatus(ConnectivityResult status);
 }

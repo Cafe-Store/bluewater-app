@@ -16,16 +16,16 @@ class ProductRepositoryImp extends ProductRepository {
 
   @override
   Future<Either<Failure, List<Product>>> findAllProducts(String id) async {
-    // var isConnected = await networkInfo.isConnected;
+    var isConnected = await networkInfo.isConnected;
 
-    // if (isConnected) {
-    try {
-      return Right(await remoteDataSource.findAllProducts(id));
-    } on Exception {
+    if (isConnected) {
+      try {
+        return Right(await remoteDataSource.findAllProducts(id));
+      } on Exception {
+        return Left(ServerFailure());
+      }
+    } else {
       return Left(ServerFailure());
     }
-    // } else {
-    // return Left(ServerFailure());
-    // }
   }
 }

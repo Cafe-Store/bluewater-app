@@ -30,9 +30,10 @@ void main() {
 
       expect(_datas.isNotEmpty, true);
       expect(_datas.length, 30);
+      expect(_datas[0].groups[0].name, '패션');
     },
     timeout: Timeout(
-      Duration(seconds: 30),
+      Duration(minutes: 3),
     ),
   );
 }

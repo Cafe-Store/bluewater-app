@@ -8,7 +8,7 @@ import '../entity/event.dart';
 import '../repository/events_repository.dart';
 
 @LazySingleton(as: UseCase)
-class GetEventsUsecase extends UseCase<Event, EventsScrollParam> {
+class GetEventsUsecase extends UseCase<List<Event>, EventsScrollParam> {
   final EventsRepository eventsRepository;
 
   GetEventsUsecase(this.eventsRepository);

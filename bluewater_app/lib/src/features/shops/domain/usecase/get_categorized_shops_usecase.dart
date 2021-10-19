@@ -10,7 +10,7 @@ import '../repository/shops_repository.dart';
 
 @LazySingleton(as: UseCase)
 class GetCategorizedShopsUsecase
-    extends UseCase<Shop, CategorizedShopsScrollParam> {
+    extends UseCase<List<Shop>, CategorizedShopsScrollParam> {
   final ShopsRepository shopsRepository;
 
   GetCategorizedShopsUsecase(this.shopsRepository);

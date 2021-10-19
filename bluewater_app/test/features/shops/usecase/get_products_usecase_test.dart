@@ -14,7 +14,7 @@ void main() {
     () async {
       var _datas = <Product>[];
       var _failureMesage = '';
-      var useCase = getIt<UseCase<Product, ProductParam>>();
+      var useCase = getIt<UseCase<List<Product>, ProductParam>>();
       final failureOrDatas = await useCase.execute(ProductParam(shopId: '1'));
 
       failureOrDatas.fold(

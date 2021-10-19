@@ -22,4 +22,9 @@ abstract class ShopsRemoteDataSource {
   Future<List<ShopModel>> findAllCategorizedShops(
     @Query("code") String code,
   );
+
+  @GET('/shops/{id}')
+  Future<ShopModel> findShop(
+    @Path('id') String id,
+  );
 }

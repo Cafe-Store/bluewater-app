@@ -1,17 +1,44 @@
 import 'package:get/get.dart';
 
+import '../../../../../core/logger/logger_utils.dart';
+import '../../../../../core/usecase/usecase.dart';
 import '../../../../../routes/app_pages.dart';
+import '../../../domain/entity/product.dart';
+import '../../../domain/usecase/get_products_usecase.dart';
 
 class ShopDetailsController extends GetxController {
   final String shopId;
   final Object? startRouteName;
+  final UseCase<List<Product>, ProductParam> usecase;
 
-  ShopDetailsController({required this.shopId, this.startRouteName});
+  final failureMesage = ''.obs;
+  final products = <Product>[].obs;
+
+  ShopDetailsController({
+    required this.usecase,
+    required this.shopId,
+    this.startRouteName,
+  });
 
   @override
   void onInit() {
     super.onInit();
+    _loadDatas(shopId);
     Get.log('created with id: $shopId and startRouteName = $startRouteName');
+  }
+
+  void _loadDatas(String shopId) async {
+    var failureOrDatas = await usecase.execute(ProductParam(shopId: shopId));
+
+    failureOrDatas.fold((failure) => failureMesage(failure.message),
+        (loadedDatas) {
+      if (loadedDatas.isEmpty && failureMesage.isEmpty) {
+        Logger.logNoStack.i('data empty');
+      } else {
+        Logger.logNoStack.i('${toString()}:$hashCode data loaded');
+        products.addAll(loadedDatas);
+      }
+    });
   }
 
   @override

@@ -135,8 +135,9 @@ class ShopListWidget extends GetWidget<ShopListController> {
   Widget _createShopItem(int index) {
     return InkWell(
       onTap: () {
-        Get.rootDelegate
-            .toNamed(Routes.shopDetails('$index'), arguments: startRouteName);
+        Get.rootDelegate.toNamed(
+            Routes.shopDetails('${controller.datas[index].id}'),
+            arguments: startRouteName);
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 13.0),

@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 import '../../domain/entity/shop.dart';
 import 'photo_model.dart';
 import 'rank_model.dart';
-import 'serialiser/photo_serialiser.dart';
+import 'serialiser/photos_serialiser.dart';
 import 'serialiser/rank_serialiser.dart';
 
 part 'shop_model.g.dart';
@@ -15,9 +15,9 @@ class ShopModel extends Shop {
   const ShopModel({
     required this.shopId,
     required String name,
-    required PhotoModel photo,
+    required List<PhotoModel> photos,
     required RankModel rank,
-  }) : super(id: shopId, name: name, photo: photo, rank: rank);
+  }) : super(id: shopId, name: name, photos: photos, rank: rank);
 
   factory ShopModel.fromJson(Map<String, dynamic> json) =>
       _$ShopModelFromJson(json);

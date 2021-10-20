@@ -186,7 +186,7 @@ class ShopListItem extends StatelessWidget {
       children: [
         CachedNetworkImage(
           key: _backgroundImageKey,
-          imageUrl: shop.photo.uri,
+          imageUrl: shop.photos[0].uri,
           imageBuilder: (context, imageProvider) => Container(
             height: context.isLandscape ? Get.height * 1.1 : Get.height * 0.5,
             width: Get.width,

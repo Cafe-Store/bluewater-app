@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-import '../../../location/domain/entity/adress.dart';
-import '../../data/model/serialiser/adress_serialiser.dart';
+import '../../../location/data/model/serialiser/address_serialiser.dart';
+import '../../../location/domain/entity/address.dart';
 import '../../data/model/serialiser/business_number_serialiser.dart';
 import '../../data/model/serialiser/owner_serialiser.dart';
 import '../../data/model/serialiser/rank_serialiser.dart';
@@ -18,8 +18,8 @@ class Shop extends Equatable {
   final String id;
   final String name;
 
-  @AdressSerialiser()
-  final Adress adress;
+  @AddressSerialiser()
+  final Address address;
 
   @TelePhoneNumberSerialiser()
   final TelephoneNumber tel;
@@ -44,7 +44,7 @@ class Shop extends Equatable {
   const Shop({
     required this.id,
     required this.name,
-    required this.adress,
+    required this.address,
     required this.tel,
     required this.businessNumber,
     required this.rank,
@@ -59,7 +59,7 @@ class Shop extends Equatable {
         name: '',
         photos: <ShopPhoto>[],
         rank: Rank(0.0, 0),
-        adress: Adress('', '', ''),
+        address: Address('', '', ''),
         owner: Owner('', ''),
         officeHours: '',
         notice: '',

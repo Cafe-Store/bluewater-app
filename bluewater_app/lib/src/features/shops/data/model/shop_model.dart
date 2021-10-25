@@ -1,12 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../location/domain/entity/adress.dart';
+import '../../../location/data/model/serialiser/address_serialiser.dart';
+import '../../../location/domain/entity/address.dart';
 import '../../domain/entity/business_number.dart';
 import '../../domain/entity/owner.dart';
 import '../../domain/entity/shop.dart';
 import '../../domain/entity/telephone_homber.dart';
 import 'rank_model.dart';
-import 'serialiser/adress_serialiser.dart';
 import 'serialiser/business_number_serialiser.dart';
 import 'serialiser/owner_serialiser.dart';
 import 'serialiser/rank_serialiser.dart';
@@ -23,7 +23,7 @@ class ShopModel extends Shop {
   const ShopModel({
     required this.shopId,
     required String name,
-    required Adress adress,
+    required Address address,
     required TelephoneNumber tel,
     required BusinessNumber businessNumber,
     required RankModel rank,
@@ -34,7 +34,7 @@ class ShopModel extends Shop {
   }) : super(
           id: shopId,
           name: name,
-          adress: adress,
+          address: address,
           tel: tel,
           businessNumber: businessNumber,
           rank: rank,

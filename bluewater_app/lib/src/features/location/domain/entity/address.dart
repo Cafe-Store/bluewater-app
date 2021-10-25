@@ -1,7 +1,7 @@
-class Adress {
+class Address {
   final String postcode;
   final String street;
   final String detail;
 
-  Adress(this.postcode, this.street, this.detail);
+  Address(this.postcode, this.street, this.detail);
 }

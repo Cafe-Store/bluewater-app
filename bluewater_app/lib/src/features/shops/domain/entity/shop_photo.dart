@@ -1,4 +1,4 @@
-import 'package:bluewater_app/src/features/shops/data/model/serialiser/photo_serialiser.dart';
+import '../../data/model/serialiser/photo_serialiser.dart';
 
 import 'photo.dart';
 

@@ -1,6 +1,7 @@
-import 'package:bluewater_app/src/features/shops/data/model/telephone_number_model.dart';
-import 'package:bluewater_app/src/features/shops/domain/entity/telephone_homber.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import '../../../domain/entity/telephone_homber.dart';
+import '../telephone_number_model.dart';
 
 class TelePhoneNumberSerialiser
     extends JsonConverter<TelephoneNumber, Map<String, dynamic>> {

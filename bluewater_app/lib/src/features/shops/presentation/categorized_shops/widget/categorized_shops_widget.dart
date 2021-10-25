@@ -199,7 +199,8 @@ class _ShopItem extends StatelessWidget {
         Flexible(
           flex: 10,
           child: CachedNetworkImage(
-            imageUrl: shop.photos[0].uri,
+            imageUrl:
+                shop.photos.firstWhere((element) => element.main).photo.uri,
             imageBuilder: (context, imageProvider) => Container(
               height: imageSize.height,
               width: imageSize.width,

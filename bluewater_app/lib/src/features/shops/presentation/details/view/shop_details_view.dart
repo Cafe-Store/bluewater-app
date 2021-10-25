@@ -222,7 +222,7 @@ class _ImageSlider extends StatelessWidget {
                 // color: Colors.grey[300],
                 // colorBlendMode: BlendMode.multiply,
                 fit: BoxFit.cover,
-                imageUrl: shop.photos[index].uri,
+                imageUrl: shop.photos[index].photo.uri,
               )
             : Shimmer.fromColors(
                 child: Container(

@@ -16,11 +16,11 @@ class HomeView extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            shadowColor: Colors.transparent,
             title: const Padding(
-              padding: EdgeInsets.only(left: 5, right: 5),
+              padding: EdgeInsets.symmetric(horizontal: 5),
               child: LocationAppbarWidget(),
             ),
+            elevation: 0.5,
             actions: [
               IconButton(
                 onPressed: () {

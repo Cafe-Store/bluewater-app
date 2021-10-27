@@ -10,8 +10,8 @@ class AppTheme {
     brightness: Brightness.light,
     appBarTheme: ThemeData.light().appBarTheme.copyWith(
           backgroundColor: Colors.white,
+          shadowColor: Colors.white,
           iconTheme: IconThemeData(color: Colors.black),
-          shadowColor: Colors.grey.withOpacity(0.0),
         ),
     backgroundColor: Colors.white,
     scaffoldBackgroundColor: Colors.grey[50],

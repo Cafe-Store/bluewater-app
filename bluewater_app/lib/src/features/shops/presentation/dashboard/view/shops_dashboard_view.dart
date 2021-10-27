@@ -24,7 +24,7 @@ class ShopsDashboardView extends GetView<ShopsController> {
             )
           : Scaffold(
               appBar: AppBar(
-                shadowColor: Colors.transparent,
+                elevation: 0.5,
                 leading: IconButton(
                   icon: const Icon(Icons.arrow_back_rounded),
                   onPressed: () =>

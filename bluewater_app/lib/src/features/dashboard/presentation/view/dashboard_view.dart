@@ -25,6 +25,7 @@ class DashboardView extends GetView<DashboardService> {
     var shopHeight = Get.height / shopHCorrection;
 
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       body: RefreshIndicator(
         onRefresh: reloadDatas,
         notificationPredicate: (notification) {
@@ -82,7 +83,6 @@ class DashboardView extends GetView<DashboardService> {
 
                 SliverToBoxAdapter(
                   child: Container(
-                    color: Theme.of(context).backgroundColor,
                     padding: EdgeInsets.only(left: 10.0, top: 8.0),
                     child: Text(
                       '우리 동네 가게',

@@ -32,12 +32,12 @@ class _ShopDetailsSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
       1 - math.min((shrinkOffset * 1.5) / expandedHeight, 1.0);
 
   Widget _createAppBar(BuildContext context, double shrinkOffset) => Container(
+        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top * 0.6),
         constraints: BoxConstraints(minHeight: minExtent),
         color: Theme.of(context).appBarTheme.backgroundColor!.withOpacity(
               _appear(shrinkOffset),
             ),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             IconButton(
               color: _appear(shrinkOffset) > 0.5 ? Colors.black : Colors.white,
@@ -54,13 +54,9 @@ class _ShopDetailsSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
             Expanded(
               child: Opacity(
                 opacity: _appear(shrinkOffset),
-                child: Container(
-                  alignment: Alignment.centerLeft,
-                  height: minExtent / 2,
-                  child: Text(
-                    controller.shop.value.name,
-                    style: Theme.of(context).textTheme.subtitle1!,
-                  ),
+                child: Text(
+                  controller.shop.value.name,
+                  style: Theme.of(context).textTheme.subtitle1,
                 ),
               ),
             ),

@@ -55,6 +55,8 @@ class ShopDetailsController extends GetxController {
 
   bool get isLoadedShop => Shop.empty() != shop.value;
 
+  bool get hasReview => shop.value.rank.count > 0;
+
   void _loadProducts(String shopId) async {
     var failureOrDatas =
         await getProductsUsecase.execute(ProductParam(shopId: shopId));

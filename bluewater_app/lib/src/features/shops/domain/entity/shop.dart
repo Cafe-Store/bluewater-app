@@ -1,9 +1,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
+import '../../../categories/domain/entity/category.dart';
 import '../../../location/data/model/serialiser/address_serialiser.dart';
 import '../../../location/domain/entity/address.dart';
 import '../../data/model/serialiser/business_number_serialiser.dart';
+import '../../data/model/serialiser/category_list_serialiser.dart';
 import '../../data/model/serialiser/owner_serialiser.dart';
 import '../../data/model/serialiser/rank_serialiser.dart';
 import '../../data/model/serialiser/shop_photo_list_serialiser.dart';
@@ -40,6 +42,9 @@ class Shop extends Equatable {
   @ShopPhotoListSerialiser()
   final List<ShopPhoto> photos;
 
+  @CategoryListSerialiser()
+  final List<Category> categories;
+
   @mustCallSuper
   const Shop({
     required this.id,
@@ -52,6 +57,7 @@ class Shop extends Equatable {
     required this.officeHours,
     required this.notice,
     required this.photos,
+    required this.categories,
   });
 
   factory Shop.empty() => Shop(
@@ -65,6 +71,7 @@ class Shop extends Equatable {
         notice: '',
         businessNumber: BusinessNumber(''),
         tel: TelephoneNumber(''),
+        categories: <Category>[],
       );
 
   @override

@@ -135,8 +135,7 @@ class ShopListWidget extends GetWidget<ShopListController> {
   Widget _createShopItem(int index) {
     return InkWell(
       onTap: () {
-        Get.rootDelegate.toNamed(
-            Routes.shopDetails('${controller.datas[index].id}'),
+        Get.rootDelegate.toNamed(Routes.shopDetails(controller.datas[index].id),
             arguments: startRouteName);
       },
       child: Padding(
@@ -226,7 +225,7 @@ class ShopListItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            shop.name,
+            '${shop.name} ${shop.categories.map((e) => e.name).toString()}',
             style: Theme.of(context)
                 .textTheme
                 .subtitle1!

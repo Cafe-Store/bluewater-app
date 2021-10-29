@@ -16,5 +16,8 @@ class CategoryModel extends Category {
   factory CategoryModel.fromJson(Map<String, dynamic> json) =>
       _$CategoryModelFromJson(json);
 
+  factory CategoryModel.from(Category category) => CategoryModel(
+      code: category.code, image: category.image, name: category.name);
+
   Map<String, dynamic> toJson() => _$CategoryModelToJson(this);
 }

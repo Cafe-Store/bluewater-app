@@ -135,8 +135,8 @@ class ShopListWidget extends GetWidget<ShopListController> {
   Widget _createShopItem(int index) {
     return InkWell(
       onTap: () {
-        Get.rootDelegate
-            .toNamed(Routes.shopDetails('$index'), arguments: startRouteName);
+        Get.rootDelegate.toNamed(Routes.shopDetails(controller.datas[index].id),
+            arguments: startRouteName);
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 13.0),
@@ -185,7 +185,7 @@ class ShopListItem extends StatelessWidget {
       children: [
         CachedNetworkImage(
           key: _backgroundImageKey,
-          imageUrl: shop.photo.uri,
+          imageUrl: shop.photos.firstWhere((element) => element.main).photo.uri,
           imageBuilder: (context, imageProvider) => Container(
             height: context.isLandscape ? Get.height * 1.1 : Get.height * 0.5,
             width: Get.width,
@@ -225,7 +225,7 @@ class ShopListItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            shop.name,
+            '${shop.name} ${shop.categories.map((e) => e.name).toString()}',
             style: Theme.of(context)
                 .textTheme
                 .subtitle1!

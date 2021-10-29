@@ -8,7 +8,8 @@ import '../entity/category.dart';
 import '../repository/categories_repository.dart';
 
 @LazySingleton(as: UseCase)
-class GetCategoriesUsecase extends UseCase<Category, CategoriesScrollParam> {
+class GetCategoriesUsecase
+    extends UseCase<List<Category>, CategoriesScrollParam> {
   final CategoriesRepository categoryRepository;
 
   GetCategoriesUsecase(this.categoryRepository);

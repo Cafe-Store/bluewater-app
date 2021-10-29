@@ -15,91 +15,105 @@ class EventSlider extends GetWidget<EventsService> {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () {
-        return CarouselSlider.builder(
-          itemCount: controller.datas.isNotEmpty ? controller.datas.length : 1,
-          itemBuilder: (context, index, realIndex) {
-            return controller.datas.isNotEmpty
-                ? _SliderItem(
-                    item: controller.datas[index],
-                    total: controller.datas.length,
-                    index: ++index)
-                : Shimmer.fromColors(
-                    child: Container(
-                      color: Colors.black,
-                    ),
-                    baseColor: ShimmerColor.baseColor,
-                    highlightColor: ShimmerColor.highlightColor);
-          },
-          options: CarouselOptions(
-            height: Get.height,
-            viewportFraction: 1.0,
-            enlargeCenterPage: false,
-            scrollPhysics: controller.datas.isEmpty
-                ? NeverScrollableScrollPhysics()
-                : null,
-          ),
-        );
+      () => Stack(
+        children: _createContents(context),
+      ),
+    );
+  }
+
+  List<Widget> _createContents(BuildContext context) {
+    var widgets = <Widget>[];
+    widgets.add(_createSlider());
+
+    if (controller.datas.isNotEmpty) {
+      widgets.add(_createCountWidget(context));
+      widgets.add(_createShowAllWidget(context));
+    }
+    return widgets;
+  }
+
+  Widget _createSlider() {
+    return CarouselSlider.builder(
+      itemCount: controller.datas.isNotEmpty ? controller.datas.length : 1,
+      itemBuilder: (context, index, realIndex) {
+        return controller.datas.isNotEmpty
+            ? _SliderItem(
+                item: controller.datas[index],
+              )
+            : Shimmer.fromColors(
+                child: Container(
+                  color: Colors.black,
+                ),
+                baseColor: ShimmerColor.baseColor,
+                highlightColor: ShimmerColor.highlightColor);
       },
+      options: CarouselOptions(
+        autoPlay: true,
+        height: Get.height,
+        viewportFraction: 1.0,
+        enlargeCenterPage: false,
+        onPageChanged: (index, reason) {
+          controller.currentIdex(++index);
+        },
+        scrollPhysics:
+            controller.datas.isEmpty ? NeverScrollableScrollPhysics() : null,
+      ),
+    );
+  }
+
+  Widget _createCountWidget(BuildContext context) {
+    return Positioned(
+      top: 10,
+      right: 10,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+            color: Colors.black.withOpacity(0.5)),
+        child: Text(
+          '${controller.currentIdex} / ${controller.datas.length}',
+          style: Theme.of(context)
+              .textTheme
+              .bodyText1!
+              .copyWith(color: Colors.white),
+        ),
+      ),
     );
   }
 }
 
+Positioned _createShowAllWidget(BuildContext context) {
+  return Positioned(
+    bottom: 10,
+    right: 10,
+    child: InkWell(
+      onTap: () => Get.rootDelegate.toNamed(Routes.events),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+            color: Colors.black.withOpacity(0.5)),
+        child: Text(
+          '이벤트 전체 보기',
+          style: Theme.of(context)
+              .textTheme
+              .bodyText1!
+              .copyWith(color: Colors.white),
+        ),
+      ),
+    ),
+  );
+}
+
 class _SliderItem extends StatelessWidget {
-  final int total;
-  final int index;
   final Event item;
-  const _SliderItem(
-      {required this.item, required this.total, required this.index, Key? key})
-      : super(key: key);
+  const _SliderItem({required this.item, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        CachedNetworkImage(
-          imageUrl: item.url,
-          fit: BoxFit.cover,
-        ),
-        Positioned(
-          top: 10,
-          right: 10,
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(15)),
-                color: Colors.black.withOpacity(0.5)),
-            child: Text(
-              '$index / $total',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText1!
-                  .copyWith(color: Colors.white),
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: 10,
-          right: 10,
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(15)),
-                color: Colors.black.withOpacity(0.5)),
-            child: InkWell(
-              onTap: () => Get.rootDelegate.toNamed(Routes.events),
-              child: Text(
-                '이벤트 전체 보기',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1!
-                    .copyWith(color: Colors.white),
-              ),
-            ),
-          ),
-        ),
-      ],
+    return CachedNetworkImage(
+      imageUrl: item.url,
+      fit: BoxFit.cover,
     );
   }
 }

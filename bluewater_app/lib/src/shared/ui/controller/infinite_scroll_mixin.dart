@@ -6,6 +6,7 @@ import '../../../core/injector/injection.dart';
 import '../../../core/logger/logger_utils.dart';
 import '../../../core/usecase/usecase.dart';
 
+///[D]는 도메인 타입을 입력을 나타냄.
 mixin InfiniteScrollMixin<D, P extends ScrollParam> {
   ScrollController? _scroll;
   final RxBool _isScrolled = false.obs;
@@ -33,7 +34,7 @@ mixin InfiniteScrollMixin<D, P extends ScrollParam> {
 
   @nonVirtual
   void loadDatas() async {
-    var _usecase = getIt<UseCase<D, P>>(instanceName: usecaeName);
+    var _usecase = getIt<UseCase<List<D>, P>>(instanceName: usecaeName);
 
     if (!_reachedMax && !_isLoading) {
       _isLoading = true;

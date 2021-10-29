@@ -25,6 +25,7 @@ class DashboardView extends GetView<DashboardService> {
     var shopHeight = Get.height / shopHCorrection;
 
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       body: RefreshIndicator(
         onRefresh: reloadDatas,
         notificationPredicate: (notification) {
@@ -60,9 +61,11 @@ class DashboardView extends GetView<DashboardService> {
                 _createCategoriezedShopsArea(
                   context,
                   CategorizedShopsWidget(
-                      key: PageStorageKey('starShop'),
-                      title: '인기 가게',
-                      tag: Tags.homeStarShops),
+                    key: PageStorageKey('starShop'),
+                    title: '인기 가게',
+                    tag: Tags.homeStarShops,
+                    startRouteName: Routes.home,
+                  ),
                   shopHeight,
                 ),
 
@@ -70,15 +73,16 @@ class DashboardView extends GetView<DashboardService> {
                 _createCategoriezedShopsArea(
                   context,
                   CategorizedShopsWidget(
-                      key: PageStorageKey('newShop'),
-                      title: '새로 들어왔어요!',
-                      tag: Tags.homeNewlyShops),
+                    key: PageStorageKey('newShop'),
+                    title: '새로 들어왔어요!',
+                    tag: Tags.homeNewlyShops,
+                    startRouteName: Routes.home,
+                  ),
                   shopHeight,
                 ),
 
                 SliverToBoxAdapter(
                   child: Container(
-                    color: Theme.of(context).backgroundColor,
                     padding: EdgeInsets.only(left: 10.0, top: 8.0),
                     child: Text(
                       '우리 동네 가게',

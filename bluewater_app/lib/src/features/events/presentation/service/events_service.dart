@@ -7,6 +7,7 @@ import '../../domain/usecase/get_events_usecase.dart';
 class EventsService extends GetxService
     with InfiniteScrollMixin<Event, EventsScrollParam> {
   String? usecaeClassName;
+  final currentIdex = 1.obs;
 
   EventsService({this.usecaeClassName});
 

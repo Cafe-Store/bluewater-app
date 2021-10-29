@@ -14,6 +14,7 @@ class CategorizedShopsWidget extends GetWidget<ShopListController> {
   final String title;
   final int itemCount = 10;
   final Size imageSize = const Size(160, 160);
+  final String? startRouteName;
 
   @override
   final String tag;
@@ -21,6 +22,7 @@ class CategorizedShopsWidget extends GetWidget<ShopListController> {
   CategorizedShopsWidget({
     required this.title,
     required this.tag,
+    this.startRouteName,
     Key? key,
   }) : super(key: key);
 
@@ -48,9 +50,16 @@ class CategorizedShopsWidget extends GetWidget<ShopListController> {
                           child: controller.datas.isEmpty
                               ? _createShimmerShopItem(
                                   context, imageSize.width + 10)
-                              : _ShopItem(
-                                  shop: controller.datas[index],
-                                  imageSize: imageSize,
+                              : InkWell(
+                                  onTap: () => Get.rootDelegate.toNamed(
+                                    Routes.shopDetails(
+                                        controller.datas[index].id),
+                                    arguments: startRouteName,
+                                  ),
+                                  child: _ShopItem(
+                                    shop: controller.datas[index],
+                                    imageSize: imageSize,
+                                  ),
                                 ),
                         );
                       }
@@ -199,7 +208,8 @@ class _ShopItem extends StatelessWidget {
         Flexible(
           flex: 10,
           child: CachedNetworkImage(
-            imageUrl: shop.photo.uri,
+            imageUrl:
+                shop.photos.firstWhere((element) => element.main).photo.uri,
             imageBuilder: (context, imageProvider) => Container(
               height: imageSize.height,
               width: imageSize.width,

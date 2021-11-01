@@ -22,6 +22,7 @@ import '../features/root/views/root_view.dart';
 import '../features/shops/presentation/dashboard/view/shops_dashboard_view.dart';
 import '../features/shops/presentation/details/binding/shop_details_binding.dart';
 import '../features/shops/presentation/details/view/shop_details_view.dart';
+import '../features/shops/presentation/details/view/shop_info_view.dart';
 import '../features/shops/presentation/home/binding/shops_binding.dart';
 import '../features/shops/presentation/home/view/shops_view.dart';
 
@@ -84,10 +85,15 @@ class AppPages {
               page: () => const ShopsDashboardView(),
             ),
             GetPage(
-              name: _Paths.shopDetails,
-              page: () => const ShopDetailsView(),
-              binding: ShopDetailsBinding(),
-            ),
+                name: _Paths.shopDetails,
+                page: () => const ShopDetailsView(),
+                binding: ShopDetailsBinding(),
+                children: [
+                  GetPage(
+                    name: _Paths.info,
+                    page: () => ShopInfoView(),
+                  ),
+                ]),
           ],
         ),
         GetPage(

@@ -7,6 +7,7 @@ abstract class Routes {
 
   static const shopsDashbard = _Paths.shops + _Paths.dashboard;
   static String shopDetails(String shopId) => '${_Paths.shops}/$shopId';
+  static String shopInfos(String shopId) => shopDetails(shopId) + _Paths.info;
 
   static const events = _Paths.events;
   static const coupons = _Paths.coupons;
@@ -23,6 +24,7 @@ abstract class Routes {
 abstract class _Paths {
   static const location = '/location';
   static const shops = '/shops';
+  static const info = '/info';
   static const shopDetails = '/:shopId';
   static const events = '/events';
   static const coupons = '/coupons';

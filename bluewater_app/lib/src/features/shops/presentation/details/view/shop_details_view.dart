@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../../../routes/app_pages.dart';
 import '../../../../../shared/ui/color/shimmer_color.dart';
 import '../controller/shop_details_controller.dart';
 

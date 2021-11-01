@@ -147,20 +147,22 @@ class _ShopDetailsSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
                         padding: const EdgeInsets.only(left: 8.0),
                         child: Text(
                           '영업중 (09:00 ~ 17:00)',
-                          style: Theme.of(context).textTheme.subtitle1!,
+                          style: Theme.of(context).textTheme.bodyText1!,
                         ),
                       ),
                     ],
                   ),
                 ),
                 TextButton(
-                  onPressed: () => print('매장 정보 보자!!'),
+                  onPressed: () => Get.rootDelegate.toNamed(
+                    Routes.shopInfos(controller.shopId),
+                  ),
                   child: Row(
                     children: [
-                      Text('매장 정보',
+                      Text('매장정보',
                           style: Theme.of(context)
                               .textTheme
-                              .subtitle1!
+                              .bodyText1!
                               .copyWith(color: Colors.blue)),
                       Icon(
                         Icons.arrow_forward_ios,
@@ -179,7 +181,9 @@ class _ShopDetailsSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
               visible: controller.hasReview,
               child: Container(
                 color: Colors.deepOrange,
-                child: Center(child: Text('여긴 리뷰 목록을 보여줄려고 함')),
+                child: Center(
+                  child: Text('여긴 리뷰 목록을 보여줄려고 함'),
+                ),
               ),
             ),
           ),
@@ -237,7 +241,7 @@ class _ShopDetailsSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
                                   Text('리뷰 ${shop.rank.count}개',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .subtitle2!
+                                          .bodyText1!
                                           .copyWith(color: Colors.blue)),
                                   Icon(
                                     Icons.arrow_forward_ios,
